@@ -3,6 +3,12 @@ using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAccesoDatos.Repositorios;
 using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaAplicacion.CasosUso.CUCliente.Implementacion;
+using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
+using LogicaAplicacion.CasosUso.CUPedido.Implementacion;
+using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
+using LogicaAplicacion.CasosUso.CUUsuario.Implementacion;
+using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +43,7 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUBuscarCliente, CUBuscarCliente>();
             builder.Services.AddScoped<ICUEliminarCliente, CUEliminarCliente>();
             builder.Services.AddScoped<ICUModificarCliente, CUModificarCliente>();
-            builder.Services.AddScoped<ICUObtenerCliente, CUObtenerCliente>();
+            builder.Services.AddScoped<ICUObtenerClientes, CUObtenerClientes>();
 
             //Repositorio Pedidos
             builder.Services.AddScoped<IRepositorio<Pedido>, RepositorioPedidos>();
@@ -45,9 +51,9 @@ namespace Obligatorio_Programacion_3
             //CASO DE USO DE LOS PEDIDOS
             builder.Services.AddScoped<ICUAltaPedido, CUAltaPedido>();
             builder.Services.AddScoped<ICUBuscarPedido, CUBuscarPedido>();
-            builder.Services.AddScoped<ICUEliminarPedido, CUAEliminarPedido>();
+            builder.Services.AddScoped<ICUEliminarPedido, CUEliminarPedido>();
             builder.Services.AddScoped<ICUModificarPedido, CUModificarPedido>();
-            builder.Services.AddScoped<ICUObtenerPedido, CUObtenerPedido>();
+            builder.Services.AddScoped<ICUObtenerPedidos, CUObtenerPedidos>();
 
             //Repositorio Usuarios
             builder.Services.AddScoped<IRepositorio<Usuario>, RepositorioUsuarios>();
@@ -57,7 +63,7 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUBuscarUsuario, CUBuscarUsuario>();
             builder.Services.AddScoped<ICUEliminarUsuario, CUEliminarUsuario>();
             builder.Services.AddScoped<ICUModificarUsuario, CUModificarUsuario>();
-            builder.Services.AddScoped<ICUObtenerUsuario, CUObtenerUsuario>();
+            builder.Services.AddScoped<ICUObtenerUsuarios, CUObtenerUsuarios>();
 
 
 

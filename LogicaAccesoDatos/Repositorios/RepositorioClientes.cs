@@ -60,9 +60,9 @@ namespace LogicaAccesoDatos.Repositorios
             Cliente cli = FindById(item.Id);
             if (cli != null)
             {
-                cli.Calle = item.Calle;
-                cli.Numero = item.Numero;
-                cli.Ciudad = item.Ciudad;
+                cli.Direccion.Calle = item.Direccion.Calle;
+                cli.Direccion.Numero = item.Direccion.Numero;
+                cli.Direccion.Ciudad = item.Direccion.Ciudad;
                 cli.DistanciaPapeleria = item.DistanciaPapeleria;
                 _context.Clientes.Update(cli);
                 _context.SaveChanges();

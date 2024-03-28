@@ -13,9 +13,8 @@ namespace LogicaNegocio.EntidadesNegocio
         public int Id { get; set; }
         public string RazonSocial { get; set; }
         public string RUT { get; set;}
-        public string Calle { get; set; }
-        public int Numero { get; set; }
-        public string Ciudad { get; set; }
+
+        public Direccion Direccion { get; set; }
 
         /// <summary>
         /// La distancia, en Kilometros, de su hogar a la papeleria
