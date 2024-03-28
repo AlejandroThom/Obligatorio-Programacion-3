@@ -32,15 +32,36 @@ namespace Obligatorio_Programacion_3
             //Repositorio Clientes
             builder.Services.AddScoped<IRepositorio<Cliente>, RepositorioClientes>();
 
+            //CASO DE USO DE LOS CLIENTES
+            builder.Services.AddScoped<ICUAltaCliente, CUAltaCliente>();
+            builder.Services.AddScoped<ICUBuscarCliente, CUBuscarCliente>();
+            builder.Services.AddScoped<ICUEliminarCliente, CUEliminarCliente>();
+            builder.Services.AddScoped<ICUModificarCliente, CUModificarCliente>();
+            builder.Services.AddScoped<ICUObtenerCliente, CUObtenerCliente>();
+
             //Repositorio Pedidos
             builder.Services.AddScoped<IRepositorio<Pedido>, RepositorioPedidos>();
+
+            //CASO DE USO DE LOS PEDIDOS
+            builder.Services.AddScoped<ICUAltaPedido, CUAltaPedido>();
+            builder.Services.AddScoped<ICUBuscarPedido, CUBuscarPedido>();
+            builder.Services.AddScoped<ICUEliminarPedido, CUAEliminarPedido>();
+            builder.Services.AddScoped<ICUModificarPedido, CUModificarPedido>();
+            builder.Services.AddScoped<ICUObtenerPedido, CUObtenerPedido>();
 
             //Repositorio Usuarios
             builder.Services.AddScoped<IRepositorio<Usuario>, RepositorioUsuarios>();
 
+            //CASO DE USO DE LOS USUARIOS
+            builder.Services.AddScoped<ICUAltaUsuario, CUAltaUsuario>();
+            builder.Services.AddScoped<ICUBuscarUsuario, CUBuscarUsuario>();
+            builder.Services.AddScoped<ICUEliminarUsuario, CUEliminarUsuario>();
+            builder.Services.AddScoped<ICUModificarUsuario, CUModificarUsuario>();
+            builder.Services.AddScoped<ICUObtenerUsuario, CUObtenerUsuario>();
 
 
-            
+
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
