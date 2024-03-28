@@ -4,6 +4,7 @@ using LogicaAccesoDatos.BaseDatos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogicaAccesoDatos.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    partial class PapeleriaContextModelSnapshot : ModelSnapshot
+    [Migration("20240328210219_DireccionAdded")]
+    partial class DireccionAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,33 +80,6 @@ namespace LogicaAccesoDatos.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Linea", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CantArticulo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdArticulo")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PrecioUnitario")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
-
-                    b.ToTable("Lineas");
-                });
-
             modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Pedido", b =>
                 {
                     b.Property<int>("Id")
@@ -165,46 +141,6 @@ namespace LogicaAccesoDatos.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Cliente", b =>
-                {
-                    b.OwnsOne("LogicaNegocio.EntidadesNegocio.Direccion", "Direccion", b1 =>
-                        {
-                            b1.Property<int>("ClienteId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Calle")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(450)");
-
-                            b1.Property<string>("Ciudad")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(450)");
-
-                            b1.Property<int>("Numero")
-                                .HasColumnType("int");
-
-                            b1.HasKey("ClienteId");
-
-                            b1.HasIndex("Calle", "Numero", "Ciudad")
-                                .IsUnique();
-
-                            b1.ToTable("Clientes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ClienteId");
-                        });
-
-                    b.Navigation("Direccion")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Linea", b =>
-                {
-                    b.HasOne("LogicaNegocio.EntidadesNegocio.Pedido", null)
-                        .WithMany("Lineas")
-                        .HasForeignKey("PedidoId");
-                });
-
             modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Pedido", b =>
                 {
                     b.HasOne("LogicaNegocio.EntidadesNegocio.Cliente", "Cliente")
@@ -214,11 +150,6 @@ namespace LogicaAccesoDatos.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Pedido", b =>
-                {
-                    b.Navigation("Lineas");
                 });
 #pragma warning restore 612, 618
         }
