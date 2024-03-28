@@ -8,17 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUso.CUCliente.Implementacion
-
-public class CUBuscarCliente:ICUBuscarCliente
 {
-	public IRepositorio<Cliente> RepoClientes { get; set; }
-	public CUBuscarCliente(IRepositorio<Clientes> repoClientes)
+	public class CUBuscarCliente:ICUBuscarCliente
 	{
-		RepoClientes = repoClientes;
-	}
+		public IRepositorio<Cliente> RepoClientes { get; set; }
+		public CUBuscarCliente(IRepositorio<Cliente> repoClientes)
+		{
+			RepoClientes = repoClientes;
+		}
 	
-	public Cliente BuscarClientePorId(int id)
-	{
-		return RepoClientes.FindById(id);
+		public Cliente BuscarClientePorId(int id)
+		{
+			return RepoClientes.FindById(id);
+		}
 	}
 }
+

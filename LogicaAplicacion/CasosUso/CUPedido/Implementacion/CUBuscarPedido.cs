@@ -18,7 +18,7 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
             RepoPedidos = repoPedidos;
         }
 
-        public Articulo BuscarPedidosPorId(int id)
+        public Pedido BuscarPedidoPorId(int id)
         {
             return RepoPedidos.FindById(id);
         }

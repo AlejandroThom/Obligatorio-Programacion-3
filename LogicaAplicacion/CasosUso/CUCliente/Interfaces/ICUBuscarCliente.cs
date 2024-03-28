@@ -9,7 +9,7 @@ namespace LogicaAplicacion.CasosUso.CUCliente.Interfaces
 {
     public interface ICUBuscarCliente
     {
-        Pedido BuscarClientePorId(int id);
+        Cliente BuscarClientePorId(int id);
 
     }
 }

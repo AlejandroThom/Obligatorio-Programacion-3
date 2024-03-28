@@ -11,7 +11,7 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion;
 public class CUAltaPedido:ICUAltaPedido
 {
 	public IRepositorio<Pedido> RepoPedidos { get; set; }
-	public CuAltaArticulo(IRepositorio<Pedido> repoPedidos)
+	public CUAltaPedido(IRepositorio<Pedido> repoPedidos)
 	{
 		RepoPedidos = repoPedidos;
 	}

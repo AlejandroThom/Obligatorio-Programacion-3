@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUso.CUCliente.Implementacion
 {
-    public class CUModificarCiente : ICUModificarCliente
+    public class CUModificarCliente : ICUModificarCliente
     {
         public IRepositorio<Cliente> RepoClientes { get; set; }
 
@@ -19,7 +19,7 @@ namespace LogicaAplicacion.CasosUso.CUCliente.Implementacion
         }
         public void ModificarCliente(Cliente cliente)
         {
-            RepoClientes.Update(editorial);
+            RepoClientes.Update(cliente);
         }
     }
 }

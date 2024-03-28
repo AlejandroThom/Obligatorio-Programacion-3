@@ -9,6 +9,6 @@ namespace LogicaAplicacion.CasosUso.CUCliente.Interfaces
 {
     public interface ICUModificarCliente
     {
-        void ModificarCliente(CUCliente cliente);
+        void ModificarCliente(Cliente cliente);
     }
 }

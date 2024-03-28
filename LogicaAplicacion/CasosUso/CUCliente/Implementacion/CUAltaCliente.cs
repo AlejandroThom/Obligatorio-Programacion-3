@@ -7,19 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaAplicacion.CasosUso.CUCliente.Implementacion
-
-public class CUAltaCliente:ICUAltaCliente
-{
-	public IRepositorio<Cliente> RepoCliente { get; set; }
+namespace LogicaAplicacion.CasosUso.CUCliente.Implementacion {
+	public class CUAltaCliente:ICUAltaCliente
+	{
+		public IRepositorio<Cliente> RepoCliente { get; set; }
 	
-	public CUAltaCliente(IRepositorio<Cliente> repoClientes)
-	{
-		RepoClientes = repoClientes;
-	}
+		public CUAltaCliente(IRepositorio<Cliente> repoClientes)
+		{
+			RepoCliente = repoClientes;
+		}
 
-	public void AltaCLiente(Cliente cliente)
-	{
-		RepoCliente.Add(cliente);
+		public void AltaCliente(Cliente cliente)
+		{
+			RepoCliente.Add(cliente);
+		}
 	}
 }

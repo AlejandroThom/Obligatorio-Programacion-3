@@ -17,7 +17,7 @@ namespace LogicaAplicacion.CasosUso.CUCliente.Implementacion
         {
             RepoClientes = repoClientes;
         }
-        public IEnumerable<Cliente> ObtenerCliente()
+        public IEnumerable<Cliente> ObtenerClientes()
         {
             return RepoClientes.FindAll();
         }
