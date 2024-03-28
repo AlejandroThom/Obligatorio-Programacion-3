@@ -1,5 +1,5 @@
 ﻿using LogicaAccesoDatos.InterfacesRepositorios;
-using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
 using System;
 using System.Collections.Generic;
