@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationManifest>Excepciones\Usuario\UsuarioExeption.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,8 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Excepciones\Linea\" />
-    <Folder Include="Excepciones\Usuario\" />
-    <Folder Include="Excepciones\Pedido\" />
   </ItemGroup>
 
 </Project>
