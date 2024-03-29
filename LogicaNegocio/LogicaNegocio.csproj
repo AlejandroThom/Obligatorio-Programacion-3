@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationManifest>Excepciones\Usuario\UsuarioExeption.manifest</ApplicationManifest>
+    <ApplicationManifest>Application Manifest File.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
