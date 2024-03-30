@@ -10,7 +10,6 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
-    [Index([nameof(Calle),nameof(Numero), nameof(Ciudad)], IsUnique = true)]
     public class Direccion
     {
         public int Id { get; set; }

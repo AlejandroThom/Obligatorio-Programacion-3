@@ -17,6 +17,7 @@ namespace LogicaNegocio.EntidadesNegocio
         public string Email { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        [MinLength(6)]
         public string Password { get; set; }
         public string PasswordEncriptada { get; set; }
 

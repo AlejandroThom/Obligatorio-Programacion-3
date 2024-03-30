@@ -18,10 +18,11 @@ namespace LogicaNegocio.EntidadesNegocio
         public string Nombre { get; set; }
 
 
-        [MinLength(5)]
+
         /// <summary>
         /// La descripcion debe tener un minimo de 5 caracteres
         /// </summary>
+        [MinLength(5,ErrorMessage ="Debe tener al menos 5 caracteres")]
         public string Descripcion { get; set;}
         /// <summary>
         /// (es el que puede utilizarse como código de barras, tiene 13 dígitos
@@ -29,6 +30,9 @@ namespace LogicaNegocio.EntidadesNegocio
         /// </summary>
         
         public decimal PrecioPublico { get; set; }
+
+        [MinLength(13, ErrorMessage = "Debe tener al menos 13 caracteres")]
+        [MaxLength(13, ErrorMessage = "Debe tener como máximo 13 caracteres")]
         public string Codigo { get; set; }
         public int Stock { get; set; }
 

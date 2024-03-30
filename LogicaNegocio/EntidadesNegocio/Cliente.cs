@@ -13,6 +13,9 @@ namespace LogicaNegocio.EntidadesNegocio
     {
         public int Id { get; set; }
         public string RazonSocial { get; set; }
+
+        [MaxLength(12,ErrorMessage ="Debe tener como maximo 12 caracteres")]
+        [MinLength(12,ErrorMessage = "Debe tener como minimo 12 caracteres")]
         public string RUT { get; set;}
 
         public Direccion Direccion { get; set; }
