@@ -1,10 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
+using LogicaNegocio.EntidadesNegocio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Obligatorio_Programacion_3.Models;
 
 namespace Obligatorio_Programacion_3.Controllers
 {
     public class ClienteController : Controller
     {
+        public ICUAltaCliente CUAltaCliente { get; set; }
+
+        public ClienteController(ICUAltaCliente cuAltaCliente)
+        {
+            CUAltaCliente = cuAltaCliente;
+        }
         // GET: ClienteController
         public ActionResult Index()
         {
@@ -26,14 +35,27 @@ namespace Obligatorio_Programacion_3.Controllers
         // POST: ClienteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ClienteViewModel clienteVM)
         {
             try
             {
+                if(clienteVM == null)
+                {
+                    throw new Exception("Datos incorrectos");
+                }
+                Cliente cliente = new Cliente()
+                {
+                    Id = clienteVM.Id,
+                    RazonSocial = clienteVM.RazonSocial,
+                    RUT = clienteVM.RUT,
+                };
+
+                CUAltaCliente.AltaCliente(cliente);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
+                ViewBag.Mensaje(ex);
                 return View();
             }
         }
