@@ -1,4 +1,5 @@
 ﻿using LogicaNegocio.Enums;
+using LogicaNegocio.Excepciones.Pedido;
 using LogicaNegocio.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,21 @@ namespace LogicaNegocio.EntidadesNegocio
 
         public Pedido(){}
 
+        /// <summary>
+        /// Varifica que el pedido sea valido
+        /// </summary>
         public void Validar()
         {
-            throw new NotImplementedException();
+            ValidarCliente();
+        }
+        /// <summary>
+        /// Valida que el usuario sea uno real.
+        /// </summary>
+        /// <exception cref="PedidoException"></exception>
+        private void ValidarCliente()
+        {
+            if (Cliente is null)
+                throw new PedidoException("El cliente debe existe para realizar el pedido.");
         }
     }
 }
