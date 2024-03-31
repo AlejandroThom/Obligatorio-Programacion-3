@@ -45,7 +45,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 }
                 Cliente cliente = new Cliente()
                 {
-                    Id = clienteVM.Id,
+                    
                     RazonSocial = clienteVM.RazonSocial,
                     RUT = clienteVM.RUT,
                 };
