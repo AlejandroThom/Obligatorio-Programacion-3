@@ -48,6 +48,7 @@ namespace Obligatorio_Programacion_3.Controllers
                     
                     RazonSocial = clienteVM.RazonSocial,
                     RUT = clienteVM.RUT,
+                    Direccion = clienteVM.Direccion,
                 };
 
                 CUAltaCliente.AltaCliente(cliente);
