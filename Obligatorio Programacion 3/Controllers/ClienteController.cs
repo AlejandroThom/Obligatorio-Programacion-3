@@ -43,12 +43,19 @@ namespace Obligatorio_Programacion_3.Controllers
                 {
                     throw new Exception("Datos incorrectos");
                 }
+                Direccion direccion = new Direccion
+                {
+                    Calle = clienteVM.Calle,
+                    Numero = clienteVM.Numero,
+                    Ciudad = clienteVM.Ciudad,
+                };
+
                 Cliente cliente = new Cliente()
                 {
                     
                     RazonSocial = clienteVM.RazonSocial,
                     RUT = clienteVM.RUT,
-                    Direccion = clienteVM.Direccion,
+                    Direccion = direccion,
                 };
 
                 CUAltaCliente.AltaCliente(cliente);
