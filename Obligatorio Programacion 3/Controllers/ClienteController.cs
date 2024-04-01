@@ -1,5 +1,6 @@
 ﻿using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones.Cliente;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion_3.Models;
@@ -56,14 +57,20 @@ namespace Obligatorio_Programacion_3.Controllers
                     RazonSocial = clienteVM.RazonSocial,
                     RUT = clienteVM.RUT,
                     Direccion = direccion,
+                    DistanciaPapeleria = clienteVM.DistanciaPapeleria,
                 };
 
                 CUAltaCliente.AltaCliente(cliente);
                 return RedirectToAction(nameof(Index));
             }
+            catch (ClienteException ex)
+            {
+                ViewBag.Mensaje = ex.Message;
+                return View();
+            }
             catch(Exception ex)
             {
-                ViewBag.Mensaje(ex);
+                ViewBag.Mensaje = ex.Message;
                 return View();
             }
         }

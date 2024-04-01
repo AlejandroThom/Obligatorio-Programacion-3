@@ -11,5 +11,6 @@ namespace Obligatorio_Programacion_3.Models
         public int Numero { get; set; }
         public string Ciudad {  get; set; }
 
+        public double DistanciaPapeleria {  get; set; }
     }
 }
