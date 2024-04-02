@@ -1,14 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
+using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones.Cliente;
 using Microsoft.AspNetCore.Mvc;
+using Obligatorio_Programacion_3.Models;
 
 namespace Obligatorio_Programacion_3.Controllers
 {
     public class UsuarioController : Controller
     {
+        public ICUAltaUsuario CUAltaUsuario { get; set; }
+        public ICUObtenerUsuarios CUObtenerUsuarios { get; set; }
+
+        public UsuarioController(ICUAltaUsuario cUAltaUsuario, ICUObtenerUsuarios cUObtenerUsuarios)
+        {
+            CUAltaUsuario = cUAltaUsuario;
+            CUObtenerUsuarios = cUObtenerUsuarios;
+        }
+
+
         // GET: UsuarioController
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<Usuario> usuario = CUObtenerUsuarios.ObtenerUsuarios();
+            IEnumerable<UsuarioListadoViewModel> usuarioVM = usuario.Select(u => new UsuarioListadoViewModel()
+            {
+                Email = u.Email,
+                Nombre = u.Nombre,
+                Apellido = u.Apellido,
+            }).ToList();
+
+            return View(usuarioVM);
         }
 
         // GET: UsuarioController/Details/5
@@ -26,14 +47,33 @@ namespace Obligatorio_Programacion_3.Controllers
         // POST: UsuarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UsuarioViewModel usuarioVM)
         {
             try
             {
+                if (usuarioVM == null)
+                {
+                    throw new Exception("Datos incorrectos");
+                }
+                Usuario usuario = new Usuario()
+                {
+                    Email = usuarioVM.Email,
+                    Nombre = usuarioVM.Nombre,
+                    Apellido = usuarioVM.Apellido,
+                    Password = usuarioVM.Password,
+                };
+                CUAltaUsuario.AltaUsuario(usuario);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (ClienteException ex)
             {
+                ViewBag.Mensaje = ex.Message;
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensaje = ex.Message;
                 return View();
             }
         }
