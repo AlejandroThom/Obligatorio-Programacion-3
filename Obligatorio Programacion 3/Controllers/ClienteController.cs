@@ -10,15 +10,24 @@ namespace Obligatorio_Programacion_3.Controllers
     public class ClienteController : Controller
     {
         public ICUAltaCliente CUAltaCliente { get; set; }
+        public ICUObtenerClientes CUObtenerClientes { get; set; }
 
-        public ClienteController(ICUAltaCliente cuAltaCliente)
+        public ClienteController(ICUAltaCliente cuAltaCliente, ICUObtenerClientes cUObtenerClientes)
         {
             CUAltaCliente = cuAltaCliente;
+            CUObtenerClientes = cUObtenerClientes;
         }
         // GET: ClienteController
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<Cliente> cliente = CUObtenerClientes.ObtenerClientes();
+            IEnumerable<ClienteListadoViewModel> clienteVM = cliente.Select(c => new ClienteListadoViewModel()
+            {
+                RazonSocial = c.RazonSocial,
+                RUT = c.RUT,
+            }).ToList();
+
+            return View(clienteVM);
         }
 
         // GET: ClienteController/Details/5

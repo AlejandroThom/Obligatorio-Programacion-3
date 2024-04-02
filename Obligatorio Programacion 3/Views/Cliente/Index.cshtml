@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Obligatorio_Programacion_3.Models.ClienteViewModel>
+﻿@model IEnumerable<Obligatorio_Programacion_3.Models.ClienteListadoViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -18,15 +18,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.RUT)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Calle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Numero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ciudad)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,15 +29,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RUT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Calle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ciudad)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
