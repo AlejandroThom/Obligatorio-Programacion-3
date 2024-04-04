@@ -36,9 +36,9 @@ namespace LogicaNegocio.EntidadesNegocio
         /// <exception cref="UsuarioException">Lanza una excepcion si el nombre no es valido</exception>
         private void ValidarNombre()
         {
-            bool valido = Regex.IsMatch(Nombre.Substring(0, 1), @"^[^a-zA-Z]") ||
+            bool noValido = Regex.IsMatch(Nombre.Substring(0, 1), @"^[^a-zA-Z]") ||
                 Regex.IsMatch(Nombre.Substring(Nombre.Length-1), @"^[^a-zA-Z]");
-            if (!valido){
+            if (noValido){
                 throw new UsuarioException("El nombre no puede empezar o terminar con un caracter no alfabetico");
             }
         }
@@ -48,9 +48,9 @@ namespace LogicaNegocio.EntidadesNegocio
         /// <exception cref="UsuarioException">Lanza una excepcion si el apellido no es valido</exception>
         private void ValidarApellido()
         {
-            bool valido = Regex.IsMatch(Apellido.Substring(0, 1), @"^[^a-zA-Z]") ||
+            bool noValido = Regex.IsMatch(Apellido.Substring(0, 1), @"^[^a-zA-Z]") ||
                 Regex.IsMatch(Apellido.Substring(Apellido.Length - 1), @"^[^a-zA-Z]");
-            if (!valido)
+            if (noValido)
             {
                 throw new UsuarioException("El apellido no puede empezar o terminar con un caracter no alfabetico");
             }
@@ -91,14 +91,16 @@ namespace LogicaNegocio.EntidadesNegocio
         /// </summary>
         /// <exception cref="UsuarioException">Lanza una excepcion si no cumple con las validaciones</exception>
         private void ValidarEmail() {
-            Regex regex = new Regex(@"@\\[a-zA-Z0-9-]+\\.com$");
-            if(!regex.IsMatch(Email) || !Email.EndsWith(".com")){
+            Regex regex = new Regex(@"@[a-zA-Z0-9]+\.com$");
+            int index = Email.IndexOf("@");
+            string subS = Email.Substring(index);
+            bool match = regex.IsMatch(subS);
+            if (!match){
                 throw new UsuarioException("El email no es valido");
             }
-            int index = Email.IndexOf("@");
             if (Email.Substring(0, index-1).Length == 0)
             {
-                throw new UsuarioException("El email no es valido");
+                throw new UsuarioException("El email no es valido, no tiene nombre");
             }
         }
     }

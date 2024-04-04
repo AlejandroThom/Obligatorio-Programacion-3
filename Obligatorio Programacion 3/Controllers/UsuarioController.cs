@@ -1,5 +1,6 @@
 ﻿using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Utils;
 using LogicaNegocio.Excepciones.Cliente;
 using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion_3.Models;
@@ -21,9 +22,10 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController
         public ActionResult Index()
         {
-            IEnumerable<Usuario> usuario = CUObtenerUsuarios.ObtenerUsuarios();
-            IEnumerable<UsuarioListadoViewModel> usuarioVM = usuario.Select(u => new UsuarioListadoViewModel()
+            IEnumerable<Usuario> usuarios = CUObtenerUsuarios.ObtenerUsuarios();
+            IEnumerable<UsuarioListadoViewModel> usuarioVM = usuarios.Select(u => new UsuarioListadoViewModel()
             {
+                Id = u.Id ,
                 Email = u.Email,
                 Nombre = u.Nombre,
                 Apellido = u.Apellido,
@@ -61,6 +63,7 @@ namespace Obligatorio_Programacion_3.Controllers
                     Nombre = usuarioVM.Nombre,
                     Apellido = usuarioVM.Apellido,
                     Password = usuarioVM.Password,
+                    PasswordEncriptada = Utilities.Encriptar(usuarioVM.Password),
                 };
                 CUAltaUsuario.AltaUsuario(usuario);
                 return RedirectToAction(nameof(Index));
