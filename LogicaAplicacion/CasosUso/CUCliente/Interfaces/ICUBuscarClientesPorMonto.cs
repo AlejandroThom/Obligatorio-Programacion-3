@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUso.CUCliente.Interfaces
 {
-    public interface ICUEliminarCliente
+    public interface ICUBuscarClientesPorMonto
     {
-        void EliminarCliente(int id);
+        IEnumerable<Cliente> FindClientePorMonto(decimal monto);
     }
 }

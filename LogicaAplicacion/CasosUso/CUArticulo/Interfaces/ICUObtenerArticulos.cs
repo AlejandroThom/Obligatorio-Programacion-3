@@ -10,7 +10,6 @@ namespace LogicaAplicacion.CasosUso.CUArticulo.Interfaces
     public interface ICUObtenerArticulos
     {
         IEnumerable<Articulo> ObtenerArticulos();
-        Task<IEnumerable<Articulo>> ObtenerArticulosAsync();
 
     }
 }

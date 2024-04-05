@@ -26,14 +26,5 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
         {
             return Repositorio.FindAll();
         }
-
-        /// <summary>
-        /// Recuperas una lista con todos los usuarios guardados asyncronamente.
-        /// </summary>
-        /// <returns>Retorna una lista con todos los usarios</returns>
-        public  Task<IEnumerable<Usuario>> ObtenerUsuariosAsync()
-        {
-            return  Repositorio.FindAllAsync();
-        }
     }
 }

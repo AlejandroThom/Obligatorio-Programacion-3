@@ -11,7 +11,6 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Interfaces
     {
         IEnumerable<Usuario> ObtenerUsuarios();
 
-        Task<IEnumerable<Usuario>> ObtenerUsuariosAsync();
 
     }
 }

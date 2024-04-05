@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUso.CUCliente.Interfaces
 {
-    public interface ICUObtenerClientes
+    public interface ICUBuscarClientesPorNombre
     {
-        IEnumerable<Cliente> ObtenerClientes();
-        Task<IEnumerable<Cliente>> ObtenerClientesAsync();
-
+        IEnumerable<Cliente> FindClientesPorNombre(string nombre,string apellido);
     }
 }

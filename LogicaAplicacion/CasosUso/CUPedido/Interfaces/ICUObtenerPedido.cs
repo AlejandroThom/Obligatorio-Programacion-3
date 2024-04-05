@@ -10,7 +10,6 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Interfaces
     public interface ICUObtenerPedidos
     {
         IEnumerable<Pedido> ObtenerPedidos();
-        Task<IEnumerable<Pedido>> ObtenerPedidosAsync();
 
     }
 }

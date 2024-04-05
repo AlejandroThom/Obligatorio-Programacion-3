@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
 {
-    public class CUObtenerPedidos : ICUObtenerPedidos
+    public class CUObtenerPedidosAnulados : ICUObtenerPedidosAnulados
     {
-        public IRepositorio<Pedido> RepoPedidos { get; set; }
+        public IRepositorioPedido<Pedido> Repositorio {get;set; }
 
-        public CUObtenerPedidos(IRepositorio<Pedido> repoPedidos)
+        public CUObtenerPedidosAnulados(IRepositorioPedido<Pedido> repo)
         {
-            RepoPedidos = repoPedidos;
+            Repositorio = repo;
         }
-        public IEnumerable<Pedido> ObtenerPedidos()
+
+        public IEnumerable<Pedido> ObtenerPedidosAnulados()
         {
-            return RepoPedidos.FindAll();
+            return Repositorio.FindPedidosAnulados();
         }
     }
 }

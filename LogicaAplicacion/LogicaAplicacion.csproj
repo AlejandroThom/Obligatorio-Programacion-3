@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CasosUso\CUCliente\" />
-    <Folder Include="CasosUso\CUPedido\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LogicaAccesoDatos\LogicaAccesoDatos.csproj" />
     <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
   </ItemGroup>

@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
 {
-    public class CUObtenerPedidos : ICUObtenerPedidos
+    public class CUObtenerPedidosPorFecha : ICUObtenerPedidosPorFecha
     {
-        public IRepositorio<Pedido> RepoPedidos { get; set; }
-
-        public CUObtenerPedidos(IRepositorio<Pedido> repoPedidos)
+        public IRepositorioPedido<Pedido> Repositorio { get; set; }
+        public CUObtenerPedidosPorFecha(IRepositorioPedido<Pedido> repo)
         {
-            RepoPedidos = repoPedidos;
+            Repositorio = repo;
         }
-        public IEnumerable<Pedido> ObtenerPedidos()
+        public IEnumerable<Pedido> ObtenerPedidosPorFecha(DateTime fecha)
         {
-            return RepoPedidos.FindAll();
+            return Repositorio.FindPedidosByDate(fecha);
         }
     }
 }

@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaAplicacion.CasosUso.CUCliente.Interfaces
+namespace LogicaAplicacion.CasosUso.CUPedido.Interfaces
 {
-    public interface ICUAltaCliente
+    public interface ICUObtenerPedidosAnulados
     {
-        void AltaCliente(Cliente cliente);
+        IEnumerable<Pedido> ObtenerPedidosAnulados();
     }
 }
-

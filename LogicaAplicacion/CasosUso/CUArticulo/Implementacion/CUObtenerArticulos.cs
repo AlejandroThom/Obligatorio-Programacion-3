@@ -22,9 +22,5 @@ namespace LogicaAplicacion.CasosUso.CUArticulo.Implementacion
             return RepoArticulos.FindAll();
         }
 
-        public async Task<IEnumerable<Articulo>> ObtenerArticulosAsync()
-        {
-            return await RepoArticulos.FindAllAsync();
-        }
     }
 }

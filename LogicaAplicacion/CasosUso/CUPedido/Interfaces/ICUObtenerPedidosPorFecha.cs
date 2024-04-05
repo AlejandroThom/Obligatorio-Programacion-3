@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaAplicacion.CasosUso.CUCliente.Interfaces
+namespace LogicaAplicacion.CasosUso.CUPedido.Interfaces
 {
-    public interface ICUModificarCliente
+    public interface ICUObtenerPedidosPorFecha
     {
-        void ModificarCliente(Cliente cliente);
+        IEnumerable<Pedido> ObtenerPedidosPorFecha(DateTime fecha);
     }
 }
