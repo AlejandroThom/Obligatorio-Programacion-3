@@ -36,14 +36,11 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUObtenerArticulos, CUObtenerArticulos>();
 
             //Repositorio Clientes
-            builder.Services.AddScoped<IRepositorio<Cliente>, RepositorioClientes>();
+            builder.Services.AddScoped<IRepositorioCliente<Cliente>, RepositorioClientes>();
 
             //CASO DE USO DE LOS CLIENTES
-            builder.Services.AddScoped<ICUAltaCliente, CUAltaCliente>();
-            builder.Services.AddScoped<ICUBuscarCliente, CUBuscarCliente>();
-            builder.Services.AddScoped<ICUEliminarCliente, CUEliminarCliente>();
-            builder.Services.AddScoped<ICUModificarCliente, CUModificarCliente>();
-            builder.Services.AddScoped<ICUObtenerClientes, CUObtenerClientes>();
+            builder.Services.AddScoped<ICUBuscarClientesPorMonto,CUBuscarClientesPorMonto>();
+            builder.Services.AddScoped<ICUBuscarClientesPorNombre, CUBuscarClientesPorNombre>();
 
             //Repositorio Pedidos
             builder.Services.AddScoped<IRepositorio<Pedido>, RepositorioPedidos>();
@@ -54,6 +51,8 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUEliminarPedido, CUEliminarPedido>();
             builder.Services.AddScoped<ICUModificarPedido, CUModificarPedido>();
             builder.Services.AddScoped<ICUObtenerPedidos, CUObtenerPedidos>();
+            builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
+            builder.Services.AddScoped<ICUObtenerPedidosPorFecha, CUObtenerPedidosPorFecha>();
 
             //Repositorio Usuarios
             builder.Services.AddScoped<IRepositorio<Usuario>, RepositorioUsuarios>();
