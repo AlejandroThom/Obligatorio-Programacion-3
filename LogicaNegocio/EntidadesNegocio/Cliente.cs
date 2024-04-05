@@ -18,6 +18,8 @@ namespace LogicaNegocio.EntidadesNegocio
         [MinLength(12,ErrorMessage = "Debe tener como minimo 12 caracteres")]
         public string RUT { get; set;}
 
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
         public Direccion Direccion { get; set; }
 
         /// <summary>
@@ -84,6 +86,11 @@ namespace LogicaNegocio.EntidadesNegocio
             {
                 throw new ClienteException("La distancia no puede ser menor a un metro");
             }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Cliente cl && cl.Id == this.Id;
         }
     }
 }

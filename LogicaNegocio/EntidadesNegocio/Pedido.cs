@@ -3,6 +3,9 @@ using LogicaNegocio.Excepciones.Pedido;
 using LogicaNegocio.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +15,23 @@ namespace LogicaNegocio.EntidadesNegocio
     public class Pedido:IValidable
     {
         public int Id { get; set; }
+        [AllowedValues([1,2])]
         public TipoPedido TipoPedido { get; set; }
         public Cliente Cliente { get; set; }
         public DateTime FechaPedido { get; set; }
         public DateTime FechaEntrega { get; set; }
+        [DefaultValue(false)]
+        public bool IsAnulado { get; set; }
         public List<Linea> Lineas { get; set; }
 
-        public Pedido(){}
+        public Pedido(){
+        }
+
+        public bool IsEntregado()
+        {
+            return FechaEntrega < DateTime.Today && IsAnulado == false;
+        }
+
 
         /// <summary>
         /// Varifica que el pedido sea valido

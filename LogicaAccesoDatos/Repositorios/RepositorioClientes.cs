@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
-    public class RepositorioClientes : IRepositorio<Cliente>
+    public class RepositorioClientes : IRepositorioCliente<Cliente>
     {
         private readonly PapeleriaContext _context;
 
@@ -18,59 +18,21 @@ namespace LogicaAccesoDatos.Repositorios
         {
             _context = context;
         }
-
-
-        public void Add(Cliente item)
+        public IEnumerable<Cliente> FindClientsByName(string name, string lastName)
         {
-            item.Validar();
-            _context.Clientes.Add(item);
-            _context.SaveChanges();
+            return _context.Clientes.Where(c=> c.Nombre == name || c.Apellido == lastName);
         }
 
-        public void Delete(int id)
+        public IEnumerable<Cliente> FindClientsByAmountSpent(decimal amountSpent)
         {
-            Cliente cli = FindById(id);
-            if (cli != null)
-            {
-                _context.Clientes.Remove(cli);
-                _context.SaveChanges();
+            List<Pedido> list = _context.Pedidos.Include(p => p.Cliente).ToList();
+            IEnumerable<Cliente> clientes = new List<Cliente>();
+            foreach (Pedido p in list){
+                if (p.PrecioFinal(5.80) >= amountSpent && !clientes.Contains(p.Cliente)) {
+                    clientes.Append(p.Cliente);
+                }
             }
-            else{
-                throw new Exception($"No existe ese cliente con ese Id -> {id}");
-            }
-        }
-
-        public async Task<IEnumerable<Cliente>> FindAllAsync()
-        {
-            return await _context.Clientes.ToListAsync();
-        }
-
-        public IEnumerable<Cliente> FindAll()
-        {
-            return _context.Clientes.ToList();
-        }
-
-        public Cliente FindById(int id)
-        {
-            return _context.Clientes.Find(id);
-        }
-
-        public void Update(Cliente item)
-        {
-            Cliente cli = FindById(item.Id);
-            if (cli != null)
-            {
-                cli.Direccion.Calle = item.Direccion.Calle;
-                cli.Direccion.Numero = item.Direccion.Numero;
-                cli.Direccion.Ciudad = item.Direccion.Ciudad;
-                cli.DistanciaPapeleria = item.DistanciaPapeleria;
-                _context.Clientes.Update(cli);
-                _context.SaveChanges();
-            }
-            else
-            {
-                throw new Exception($"No existe ese cliente con ese Id -> {item.Id}");
-            }
+            return clientes;
         }
     }
 }

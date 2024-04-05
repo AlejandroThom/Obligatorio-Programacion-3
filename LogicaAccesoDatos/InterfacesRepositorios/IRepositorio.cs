@@ -11,7 +11,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
         void Add(T item);//Alta
         void Update(T item);//Modificar
         void Delete(int id);//Borrar
-        Task<IEnumerable<T>> FindAllAsync();//Obtener todos Asyncronico
         IEnumerable<T> FindAll();//Obtener todos
 
         T FindById(int id); //Buscar por identificador

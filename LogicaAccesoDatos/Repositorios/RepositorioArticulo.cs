@@ -38,12 +38,6 @@ namespace LogicaAccesoDatos.Repositorios
                 throw new Exception($"El articulo con el Id '{id}' no existe.");
             }
         }
-
-        public async Task<IEnumerable<Articulo>> FindAllAsync()
-        {
-            return await _context.Articulos.ToListAsync();
-        }
-
         public IEnumerable<Articulo> FindAll()
         {
             return _context.Articulos.ToList();

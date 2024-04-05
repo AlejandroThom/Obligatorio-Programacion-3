@@ -38,11 +38,6 @@ namespace LogicaAccesoDatos.Repositorios
 
         }
 
-        public async Task<IEnumerable<Usuario>> FindAllAsync()
-        {
-            return await _context.Usuarios.ToListAsync();
-        }
-
         public IEnumerable<Usuario> FindAll()
         {
             return _context.Usuarios.ToList();

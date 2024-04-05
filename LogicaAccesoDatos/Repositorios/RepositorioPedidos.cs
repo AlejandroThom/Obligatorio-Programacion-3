@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
-    public class RepositorioPedidos : IRepositorio<Pedido>
+    public class RepositorioPedidos : IRepositorioPedido<Pedido>
     {
         private readonly PapeleriaContext _context;
         public RepositorioPedidos(PapeleriaContext context)
@@ -37,11 +37,6 @@ namespace LogicaAccesoDatos.Repositorios
             }
         }
 
-        public async Task<IEnumerable<Pedido>> FindAllAsync()
-        {
-            return await _context.Pedidos.ToListAsync();
-        }
-
         public IEnumerable<Pedido> FindAll()
         {
             return _context.Pedidos.ToList();
@@ -65,6 +60,16 @@ namespace LogicaAccesoDatos.Repositorios
             {
                 throw new Exception("No existe un pedido con ese id");
             }
+        }
+
+        public IEnumerable<Pedido> FindPedidosAnulados()
+        {
+            return _context.Pedidos.Where(p => p.IsAnulado).ToList();
+        }
+
+        public IEnumerable<Pedido> FindPedidosByDate(DateTime date)
+        {
+            return _context.Pedidos.Where(p => p.FechaPedido == date).ToList();
         }
     }
 }
