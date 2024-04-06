@@ -4,6 +4,7 @@ using LogicaNegocio.Utils;
 using LogicaNegocio.Excepciones.Cliente;
 using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion_3.Models;
+using LogicaNegocio.ValueObjects.UsuarioVO;
 
 namespace Obligatorio_Programacion_3.Controllers
 {
@@ -26,9 +27,9 @@ namespace Obligatorio_Programacion_3.Controllers
             IEnumerable<UsuarioListadoViewModel> usuarioVM = usuarios.Select(u => new UsuarioListadoViewModel()
             {
                 Id = u.Id ,
-                Email = u.Email,
-                Nombre = u.Nombre,
-                Apellido = u.Apellido,
+                Email = u.EmailUsuario.Email,
+                Nombre = u.NombreUsuario.Nombre,
+                Apellido = u.ApellidoUsuario.Apellido,
             }).ToList();
 
             return View(usuarioVM);
@@ -59,10 +60,10 @@ namespace Obligatorio_Programacion_3.Controllers
                 }
                 Usuario usuario = new Usuario()
                 {
-                    Email = usuarioVM.Email,
-                    Nombre = usuarioVM.Nombre,
-                    Apellido = usuarioVM.Apellido,
-                    Password = usuarioVM.Password,
+                    EmailUsuario = new EmailVO(usuarioVM.Email),
+                    NombreUsuario = new NombreVO(usuarioVM.Nombre),
+                    ApellidoUsuario = new ApellidoVO(usuarioVM.Apellido),
+                    PasswordUsuario = new PasswordVO(usuarioVM.Password),
                     PasswordEncriptada = Utilities.Encriptar(usuarioVM.Password),
                 };
                 CUAltaUsuario.AltaUsuario(usuario);

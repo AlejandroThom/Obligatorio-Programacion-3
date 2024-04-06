@@ -20,6 +20,10 @@ namespace LogicaAccesoDatos.Repositorios
         public void Add(Pedido item)
         {
             item.Validar();
+            foreach(Linea lin in item.Lineas)
+            {
+                lin.Validar();
+            }
             _context.Pedidos.Add(item);
             _context.SaveChanges();
         }

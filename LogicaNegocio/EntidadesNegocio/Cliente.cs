@@ -17,9 +17,6 @@ namespace LogicaNegocio.EntidadesNegocio
         [MaxLength(12,ErrorMessage ="Debe tener como maximo 12 caracteres")]
         [MinLength(12,ErrorMessage = "Debe tener como minimo 12 caracteres")]
         public string RUT { get; set;}
-
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
         public Direccion Direccion { get; set; }
 
         /// <summary>

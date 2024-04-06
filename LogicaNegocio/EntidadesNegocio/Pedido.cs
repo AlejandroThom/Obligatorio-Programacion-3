@@ -15,6 +15,7 @@ namespace LogicaNegocio.EntidadesNegocio
     public class Pedido:IValidable
     {
         public int Id { get; set; }
+
         [AllowedValues([1,2])]
         public TipoPedido TipoPedido { get; set; }
         public Cliente Cliente { get; set; }

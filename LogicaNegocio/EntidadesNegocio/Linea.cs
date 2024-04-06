@@ -33,7 +33,7 @@ namespace LogicaNegocio.EntidadesNegocio
         /// <exception cref="LineaException"></exception>
         private void ValidarCantArticulo()
         {
-            if(CantArticulo < 0)
+            if(CantArticulo <= 0)
                 throw new LineaException("La cantidad de del articulo debe ser mayor a 0");
         }
         /// <summary>

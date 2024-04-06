@@ -20,7 +20,7 @@ namespace LogicaAccesoDatos.Repositorios
         }
         public IEnumerable<Cliente> FindClientsByName(string name, string lastName)
         {
-            return _context.Clientes.Where(c=> c.Nombre == name || c.Apellido == lastName);
+            return _context.Clientes.Where(c=> c.RazonSocial.Contains(name) || c.RazonSocial.Contains(lastName));
         }
 
         public IEnumerable<Cliente> FindClientsByAmountSpent(decimal amountSpent)
