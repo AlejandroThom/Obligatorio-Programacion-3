@@ -15,7 +15,7 @@ namespace LogicaNegocio.EntidadesNegocio
     public class Pedido:IValidable
     {
         public int Id { get; set; }
-        [AllowedValues([1,2])]
+        [AllowedValues([1,2],ErrorMessage ="El pedido solo puede ser Express o común")]
         public TipoPedido TipoPedido { get; set; }
         public Cliente Cliente { get; set; }
         public DateTime FechaPedido { get; set; }
