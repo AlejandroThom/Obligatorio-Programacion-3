@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion;
 public class CUAltaPedido:ICUAltaPedido
 {
-	public IRepositorio<Pedido> RepoPedidos { get; set; }
-	public CUAltaPedido(IRepositorio<Pedido> repoPedidos)
+	public IRepositorioPedido RepoPedidos { get; set; }
+	public CUAltaPedido(IRepositorioPedido repoPedidos)
 	{
 		RepoPedidos = repoPedidos;
 	}

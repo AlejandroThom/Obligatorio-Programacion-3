@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUCliente.Implementacion
 {
     public class CUBuscarClientesPorMonto : ICUBuscarClientesPorMonto
     {
-        public IRepositorioCliente<Cliente> Repositorio {  get; set; }
+        public IRepositorioCliente Repositorio {  get; set; }
 
-        public CUBuscarClientesPorMonto(IRepositorioCliente<Cliente> repo)
+        public CUBuscarClientesPorMonto(IRepositorioCliente repo)
         {
             Repositorio = repo;
         }

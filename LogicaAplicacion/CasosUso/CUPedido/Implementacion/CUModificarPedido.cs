@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
 {
     public class CUModificarPedido : ICUModificarPedido
     {
-        public IRepositorio<Pedido> RepoPedidos { get; set; }
+        public IRepositorioPedido RepoPedidos { get; set; }
 
-        public CUModificarPedido(IRepositorio<Pedido> repoPedidos)
+        public CUModificarPedido(IRepositorioPedido repoPedidos)
         {
             RepoPedidos = repoPedidos;
         }

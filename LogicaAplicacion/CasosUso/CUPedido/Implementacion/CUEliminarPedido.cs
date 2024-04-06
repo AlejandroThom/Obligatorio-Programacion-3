@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
 {
     public class CUEliminarPedido : ICUEliminarPedido
     {
-        public IRepositorio<Pedido> RepoPedidos { get; set; }
+        public IRepositorioPedido RepoPedidos { get; set; }
 
-        public CUEliminarPedido(IRepositorio<Pedido> repoPedidos)
+        public CUEliminarPedido(IRepositorioPedido repoPedidos)
         {
             RepoPedidos = repoPedidos;
         }

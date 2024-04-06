@@ -18,7 +18,6 @@ namespace LogicaAccesoDatos.Repositorios
         }
         public void Add(Usuario item)
         {
-            item.Validar();
             _context.Add(item);
             _context.SaveChanges();
         }
@@ -52,9 +51,9 @@ namespace LogicaAccesoDatos.Repositorios
         {
             Usuario user = FindById(item.Id);
             if(user != null){
-                user.Nombre = item.Nombre;
-                user.Apellido = item.Apellido;
-                user.Password = item.Password;
+                user.NombreUsuario = item.NombreUsuario;
+                user.ApellidoUsuario = item.ApellidoUsuario;
+                user.PasswordUsuario = item.PasswordUsuario;
                 user.PasswordEncriptada = item.PasswordEncriptada;
                 _context.Usuarios.Update(user);
                 _context.SaveChanges();

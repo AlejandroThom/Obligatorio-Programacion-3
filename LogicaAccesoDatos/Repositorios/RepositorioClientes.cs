@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
-    public class RepositorioClientes : IRepositorioCliente<Cliente>
+    public class RepositorioClientes : IRepositorioCliente
     {
         private readonly PapeleriaContext _context;
 

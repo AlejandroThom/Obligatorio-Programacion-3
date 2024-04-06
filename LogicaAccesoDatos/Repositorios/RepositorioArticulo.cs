@@ -55,9 +55,9 @@ namespace LogicaAccesoDatos.Repositorios
             {
                 art.Stock = item.Stock;
                 art.PrecioPublico = item.PrecioPublico;
-                art.Descripcion = item.Descripcion;
-                art.Nombre = item.Nombre;
-                art.Codigo = item.Codigo;
+                art.DescripcionArticulo = item.DescripcionArticulo;
+                art.NombreArticulo = item.NombreArticulo;
+                art.CodigoArticulo = item.CodigoArticulo;
                 _context.Articulos.Update(art);
                 _context.SaveChanges();
             }

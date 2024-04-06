@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
 {
     public class CUObtenerPedidosAnulados : ICUObtenerPedidosAnulados
     {
-        public IRepositorioPedido<Pedido> Repositorio {get;set; }
+        public IRepositorioPedido Repositorio {get;set; }
 
-        public CUObtenerPedidosAnulados(IRepositorioPedido<Pedido> repo)
+        public CUObtenerPedidosAnulados(IRepositorioPedido repo)
         {
             Repositorio = repo;
         }

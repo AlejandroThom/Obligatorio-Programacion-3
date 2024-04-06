@@ -11,8 +11,8 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
 {
     public class CUObtenerPedidosPorFecha : ICUObtenerPedidosPorFecha
     {
-        public IRepositorioPedido<Pedido> Repositorio { get; set; }
-        public CUObtenerPedidosPorFecha(IRepositorioPedido<Pedido> repo)
+        public IRepositorioPedido Repositorio { get; set; }
+        public CUObtenerPedidosPorFecha(IRepositorioPedido repo)
         {
             Repositorio = repo;
         }

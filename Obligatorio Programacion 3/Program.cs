@@ -36,14 +36,14 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUObtenerArticulos, CUObtenerArticulos>();
 
             //Repositorio Clientes
-            builder.Services.AddScoped<IRepositorioCliente<Cliente>, RepositorioClientes>();
+            builder.Services.AddScoped<IRepositorioCliente, RepositorioClientes>();
 
             //CASO DE USO DE LOS CLIENTES
             builder.Services.AddScoped<ICUBuscarClientesPorMonto,CUBuscarClientesPorMonto>();
             builder.Services.AddScoped<ICUBuscarClientesPorNombre, CUBuscarClientesPorNombre>();
 
             //Repositorio Pedidos
-            builder.Services.AddScoped<IRepositorio<Pedido>, RepositorioPedidos>();
+            builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidos>();
 
             //CASO DE USO DE LOS PEDIDOS
             builder.Services.AddScoped<ICUAltaPedido, CUAltaPedido>();
