@@ -112,6 +112,8 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController/Delete/5
         public ActionResult Delete(int id)
         {
+            try
+            {
             Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorId(id);
             if(usuarioBuscado == null)
             {
@@ -123,21 +125,29 @@ namespace Obligatorio_Programacion_3.Controllers
                 Nombre = usuarioBuscado.NombreUsuario,
                 Apellido = usuarioBuscado.ApellidoUsuario,
             };
-            return View();
+            return View(usuarioVM);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Mensaje = ex.Message;
+                return View(new UsuarioListadoViewModel());
+            }
         }
 
         // POST: UsuarioController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, UsuarioListadoViewModel usuarioVM)
         {
             try
             {
+                CUEliminarUsuario.EliminarUsuario(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Mensaje = ex.Message;
+                return View(usuarioVM);
             }
         }
     }
