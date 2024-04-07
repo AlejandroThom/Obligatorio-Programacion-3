@@ -5,6 +5,8 @@ using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
 using LogicaAplicacion.CasosUso.CUCliente.Implementacion;
 using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
+using LogicaAplicacion.CasosUso.CUParametro.Implementacion;
+using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
 using LogicaAplicacion.CasosUso.CUPedido.Implementacion;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
 using LogicaAplicacion.CasosUso.CUUsuario.Implementacion;
@@ -64,9 +66,11 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUModificarUsuario, CUModificarUsuario>();
             builder.Services.AddScoped<ICUObtenerUsuarios, CUObtenerUsuarios>();
 
+            //Repositorio Parametro
+            builder.Services.AddScoped<IRepositorioParametro, RepositorioParametro>();
 
-
-
+            //Caso de uso Parametros
+            builder.Services.AddScoped<ICUModificarParametro,CUModificarParametro>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

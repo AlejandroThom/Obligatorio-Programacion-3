@@ -9,6 +9,7 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
 {
     public interface IRepositorioCliente
     {
+        IEnumerable<Cliente> FindAll();
         public IEnumerable<Cliente> FindClientsByName(string name,string lastName);
         public IEnumerable<Cliente> FindClientsByAmountSpent(decimal amountSpent);
     }

@@ -43,7 +43,7 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindAll()
         {
-            return _context.Pedidos.ToList();
+            return _context.Pedidos;
         }
 
         public Pedido FindById(int id)
@@ -68,12 +68,12 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindPedidosAnulados()
         {
-            return _context.Pedidos.Where(p => p.IsAnulado).ToList();
+            return _context.Pedidos.Where(p => p.IsAnulado);
         }
 
         public IEnumerable<Pedido> FindPedidosByDate(DateTime date)
         {
-            return _context.Pedidos.Where(p => p.FechaPedido == date).ToList();
+            return _context.Pedidos.Where(p => p.FechaPedido == date);
         }
     }
 }

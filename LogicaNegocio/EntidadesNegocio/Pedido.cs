@@ -77,7 +77,7 @@ namespace LogicaNegocio.EntidadesNegocio
             return total;
         }
 
-        public decimal PrecioFinal(double iva)
+        public decimal PrecioFinal(decimal iva)
         {
             decimal precioTotal = PrecioTotalLineas();
             if(TipoPedido == TipoPedido.PEDIDOEXPRESS)
@@ -90,7 +90,7 @@ namespace LogicaNegocio.EntidadesNegocio
             if (TipoPedido == TipoPedido.PEDIDOCOMUN && Cliente.DistanciaPapeleria > 100)
                 precioTotal *= (decimal)0.05;
 
-            return precioTotal * ((decimal)iva/100);
+            return precioTotal * (iva/100);
         }
 
     }

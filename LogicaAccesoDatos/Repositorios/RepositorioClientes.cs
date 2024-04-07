@@ -18,6 +18,12 @@ namespace LogicaAccesoDatos.Repositorios
         {
             _context = context;
         }
+
+        public IEnumerable<Cliente> FindAll()
+        {
+            return _context.Clientes;
+        }
+
         public IEnumerable<Cliente> FindClientsByName(string name, string lastName)
         {
             return _context.Clientes.Where(c=> c.RazonSocial.Contains(name) || c.RazonSocial.Contains(lastName));
@@ -25,10 +31,11 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Cliente> FindClientsByAmountSpent(decimal amountSpent)
         {
-            List<Pedido> list = _context.Pedidos.Include(p => p.Cliente).ToList();
+            List<Pedido> list = _context.Pedidos.Include(p => p.Cliente).
+                Where(p => p.PrecioFinal(_context.Parametros.ToList()[0].Valor) >= amountSpent).ToList();
             IEnumerable<Cliente> clientes = new List<Cliente>();
             foreach (Pedido p in list){
-                if (p.PrecioFinal(5.80) >= amountSpent && !clientes.Contains(p.Cliente)) {
+                if (!clientes.Contains(p.Cliente)) {
                     clientes.Append(p.Cliente);
                 }
             }

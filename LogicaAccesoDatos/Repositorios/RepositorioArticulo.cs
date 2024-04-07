@@ -40,7 +40,7 @@ namespace LogicaAccesoDatos.Repositorios
         }
         public IEnumerable<Articulo> FindAll()
         {
-            return _context.Articulos.ToList();
+            return _context.Articulos;
         }
 
         public Articulo FindById(int id)

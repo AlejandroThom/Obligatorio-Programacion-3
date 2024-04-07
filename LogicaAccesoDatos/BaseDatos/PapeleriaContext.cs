@@ -16,6 +16,7 @@ namespace LogicaAccesoDatos.BaseDatos
         public DbSet<Linea> Lineas { get; set; }
         public DbSet<Direccion> Direcciones { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Parametro> Parametros { get; set; }
 
         public PapeleriaContext(DbContextOptions options) : base(options)
         {
