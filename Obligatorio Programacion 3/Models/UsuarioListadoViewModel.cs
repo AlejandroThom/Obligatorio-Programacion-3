@@ -1,10 +1,12 @@
-﻿namespace Obligatorio_Programacion_3.Models
+﻿using LogicaNegocio.ValueObjects.UsuarioVO;
+
+namespace Obligatorio_Programacion_3.Models
 {
     public class UsuarioListadoViewModel
     {
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public EmailVO Email { get; set; }
+        public NombreVO Nombre { get; set; }
+        public ApellidoVO Apellido { get; set; }
     }
 }

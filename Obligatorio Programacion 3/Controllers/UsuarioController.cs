@@ -13,10 +13,16 @@ namespace Obligatorio_Programacion_3.Controllers
         public ICUAltaUsuario CUAltaUsuario { get; set; }
         public ICUObtenerUsuarios CUObtenerUsuarios { get; set; }
 
-        public UsuarioController(ICUAltaUsuario cUAltaUsuario, ICUObtenerUsuarios cUObtenerUsuarios)
+        public ICUBuscarUsuario CUBuscarUsuario { get; set; }
+
+        public ICUEliminarUsuario CUEliminarUsuario { get; set; }
+
+        public UsuarioController(ICUAltaUsuario cUAltaUsuario, ICUObtenerUsuarios cUObtenerUsuarios, ICUBuscarUsuario cUBuscarUsuario, ICUEliminarUsuario cUEliminarUsuario)
         {
             CUAltaUsuario = cUAltaUsuario;
             CUObtenerUsuarios = cUObtenerUsuarios;
+            CUBuscarUsuario = cUBuscarUsuario;
+            CUEliminarUsuario = cUEliminarUsuario;
         }
 
 
@@ -27,9 +33,9 @@ namespace Obligatorio_Programacion_3.Controllers
             IEnumerable<UsuarioListadoViewModel> usuarioVM = usuarios.Select(u => new UsuarioListadoViewModel()
             {
                 Id = u.Id ,
-                Email = u.EmailUsuario.Email,
-                Nombre = u.NombreUsuario.Nombre,
-                Apellido = u.ApellidoUsuario.Apellido,
+                Email = u.EmailUsuario,
+                Nombre = u.NombreUsuario,
+                Apellido = u.ApellidoUsuario,
             }).ToList();
 
             return View(usuarioVM);
@@ -60,9 +66,9 @@ namespace Obligatorio_Programacion_3.Controllers
                 }
                 Usuario usuario = new Usuario()
                 {
-                    EmailUsuario = new EmailVO(usuarioVM.Email),
-                    NombreUsuario = new NombreVO(usuarioVM.Nombre),
-                    ApellidoUsuario = new ApellidoVO(usuarioVM.Apellido),
+                    EmailUsuario = new EmailVO(usuarioVM.EmailVO.Email),
+                    NombreUsuario = new NombreVO(usuarioVM.NombreVO.Nombre),
+                    ApellidoUsuario = new ApellidoVO(usuarioVM.ApellidoVO.Apellido),
                     PasswordUsuario = new PasswordVO(usuarioVM.Password),
                     PasswordEncriptada = Utilities.Encriptar(usuarioVM.Password),
                 };
@@ -106,6 +112,17 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController/Delete/5
         public ActionResult Delete(int id)
         {
+            Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorId(id);
+            if(usuarioBuscado == null)
+            {
+                throw new Exception("No existe un usuario con ese id");
+            }
+            UsuarioListadoViewModel usuarioVM = new UsuarioListadoViewModel()
+            {
+                Id = usuarioBuscado.Id,
+                Nombre = usuarioBuscado.NombreUsuario,
+                Apellido = usuarioBuscado.ApellidoUsuario,
+            };
             return View();
         }
 
