@@ -27,9 +27,9 @@ namespace Obligatorio_Programacion_3.Controllers
             IEnumerable<UsuarioListadoViewModel> usuarioVM = usuarios.Select(u => new UsuarioListadoViewModel()
             {
                 Id = u.Id ,
-                Email = u.EmailUsuario.Email,
-                Nombre = u.NombreUsuario.Nombre,
-                Apellido = u.ApellidoUsuario.Apellido,
+                Email = u.Email,
+                Nombre = u.Nombre,
+                Apellido = u.Apellido,
             }).ToList();
 
             return View(usuarioVM);
