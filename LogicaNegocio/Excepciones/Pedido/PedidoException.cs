@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.Excepciones.Pedido
 {
-    internal class PedidoException:Exception
+    public class PedidoException:Exception
     {
         public PedidoException() { }
 

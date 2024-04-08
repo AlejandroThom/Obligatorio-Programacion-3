@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.Excepciones.Usuario
 {
-    internal class UsuarioException:Exception
+    public class UsuarioException:Exception
     {
         public UsuarioException() { }
 
