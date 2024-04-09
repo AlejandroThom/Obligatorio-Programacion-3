@@ -66,9 +66,9 @@ namespace Obligatorio_Programacion_3.Controllers
                 }
                 Usuario usuario = new Usuario()
                 {
-                    EmailUsuario = new EmailVO(usuarioVM.EmailVO.Email),
-                    NombreUsuario = new NombreVO(usuarioVM.NombreVO.Nombre),
-                    ApellidoUsuario = new ApellidoVO(usuarioVM.ApellidoVO.Apellido),
+                    EmailUsuario = new EmailVO(usuarioVM.Email),
+                    NombreUsuario = new NombreVO(usuarioVM.Nombre),
+                    ApellidoUsuario = new ApellidoVO(usuarioVM.Apellido),
                     PasswordUsuario = new PasswordVO(usuarioVM.Password),
                     PasswordEncriptada = Utilities.Encriptar(usuarioVM.Password),
                 };

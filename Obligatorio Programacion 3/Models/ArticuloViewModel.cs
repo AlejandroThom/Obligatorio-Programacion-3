@@ -5,8 +5,8 @@ namespace Obligatorio_Programacion_3.Models
 {
     public class ArticuloViewModel
     {
-        [MinLength(10,ErrorMessage ="Debe tener como mínimo 10 caracteres")]
-        [MaxLength(200,ErrorMessage ="Debe tener como máximo 200 caracteres")]
+        [MinLength(10, ErrorMessage = "Debe tener como mínimo 10 caracteres")]
+        [MaxLength(200, ErrorMessage = "Debe tener como máximo 200 caracteres")]
         public string Nombre { get; set; }
         [MinLength(5, ErrorMessage = "Debe tener al menos 5 caracteres")]
         public string Descripcion { get; set; }
