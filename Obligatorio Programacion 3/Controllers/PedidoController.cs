@@ -1,14 +1,26 @@
 ﻿using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
+using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
 using LogicaNegocio.Excepciones.Pedido;
 using LogicaNegocio.ValueObjects.ArticulosVO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Obligatorio_Programacion_3.Models;
 
 namespace Obligatorio_Programacion_3.Controllers
 {
     public class PedidoController : Controller
     {
+        public ICUObtenerClientes cUObtenerClientes { get; set; }
+        public ICUObtenerArticulos cUObtenerArticulos { get; set; }
+
+        public PedidoController(ICUObtenerClientes cuObtenerClientes,ICUObtenerArticulos cuObtenerArticulos)
+        {
+            cUObtenerClientes = cuObtenerClientes;
+            cUObtenerArticulos = cuObtenerArticulos;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -21,6 +33,16 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ActionResult Create()
         {
+            IEnumerable<ClienteListadoViewModel> clientes = cUObtenerClientes.ObtenerClientes()
+                .Select(c => 
+                 new ClienteListadoViewModel() { Id = c.Id, RazonSocial = c.RazonSocial  })
+                .ToList().Prepend(new ClienteListadoViewModel() { RazonSocial="Seleccione un cliente"});
+            ViewData["Clientes"] = new SelectList(clientes, "Id", "RazonSocial");
+            IEnumerable<ArticuloSelectViewModel> articulos = cUObtenerArticulos.ObtenerArticulos()
+                .Select(a=> new ArticuloSelectViewModel() 
+                { Id=a.Id,Nombre=a.NombreArticulo.Nombre})
+                .ToList().Prepend(new ArticuloSelectViewModel() { Nombre="Seleccione un articulo"});
+            ViewData["Articulos"] = new SelectList(articulos, "Id", "Nombre");
             return View();
         }
 

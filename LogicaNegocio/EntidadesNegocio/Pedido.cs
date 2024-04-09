@@ -16,7 +16,6 @@ namespace LogicaNegocio.EntidadesNegocio
     {
         public int Id { get; set; }
         [AllowedValues([1,2],ErrorMessage ="El pedido solo puede ser Express o común")]
-        public TipoPedido TipoPedido { get; set; }
         public Cliente Cliente { get; set; }
         public DateTime FechaPedido { get; set; }
         public DateTime FechaEntrega { get; set; }
@@ -51,19 +50,11 @@ namespace LogicaNegocio.EntidadesNegocio
                 throw new PedidoException("El cliente debe existe para realizar el pedido.");
         }
 
-        public void ValidarFechaEntrega()
+        public virtual void ValidarFechaEntrega()
         {
-            if(TipoPedido == TipoPedido.PEDIDOEXPRESS && (FechaEntrega - FechaPedido).TotalDays > 5)
-            {
-                throw new PedidoException("El pedido express no puede superar los 5 días de diferencia");
-            }
             if ((FechaEntrega - FechaPedido).TotalDays<0)
             {
                 throw new PedidoException("Los pedidos no pueden entregar en el pasado");
-            }
-            if (TipoPedido == TipoPedido.PEDIDOCOMUN && (FechaEntrega - FechaPedido).TotalDays <= 7)
-            {
-                throw new PedidoException("Los pedidos común no pueden tener una fecha prometida menor a una semana");
             }
         }
 
@@ -77,20 +68,10 @@ namespace LogicaNegocio.EntidadesNegocio
             return total;
         }
 
-        public decimal PrecioFinal(decimal iva)
+        public virtual decimal PrecioFinal(decimal iva)
         {
             decimal precioTotal = PrecioTotalLineas();
-            if(TipoPedido == TipoPedido.PEDIDOEXPRESS)
-            {
-                if ((FechaEntrega - FechaPedido).TotalDays > 0)
-                    precioTotal *= (decimal)0.1;
-                else
-                    precioTotal *= (decimal)0.15;
-            }
-            if (TipoPedido == TipoPedido.PEDIDOCOMUN && Cliente.DistanciaPapeleria > 100)
-                precioTotal *= (decimal)0.05;
-
-            return precioTotal * (iva/100);
+            return precioTotal;
         }
 
     }

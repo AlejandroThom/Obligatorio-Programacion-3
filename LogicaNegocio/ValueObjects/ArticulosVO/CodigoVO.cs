@@ -40,7 +40,7 @@ namespace LogicaNegocio.ValueObjects.ArticulosVO
             //[0-9]-> QUE DEBE TENER SOLO NUMEROS DEL 0 AL 9
             //+-> QUE SE REPITE
             //$->QUE LA CADENA DEBE TERMINAR CON ESE PATRON
-            if (new Regex(@"^[0-9]+$").IsMatch(Codigo))
+            if (!new Regex(@"^[0-9]+$").IsMatch(Codigo))
                 throw new ArticuloException("El codigo solo debe contener digitos");
         }
     }

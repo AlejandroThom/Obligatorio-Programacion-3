@@ -1,14 +1,17 @@
 ﻿using LogicaNegocio.Excepciones.Cliente;
 using LogicaNegocio.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
+    [Index(nameof(RUT),IsUnique =true)]
     public class Cliente : IValidable
     {
         public int Id { get; set; }

@@ -41,6 +41,7 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<IRepositorioCliente, RepositorioClientes>();
 
             //CASO DE USO DE LOS CLIENTES
+            builder.Services.AddScoped<ICUObtenerClientes, CUObtenerClientes>();
             builder.Services.AddScoped<ICUBuscarClientesPorMonto,CUBuscarClientesPorMonto>();
             builder.Services.AddScoped<ICUBuscarClientesPorNombre, CUBuscarClientesPorNombre>();
 
