@@ -26,7 +26,13 @@ namespace LogicaNegocio.Utils
                 }
             }
             return sb.ToString();
-            
         }
+
+        public static string ConvertirPrimeraLetraAMayuscula(string text)
+        {
+            if (text == null || text.Length == 0) throw new Exception("El texto es vacío");
+            return text.First().ToString().ToUpper() + text.Substring(1);
+        }
+
     }
 }

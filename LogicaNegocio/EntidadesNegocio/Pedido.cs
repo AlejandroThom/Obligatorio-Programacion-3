@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
-    public class Pedido:IValidable
+    public abstract class Pedido:IValidable
     {
         public int Id { get; set; }
         [AllowedValues([1,2],ErrorMessage ="El pedido solo puede ser Express o común")]
