@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUArticulo.Implementacion
 {
     public class CUBuscarArticulo:ICUBuscarArticulo
     {
-        public IRepositorio<Articulo> RepoArticulos { get; set; }
+        public IRepositorioArticulo RepoArticulos { get; set; }
 
-        public CUBuscarArticulo(IRepositorio<Articulo> repoArticulos)
+        public CUBuscarArticulo(IRepositorioArticulo repoArticulos)
         {
             RepoArticulos = repoArticulos;
         }

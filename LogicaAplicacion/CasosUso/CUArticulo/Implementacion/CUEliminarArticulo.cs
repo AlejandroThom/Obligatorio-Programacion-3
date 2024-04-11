@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUArticulo.Implementacion
 {
     public class CUEliminarArticulo : ICUEliminarArticulo
     {
-        public IRepositorio<Articulo> RepoArticulos { get; set; }
+        public IRepositorioArticulo RepoArticulos { get; set; }
 
-        public CUEliminarArticulo(IRepositorio<Articulo> repoArticulos)
+        public CUEliminarArticulo(IRepositorioArticulo repoArticulos)
         {
             RepoArticulos = repoArticulos;
         }
