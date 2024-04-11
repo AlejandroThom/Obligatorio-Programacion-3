@@ -28,7 +28,7 @@ namespace Obligatorio_Programacion_3
             });
 
             //Repositorio Articulos
-            builder.Services.AddScoped<IRepositorio<Articulo>,RepositorioArticulo>();
+            builder.Services.AddScoped<IRepositorioArticulo,RepositorioArticulo>();
 
             //CASO DE USO DE LOS ARTICULOS
             builder.Services.AddScoped<ICUAltaArticulo, CUAltaArticulo>();
@@ -36,6 +36,8 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUEliminarArticulo, CUEliminarArticulo>();
             builder.Services.AddScoped<ICUModificarArticulo, CUModificarArticulo>();
             builder.Services.AddScoped<ICUObtenerArticulos, CUObtenerArticulos>();
+            builder.Services.AddScoped<ICUArticuloExiste, CUArticuloExiste>();
+
 
             //Repositorio Clientes
             builder.Services.AddScoped<IRepositorioCliente, RepositorioClientes>();
