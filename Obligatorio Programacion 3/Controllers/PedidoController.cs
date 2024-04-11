@@ -49,11 +49,10 @@ namespace Obligatorio_Programacion_3.Controllers
         // POST: ArticuloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PedidoViewModel newPedido)
+        public ActionResult Create(PedidoViewModel newPedido,IEnumerable<ArticuloPedidoViewModel> listaArticulos)
         {
             try
             {
-                
                 return RedirectToAction(nameof(Index));
             }
             catch (PedidoException excep)

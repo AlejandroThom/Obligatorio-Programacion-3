@@ -1,6 +1,7 @@
 ﻿using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
 using LogicaNegocio.Excepciones.Articulo;
+using LogicaNegocio.Utils;
 using LogicaNegocio.ValueObjects.ArticulosVO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,16 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ICUAltaArticulo cUAltaArticulo { get; set; }
 
-        public ArticuloController(ICUObtenerArticulos ICUObtenerArts, ICUBuscarArticulo cUBuscarArt, ICUAltaArticulo cuAlta)
+        public ICUArticuloExiste CUArticuloExiste { get; set; }
+
+        public ArticuloController(ICUObtenerArticulos ICUObtenerArts,
+            ICUBuscarArticulo cUBuscarArt, ICUAltaArticulo cuAlta,
+            ICUArticuloExiste cUArticuloExiste)
         {
             cUObtenerArticulos = ICUObtenerArts;
             cUBuscarArticulo = cUBuscarArt;
             cUAltaArticulo = cuAlta;
+            CUArticuloExiste = cUArticuloExiste;
         }
         
         // GET: ArticuloController
@@ -54,6 +60,10 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             try
             {
+                newArticulo.Nombre = Utilities.ConvertirPrimeraLetraAMayuscula(newArticulo.Nombre);
+                if (CUArticuloExiste.ArticuloExiste(newArticulo.Nombre))
+                    throw new ArticuloException("Ese articulo ya existe");
+                newArticulo.Descripcion = Utilities.ConvertirPrimeraLetraAMayuscula(newArticulo.Descripcion); ;
                 Articulo articuloNuevo = new Articulo() {
                     NombreArticulo = new NombreVO(newArticulo.Nombre),
                     DescripcionArticulo = new DescripcionVO(newArticulo.Descripcion),
@@ -69,7 +79,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 ViewBag.Mensaje = excep.Message;
                 return View(newArticulo);
             }
-            catch
+            catch(Exception ex)
             {
                 ViewBag.Mensaje = "Hubo un error al crear un nuevo artículo";
                 return View(newArticulo);
