@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
-    public class RepositorioArticulo : IRepositorio<Articulo>
+    public class RepositorioArticulo : IRepositorioArticulo
     {
         private readonly PapeleriaContext _context;
 
@@ -46,6 +46,13 @@ namespace LogicaAccesoDatos.Repositorios
         public Articulo FindById(int id)
         {
             return _context.Articulos.Find(id);
+        }
+
+        public bool NombreArticuloExiste(string nombreArticulo)
+        {
+            if(_context.Articulos.FirstOrDefault(a => a.NombreArticulo.Nombre.Equals(nombreArticulo)) == null)
+                return false;
+            return true;
         }
 
         public void Update(Articulo item)

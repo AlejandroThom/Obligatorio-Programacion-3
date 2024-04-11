@@ -17,10 +17,18 @@ namespace LogicaAccesoDatos.BaseDatos
         public DbSet<Direccion> Direcciones { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Parametro> Parametros { get; set; }
+        public DbSet<PedidoComun> PedidosComunes { get; set; }
+        public DbSet<PedidoExpress> PedidosExpress { get; set; }
 
         public PapeleriaContext(DbContextOptions options) : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Pedido>().UseTphMappingStrategy();
+            base.OnModelCreating(modelBuilder);
         }
     }
     
