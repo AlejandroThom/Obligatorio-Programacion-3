@@ -15,6 +15,7 @@ namespace Obligatorio_Programacion_3.Controllers
 {
     public class PedidoController : Controller
     {
+        #region InyeccionDependencias
         public ICUObtenerClientes cUObtenerClientes { get; set; }
         public ICUObtenerArticulos cUObtenerArticulos { get; set; }
         public ICUBuscarArticulo CUObtenerArticulo { get; set; }
@@ -50,6 +51,7 @@ namespace Obligatorio_Programacion_3.Controllers
             CUAnularPedido = cuAnularPedido;
         }
 
+        #endregion
         public IActionResult Index()
         {
             IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidos.ObtenerPedidos().Select(p => new PedidoListadoViewModel()
