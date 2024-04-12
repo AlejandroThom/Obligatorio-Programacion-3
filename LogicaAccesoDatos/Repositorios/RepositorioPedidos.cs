@@ -43,12 +43,12 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindAll()
         {
-            return _context.Pedidos;
+            return _context.Pedidos.Include(p=>p.Cliente);
         }
 
         public Pedido FindById(int id)
         {
-            return _context.Pedidos.Find(id);
+            return _context.Pedidos.Include(p => p.Cliente).FirstOrDefault(p=>p.Id==id);
         }
 
         public void Update(Pedido item)
@@ -68,12 +68,27 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindPedidosAnulados()
         {
-            return _context.Pedidos.Where(p => p.IsAnulado);
+            return _context.Pedidos.Include(p => p.Cliente).Where(p => p.IsAnulado);
         }
 
         public IEnumerable<Pedido> FindPedidosByDate(DateTime date)
         {
-            return _context.Pedidos.Where(p => p.FechaPedido == date && p.FechaEntrega<DateTime.Now && !p.IsAnulado);
+            return _context.Pedidos.Include(p=>p.Cliente).Where(p => p.FechaPedido == date && p.FechaEntrega<DateTime.Now && !p.IsAnulado);
+        }
+
+        public void AnularPedido(int id)
+        {
+            Pedido pedido = FindById(id);
+            if (pedido != null)
+            {
+                pedido.IsAnulado = true;
+                _context.Pedidos.Update(pedido);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception($"No existe un pedido con ese id {id}");
+            }
         }
     }
 }

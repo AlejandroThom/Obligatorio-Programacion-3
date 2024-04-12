@@ -11,5 +11,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
     {
         public IEnumerable<Pedido> FindPedidosAnulados();
         IEnumerable<Pedido> FindPedidosByDate(DateTime date);
+        public void AnularPedido(int id);
     }
 }

@@ -23,6 +23,8 @@ namespace Obligatorio_Programacion_3.Controllers
         public ICUObtenerPedidos CUObtenerPedidos { get; set; }
         public ICUObtenerParametroPorNombre CUObtenerParametroPorNombre { get; set; }
         public ICUObtenerPedidosPorFecha CUObtenerPedidosPorFecha { get; set; }
+        public ICUBuscarPedido CUBuscarPedido { get; set; }
+        public ICUAnularPedido CUAnularPedido { get; set; }
 
         public PedidoController(ICUObtenerClientes cuObtenerClientes,
             ICUObtenerArticulos cuObtenerArticulos,
@@ -31,7 +33,9 @@ namespace Obligatorio_Programacion_3.Controllers
             ICUBuscarClientePorId cUBuscarClientePorId,
             ICUObtenerPedidos cuObtenerPedidos,
             ICUObtenerParametroPorNombre cuObtenerParametroPorNombre,
-            ICUObtenerPedidosPorFecha cuObtenerPedidosPorFecha
+            ICUObtenerPedidosPorFecha cuObtenerPedidosPorFecha,
+            ICUBuscarPedido cuBuscarPedido,
+            ICUAnularPedido cuAnularPedido
             )
         {
             cUObtenerClientes = cuObtenerClientes;
@@ -42,6 +46,8 @@ namespace Obligatorio_Programacion_3.Controllers
             CUObtenerPedidos = cuObtenerPedidos;
             CUObtenerParametroPorNombre = cuObtenerParametroPorNombre;
             CUObtenerPedidosPorFecha = cuObtenerPedidosPorFecha;
+            CUBuscarPedido = cuBuscarPedido;
+            CUAnularPedido = cuAnularPedido;
         }
 
         public IActionResult Index()
@@ -144,18 +150,25 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ActionResult Anular(int id)
         {
-
-            return View();
+            Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
+            PedidoListadoViewModel pedidoListadoViewModel = new PedidoListadoViewModel() {
+                Id= ped.Id,
+                FechaEntrega=ped.FechaEntrega,
+                Cliente=ped.Cliente,
+                Precio = ped.PrecioPedidoFinal,
+                FechaPedido = ped.FechaPedido
+            };
+            return View(pedidoListadoViewModel);
         }
 
         // POST: ArticuloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Anular()
+        public ActionResult Anular(int id,PedidoListadoViewModel pedidoLVM)
         {
             try
             {
-
+                CUAnularPedido.AnularPedido(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (PedidoException excep)
