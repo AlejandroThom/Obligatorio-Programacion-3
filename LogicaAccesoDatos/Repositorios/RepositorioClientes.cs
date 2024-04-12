@@ -41,5 +41,25 @@ namespace LogicaAccesoDatos.Repositorios
             }
             return clientes;
         }
+
+        public void Add(Cliente item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Cliente item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Cliente FindById(int id)
+        {
+            return _context.Clientes.Find(id);
+        }
     }
 }

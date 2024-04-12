@@ -11,5 +11,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
     {
         void Update(Parametro paramater);
 
+        decimal GetParametroPorNombre(string nombre);
     }
 }

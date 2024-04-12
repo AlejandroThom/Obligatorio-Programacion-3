@@ -18,6 +18,10 @@ namespace LogicaAccesoDatos.Repositorios
             _context = context;
         }
 
+        public decimal GetParametroPorNombre(string nombre)
+        {
+            return _context.Parametros.Where(p => p.Nombre == nombre).First().Valor;
+        }
 
         public void Update(Parametro paramater)
         {

@@ -73,7 +73,7 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindPedidosByDate(DateTime date)
         {
-            return _context.Pedidos.Where(p => p.FechaPedido == date);
+            return _context.Pedidos.Where(p => p.FechaPedido == date && p.FechaEntrega<DateTime.Now && !p.IsAnulado);
         }
     }
 }
