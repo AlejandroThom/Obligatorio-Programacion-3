@@ -21,9 +21,11 @@ namespace LogicaNegocio.EntidadesNegocio
         public DateTime FechaEntrega { get; set; }
         [DefaultValue(false)]
         public bool IsAnulado { get; set; }
-        public List<Linea> Lineas { get; set; }
+        public List<Linea> Lineas { get; set; } 
+        public decimal PrecioPedidoFinal {  get; set; }
 
         public Pedido(){
+            Lineas = new List<Linea>();
         }
 
         public bool IsEntregado()
