@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Obligatorio_Programacion_3.Models.PedidoListadoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPedido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEntrega)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.RazonSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEntrega)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.ActionLink("AgregarArticulo", "AgregarArticulo", new {  id=item.Id  }) |
+                @Html.ActionLink("Anular", "Anular", new {  id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

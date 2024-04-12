@@ -18,5 +18,8 @@ namespace Obligatorio_Programacion_3.Models
         public int ArticuloId { get; set; }
         [DisplayName("Cantidad del articulo")]
         public int CantidadArticulo { get; set; }
+
+
+
     }
 }

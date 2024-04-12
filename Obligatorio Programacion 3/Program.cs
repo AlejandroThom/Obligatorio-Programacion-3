@@ -46,6 +46,8 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUObtenerClientes, CUObtenerClientes>();
             builder.Services.AddScoped<ICUBuscarClientesPorMonto,CUBuscarClientesPorMonto>();
             builder.Services.AddScoped<ICUBuscarClientesPorNombre, CUBuscarClientesPorNombre>();
+            builder.Services.AddScoped<ICUBuscarClientePorId, CUBuscarClientePorId>();
+
 
             //Repositorio Pedidos
             builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidos>();
@@ -74,6 +76,8 @@ namespace Obligatorio_Programacion_3
 
             //Caso de uso Parametros
             builder.Services.AddScoped<ICUModificarParametro,CUModificarParametro>();
+            builder.Services.AddScoped<ICUObtenerParametroPorNombre, CUObtenerParametroPorNombre>();
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
