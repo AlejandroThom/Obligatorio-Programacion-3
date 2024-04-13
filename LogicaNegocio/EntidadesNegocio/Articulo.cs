@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio.EntidadesNegocio
 {
     
-    public class Articulo : IValidable
+    public class Articulo : IValidable,IEquatable<Articulo>
     {
         public int Id { get; set; }
 
@@ -62,6 +62,11 @@ namespace LogicaNegocio.EntidadesNegocio
             if (Stock <= 0)
                 throw new ArticuloException("El stock del articulo no puede ser negativo o 0.");
 
+        }
+
+        public bool Equals(Articulo? other)
+        {
+            return other.NombreArticulo.Nombre.Equals(NombreArticulo.Nombre);
         }
     }
 }

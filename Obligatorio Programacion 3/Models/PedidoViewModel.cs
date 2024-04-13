@@ -1,6 +1,8 @@
 ﻿using LogicaNegocio.EntidadesNegocio;
+using Newtonsoft.Json.Serialization;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 
 namespace Obligatorio_Programacion_3.Models
 {
@@ -17,6 +19,7 @@ namespace Obligatorio_Programacion_3.Models
         [Display(Name = "Seleccione un articulo")]
         public int ArticuloId { get; set; }
         [DisplayName("Cantidad del articulo")]
+        [IntegerValidator(MinValue =1)]
         public int CantidadArticulo { get; set; }
 
 

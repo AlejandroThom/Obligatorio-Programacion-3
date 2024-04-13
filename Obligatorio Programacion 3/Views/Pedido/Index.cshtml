@@ -43,7 +43,8 @@
                 @Html.DisplayFor(modelItem => item.Precio)
             </td>
             <td>
-                @Html.ActionLink("AgregarArticulo", "AgregarArticulo", new {  id=item.Id  }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Agregar Articulo", "AgregarLinea", new {  id=item.Id  }) |
                 @Html.ActionLink("Anular", "Anular", new {  id=item.Id })
             </td>
         </tr>

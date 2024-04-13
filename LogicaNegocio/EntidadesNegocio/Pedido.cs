@@ -76,5 +76,27 @@ namespace LogicaNegocio.EntidadesNegocio
             return precioTotal;
         }
 
+        private void IsPedidoAnulado() {
+            if (IsAnulado)
+                throw new PedidoException("El pedido está anulado, no puede agregarle nuevas lineas");
+        }
+
+        private void IsPedidoEntregado()
+        {
+            if (IsEntregado())
+                throw new PedidoException("El pedido ya ha sido entregado, no puede agregarle nuevas lineas");
+        }
+
+        public void IsPedidoModificable()
+        {
+            IsPedidoAnulado();
+            IsPedidoEntregado();
+        }
+
+        public void IsLineaExistente(Linea item)
+        {
+            if (Lineas.Contains(item))
+                throw new PedidoException("El articulo que intenta agregar ya esta agregado.");
+        }
     }
 }

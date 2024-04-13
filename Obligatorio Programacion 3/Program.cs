@@ -61,6 +61,7 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
             builder.Services.AddScoped<ICUObtenerPedidosPorFecha, CUObtenerPedidosPorFecha>();
             builder.Services.AddScoped<ICUAnularPedido, CUAnularPedido>();
+            builder.Services.AddScoped<ICUAgregarLinea, CUAgregarLinea>();
 
 
             //Repositorio Usuarios

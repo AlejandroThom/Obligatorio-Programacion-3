@@ -1,0 +1,69 @@
+﻿@model Obligatorio_Programacion_3.Models.ArticuloPedidoViewModel
+
+@{
+    ViewData["Title"] = "AgregarLinea";
+}
+
+<h1>Agregar nueva linea</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AgregarLinea">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <h3>Información del pedido</h3>
+                <div class="form-group">
+                    <label asp-for="IdPedido" class="control-label"></label>
+                    <input asp-for="IdPedido" class="form-control" readonly />
+                    <span asp-validation-for="IdPedido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cliente.RazonSocial" class="control-label"></label>
+                    <input asp-for="Cliente.RazonSocial" class="form-control" readonly/>
+                    <span asp-validation-for="IdPedido" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsEnvioExpress" readonly/> @Html.DisplayNameFor(model => model.IsEnvioExpress)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaEntrega" class="control-label"></label>
+                    <input asp-for="FechaEntrega" class="form-control" readonly />
+                    <span asp-validation-for="FechaEntrega" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                <h3>Nuevo Articulo</h3>
+                <div class="form-group">
+                    <label asp-for="IdArticulo" class="control-label"></label>
+                    <select asp-for="IdArticulo" class="form-control" asp-items="@ViewBag.Articulos" ></select>
+                    <span asp-validation-for="IdArticulo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CantidadArticulo" class="control-label"></label>
+                    <input asp-for="CantidadArticulo" class="form-control" />
+                    <span asp-validation-for="CantidadArticulo" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="AgregarOtroArticulo" /> @Html.DisplayNameFor(model => model.AgregarOtroArticulo)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<p>@ViewBag.Mensaje</p>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

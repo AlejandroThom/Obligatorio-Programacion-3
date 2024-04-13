@@ -5,7 +5,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
-    public class Linea
+    public class Linea:IEquatable<Linea>
     {
         public int Id { get; set; }
         public Articulo Articulo { get; set; }
@@ -44,6 +44,11 @@ namespace LogicaNegocio.EntidadesNegocio
         {
             if (PrecioUnitario < 0)
                 throw new LineaException("La Precio Unitario del articulo debe ser mayor a 0");
+        }
+
+        public bool Equals(Linea? other)
+        {
+            return other.Articulo.Equals(Articulo);
         }
     }
 }

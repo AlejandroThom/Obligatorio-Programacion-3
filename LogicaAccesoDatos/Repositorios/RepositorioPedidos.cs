@@ -48,7 +48,7 @@ namespace LogicaAccesoDatos.Repositorios
 
         public Pedido FindById(int id)
         {
-            return _context.Pedidos.Include(p => p.Cliente).FirstOrDefault(p=>p.Id==id);
+            return _context.Pedidos.Include(p => p.Cliente).Include(p=>p.Lineas).ThenInclude(linea => linea.Articulo).FirstOrDefault(p=>p.Id==id);
         }
 
         public void Update(Pedido item)
@@ -65,6 +65,25 @@ namespace LogicaAccesoDatos.Repositorios
                 throw new Exception("No existe un pedido con ese id");
             }
         }
+
+        public void AgregarLinea(int idPedido,Linea item)
+        {
+            Pedido pedido = FindById(idPedido);
+            if (pedido != null)
+            {
+                pedido.IsLineaExistente(item);
+                pedido.Lineas.Add(item);
+                pedido.PrecioPedidoFinal = pedido.PrecioFinal(_context.Parametros.Where(p=>p.Nombre == "IVA").First().Valor);
+                _context.Pedidos.Update(pedido);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("No existe un pedido con ese id");
+            }
+        }
+
+
 
         public IEnumerable<Pedido> FindPedidosAnulados()
         {
