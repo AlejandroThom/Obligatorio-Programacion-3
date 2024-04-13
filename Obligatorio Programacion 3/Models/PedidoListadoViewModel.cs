@@ -15,5 +15,6 @@ namespace Obligatorio_Programacion_3.Models
         public DateTime FechaEntrega { get; set; }
         [Display(Name ="Precio del pedido")]
         public decimal Precio {  get; set; }
+        public bool IsAnulado { get; set; }
     }
 }

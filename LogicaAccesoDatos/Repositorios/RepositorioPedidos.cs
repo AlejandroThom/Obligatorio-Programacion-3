@@ -92,7 +92,8 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindPedidosByDate(DateTime date)
         {
-            return _context.Pedidos.Include(p=>p.Cliente).Where(p => p.FechaPedido == date && p.FechaEntrega<DateTime.Now && !p.IsAnulado);
+            return _context.Pedidos.Include(p=>p.Cliente)
+                .Where(p => p.FechaPedido.Date == date.Date && p.FechaEntrega>DateTime.Now && !p.IsAnulado);
         }
 
         public void AnularPedido(int id)

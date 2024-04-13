@@ -61,17 +61,19 @@ namespace Obligatorio_Programacion_3.Controllers
                 FechaEntrega = p.FechaEntrega,
                 FechaPedido = p.FechaPedido,
                 Precio = p.PrecioPedidoFinal,
+                IsAnulado = p.IsAnulado,
             }).ToList();
             return View(pedidos);
         }
 
         public IActionResult BuscarPedidoPorFecha(DateTime fecha)
         {
-            IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidosPorFecha.ObtenerPedidosPorFecha(fecha).Select(
+            IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidosPorFecha.ObtenerPedidosPorFecha(fecha.Date).Select(
                 p=>new PedidoListadoViewModel() {
                     Id = p.Id,
                     Cliente = p.Cliente,Precio=p.PrecioPedidoFinal,
-                    FechaEntrega=p.FechaEntrega,FechaPedido=p.FechaPedido
+                    FechaEntrega=p.FechaEntrega,FechaPedido=p.FechaPedido,
+                    IsAnulado = p.IsAnulado,
                 }
                 ).ToList();
             return View("Index",pedidos);
@@ -191,16 +193,33 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ActionResult Anular(int id)
         {
-            Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
-            PedidoListadoViewModel pedidoListadoViewModel = new PedidoListadoViewModel() {
-                Id= ped.Id,
-                FechaEntrega=ped.FechaEntrega,
-                Cliente=ped.Cliente,
-                Precio = ped.PrecioPedidoFinal,
-                FechaPedido = ped.FechaPedido,
-                
-            };
-            return View(pedidoListadoViewModel);
+            try
+            {
+                Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
+                ped.IsPedidoModificable();
+                PedidoListadoViewModel pedidoListadoViewModel = new PedidoListadoViewModel()
+                {
+                    Id = ped.Id,
+                    FechaEntrega = ped.FechaEntrega,
+                    Cliente = ped.Cliente,
+                    Precio = ped.PrecioPedidoFinal,
+                    FechaPedido = ped.FechaPedido,
+
+                };
+                return View(pedidoListadoViewModel);
+            }
+            catch (PedidoException ex)
+            {
+                ViewData["Mensaje"] = ex.Message;
+                return View(new PedidoListadoViewModel());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                ViewData["Mensaje"] = "Hubo un error al cargar el pedido";
+                return View(new PedidoListadoViewModel());
+            }
+            
         }
 
         // POST: ArticuloController/Create
