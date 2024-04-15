@@ -27,6 +27,9 @@ namespace LogicaNegocio.EntidadesNegocio
         /// </summary>
         public double DistanciaPapeleria { get; set;}
 
+        public List<Pedido> Pedidos { get; set; }
+
+
         public Cliente() { }
 
         /// <summary>
