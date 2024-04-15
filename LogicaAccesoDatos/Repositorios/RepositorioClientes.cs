@@ -31,12 +31,28 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Cliente> FindClientsByAmountSpent(decimal amountSpent)
         {
-            List<Pedido> list = _context.Pedidos.Include(p => p.Cliente).
-                Where(p => p.PrecioFinal(_context.Parametros.ToList()[0].Valor) >= amountSpent).ToList();
-            IEnumerable<Cliente> clientes = new List<Cliente>();
-            foreach (Pedido p in list){
-                if (!clientes.Contains(p.Cliente)) {
-                    clientes.Append(p.Cliente);
+            var list = _context.Pedidos
+                .Where(pedido => !pedido.IsAnulado) // Solo consideramos los pedidos no anulados
+                .Join(_context.Clientes, // Join con la tabla de Clientes
+                    pedido => pedido.Cliente.Id, // Selector de clave externa
+                    cliente => cliente.Id, // Selector de clave principal
+                    (pedido, cliente) => new { Pedido = pedido, Cliente = cliente }) // Proyección de resultados
+                .GroupBy(
+                    result => new { result.Cliente.Id, result.Cliente.RazonSocial }, // Agrupar por Id y Nombre del Cliente
+                    result => result.Pedido.PrecioPedidoFinal, // Selector de valor para la suma
+                    (key, values) => new // Proyectar el resultado final
+                    {
+                        ClienteId = key.Id,
+                        NombreCliente = key.RazonSocial,
+                        TotalGastado = values.Sum()
+                    }).ToList();
+
+            List<Cliente> clientes = new List<Cliente>();
+            foreach (var p in list){
+                if(p.TotalGastado >= amountSpent)
+                {
+                    Cliente cliente = _context.Clientes.Find(p.ClienteId);
+                    clientes.Add(cliente);
                 }
             }
             return clientes;
