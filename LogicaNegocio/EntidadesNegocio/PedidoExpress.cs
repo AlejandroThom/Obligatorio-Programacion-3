@@ -18,14 +18,14 @@ namespace LogicaNegocio.EntidadesNegocio
                 throw new PedidoException("El pedido express no puede superar los 5 días de diferencia");
             }
         }
-        public override decimal PrecioFinal(decimal iva)
+        public override void AsignarPrecioFinal(decimal iva)
         {
-            decimal precioTotal = base.PrecioFinal(iva);
-            if ((FechaEntrega - FechaPedido).TotalDays > 0)
-                precioTotal += precioTotal * (decimal)0.1;
+            base.AsignarPrecioFinal(iva);
+            if (FechaEntrega.Date == FechaPedido.Date)
+                PrecioPedidoFinal += PrecioPedidoFinal * (decimal)0.15;
             else
-                precioTotal += precioTotal * (decimal)0.15;
-            return precioTotal + (precioTotal * (iva / 100));
+                PrecioPedidoFinal += PrecioPedidoFinal * (decimal)0.10;
+            PrecioPedidoFinal += (PrecioPedidoFinal * (iva / 100));
         }
     }
 }

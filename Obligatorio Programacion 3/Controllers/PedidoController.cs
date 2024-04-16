@@ -3,6 +3,7 @@ using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
 using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones.Linea;
 using LogicaNegocio.Excepciones.Pedido;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -104,8 +105,7 @@ namespace Obligatorio_Programacion_3.Controllers
                         Articulo = art,
                         PrecioUnitario = art.PrecioPublico,
                     };
-                    Cliente cliente = CUBuscarClientePorId.BuscarClientePorId(newPedido.ClienteId);
-                    if (newPedido.IsEnvioExpress)
+                    if ((DateTime.Now - newPedido.FechaEntrega).TotalDays <= 5)
                     {
                         pedido = new PedidoExpress();
                     }
@@ -115,10 +115,10 @@ namespace Obligatorio_Programacion_3.Controllers
                     }
                     pedido.FechaEntrega = newPedido.FechaEntrega;
                     pedido.FechaPedido = DateTime.Now;
-                    pedido.Cliente = cliente;
+                    pedido.Cliente = new Cliente() { Id = newPedido.ClienteId };
                     pedido.IsAnulado = false;
                     pedido.Lineas.Add(nuevaLin);
-                    pedido.PrecioPedidoFinal = pedido.PrecioFinal(CUObtenerParametroPorNombre.ObtenerParametroPorNombre("IVA"));
+                    pedido.AsignarPrecioFinal(CUObtenerParametroPorNombre.ObtenerParametroPorNombre("IVA"));
                     CUAltaPedido.AltaPedido(pedido);
                     return RedirectToAction(nameof(Index));
                 }
@@ -181,14 +181,30 @@ namespace Obligatorio_Programacion_3.Controllers
                     CUAgregarLinea.AgregarLinea(aPedidoVM.IdPedido, linea);
                     if (aPedidoVM.AgregarOtroArticulo)
                         return RedirectToAction(nameof(AgregarLinea), aPedidoVM.IdPedido);
-                    return RedirectToAction(nameof(Index));
-            }catch(Exception ex)
+                    return RedirectToAction(nameof(Details),aPedidoVM.IdPedido);
+
+            }
+            catch(PedidoException peEx)
+            {
+                //TODO: Cambiar el viewbag por TempData y redirigirlo al método Get si el id es distinto de 0.
+
+                ViewBag.Mensaje = peEx.Message;
+            }
+            catch (LineaException liEx)
+            {
+                //TODO: Cambiar el viewbag por TempData y redirigirlo al método Get si el id es distinto de 0.
+
+                ViewBag.Mensaje = liEx.Message;
+            }
+            catch (Exception ex)
             {
                 //TODO: Cambiar el viewbag por TempData y redirigirlo al método Get si el id es distinto de 0.
                 ViewBag.Mensaje = "Hubo un error al agregar la linea";
-                ViewData["Articulos"] = new SelectList(SelectArticuloViewModel(), "Id", "Nombre");
-                return View();
             }
+            IEnumerable<ArticuloSelectViewModel> articulos = SelectArticuloViewModel();
+            ViewBag.Articulos = new SelectList(articulos, "Id", "Nombre");
+            return View(new ArticuloPedidoViewModel());
+
         }
 
         public ActionResult Anular(int id)

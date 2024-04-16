@@ -8,8 +8,8 @@ namespace Obligatorio_Programacion_3.Models
 {
     public class ArticuloPedidoViewModel
     {
+        [DisplayName("Id del Pedido")]
         public int IdPedido { get; set; }
-        [DisplayName("Pedido Express?")]
         public bool IsEnvioExpress { get; set; }
         [Display(Name = "Cliente")]
         public ClienteListadoViewModel Cliente { get; set; }

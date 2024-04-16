@@ -19,13 +19,13 @@ namespace LogicaNegocio.EntidadesNegocio
             }
         }
 
-        public override decimal PrecioFinal(decimal iva)
+        public override void AsignarPrecioFinal(decimal iva)
         {
-            decimal precioTotal = base.PrecioFinal(iva);
+            base.AsignarPrecioFinal(iva);
             if ( Cliente.DistanciaPapeleria > 100)
-                precioTotal += precioTotal*(decimal)0.05;
+                PrecioPedidoFinal += PrecioPedidoFinal * (decimal)0.05;
 
-            return precioTotal + (precioTotal*(iva/100));
+            PrecioPedidoFinal += (PrecioPedidoFinal *(iva/100));
         }
     }
 }

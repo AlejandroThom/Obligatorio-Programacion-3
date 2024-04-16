@@ -9,8 +9,6 @@ namespace Obligatorio_Programacion_3.Models
     [DisplayName("Creacion de Pedido")]
     public class PedidoViewModel
     {
-        [DisplayName("Pedido Express?")]
-        public bool IsEnvioExpress {  get; set; }
         [Display(Name ="Seleccione un cliente")]
         public int ClienteId { get; set; }
         [DisplayName("Fecha de entrega")]

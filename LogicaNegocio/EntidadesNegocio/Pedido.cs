@@ -70,10 +70,9 @@ namespace LogicaNegocio.EntidadesNegocio
             return total;
         }
 
-        public virtual decimal PrecioFinal(decimal iva)
+        public virtual void AsignarPrecioFinal(decimal iva)
         {
-            decimal precioTotal = PrecioTotalLineas();
-            return precioTotal;
+            PrecioPedidoFinal = PrecioTotalLineas();
         }
 
         private void IsPedidoAnulado() {

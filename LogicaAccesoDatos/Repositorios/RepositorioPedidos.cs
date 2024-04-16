@@ -23,7 +23,9 @@ namespace LogicaAccesoDatos.Repositorios
             foreach(Linea lin in item.Lineas)
             {
                 lin.Validar();
+                _context.Entry(lin.Articulo).State = EntityState.Unchanged;
             }
+            _context.Entry(item.Cliente).State = EntityState.Unchanged;
             _context.Pedidos.Add(item);
             _context.SaveChanges();
         }
@@ -31,6 +33,7 @@ namespace LogicaAccesoDatos.Repositorios
         public void Delete(int id)
         {
             Pedido pedido = FindById(id);
+            _context.Entry(pedido.Cliente).State = EntityState.Unchanged;
             if (pedido != null)
             {
                 _context.Pedidos.Remove(pedido);
@@ -68,12 +71,13 @@ namespace LogicaAccesoDatos.Repositorios
 
         public void AgregarLinea(int idPedido,Linea item)
         {
+            item.Validar();
             Pedido pedido = FindById(idPedido);
             if (pedido != null)
             {
                 pedido.IsLineaExistente(item);
                 pedido.Lineas.Add(item);
-                pedido.PrecioPedidoFinal = pedido.PrecioFinal(_context.Parametros.Where(p=>p.Nombre == "IVA").First().Valor);
+                pedido.AsignarPrecioFinal(_context.Parametros.Where(p=>p.Nombre == "IVA").First().Valor);
                 _context.Pedidos.Update(pedido);
                 _context.SaveChanges();
             }
