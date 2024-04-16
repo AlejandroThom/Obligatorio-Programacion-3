@@ -150,5 +150,15 @@ namespace Obligatorio_Programacion_3.Controllers
                 return View(usuarioVM);
             }
         }
+        //GET Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult InicioDeSesion()
+        {
+            return View();
+        }
     }
 }
