@@ -1,9 +1,11 @@
-﻿namespace Obligatorio_Programacion_3.Models
+﻿using LogicaNegocio.ValueObjects.UsuarioVO;
+
+namespace Obligatorio_Programacion_3.Models
 {
     public class UsuarioLoginViewModel
     {
-        public string Email { get; set; }
+        public EmailVO Email { get; set; }
 
-        public string Password { get; set; }
+        public PasswordVO Password { get; set; }
     }
 }

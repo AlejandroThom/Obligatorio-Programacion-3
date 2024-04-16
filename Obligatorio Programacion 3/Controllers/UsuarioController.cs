@@ -5,6 +5,7 @@ using LogicaNegocio.Excepciones.Cliente;
 using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion_3.Models;
 using LogicaNegocio.ValueObjects.UsuarioVO;
+using Microsoft.AspNetCore.Http;
 
 namespace Obligatorio_Programacion_3.Controllers
 {
@@ -157,9 +158,29 @@ namespace Obligatorio_Programacion_3.Controllers
         }
 
         [HttpPost]
-        public IActionResult InicioDeSesion()
+        public IActionResult InicioDeSesion(UsuarioLoginViewModel usuarioLoginVM)
         {
+            //Buscar el usuario. Cual es la mejor opcion? por id que ya existe o por email? No se como hacer!!!
+            Usuario usuario = new Usuario()
+            {
+                EmailUsuario  = usuarioLoginVM.Email,
+                PasswordUsuario = usuarioLoginVM.Password
+
+            };
+            Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuario(usuario);
+            if (usuarioBuscado != null)
+            {
+                HttpContext.Session.SetString("nombreUsu", usuarioBuscado.NombreUsuario);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                ViewBag.Mensaje = "Datos incorrectos";
+            }
+
             return View();
+
         }
+    }
     }
 }
