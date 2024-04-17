@@ -9,8 +9,9 @@ namespace DTO
 {
     public class PedidoDTO
     {
+        public int Id { get; set; }
         public DateTime FechaEntrega { get; set; }
-        public Cliente Cliente { get; set; }
+        public ClienteDTO Cliente { get; set; }
         public decimal PrecioTotal { get; set; }
     }
 }
