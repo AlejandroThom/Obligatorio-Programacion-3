@@ -12,7 +12,7 @@ namespace DTO
         public int Numero { get; set; }
         public string Ciudad { get; set; }
         public double DistanciaPapeleria { get; set; }
-        public List<PedidoDTO> Pedidos { get; set; }
+        public List<PedidoListadoDTO> Pedidos { get; set; }
 
     }
 }

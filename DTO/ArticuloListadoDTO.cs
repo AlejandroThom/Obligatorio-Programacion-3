@@ -2,7 +2,7 @@
 
 namespace DTO
 {
-    public class ArticuloDTO
+    public class ArticuloListadoDTO
     {
         public int Id { get; set; }
         public string NombreArticulo { get; set; }

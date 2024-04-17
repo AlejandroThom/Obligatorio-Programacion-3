@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class PedidoDTO
+    public class PedidoListadoDTO
     {
         public int Id { get; set; }
         public DateTime FechaEntrega { get; set; }
         public ClienteDTO Cliente { get; set; }
         public decimal PrecioTotal { get; set; }
+        public bool IsExpress { get; set; }
     }
 }
