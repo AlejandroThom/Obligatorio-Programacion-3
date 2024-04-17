@@ -1,6 +1,5 @@
 ﻿
 using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
-using LogicaNegocio.EntidadesNegocio;
 using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion_3.Models;
 
@@ -12,15 +11,19 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ICUBuscarClientesPorMonto CUBuscarClientesPorMonto { get; set; }
 
-        public ClienteController(ICUObtenerClientes cuObtenerClientes, ICUBuscarClientesPorMonto cUBuscarClientesPorMonto)
+        public ICUBuscarClientesPorNombre CUBuscarClienterPorNombre { get; set; }
+
+        public ClienteController(ICUObtenerClientes cuObtenerClientes, ICUBuscarClientesPorMonto cUBuscarClientesPorMonto, ICUBuscarClientesPorNombre cUBuscarClienterPorNombre)
         {
             CUObtenerClientes = cuObtenerClientes;
             CUBuscarClientesPorMonto = cUBuscarClientesPorMonto;
+            CUBuscarClienterPorNombre = cUBuscarClienterPorNombre;
         }
 
         public IActionResult Index()
         {
-            List<ClienteListadoViewModel> clientes = CUObtenerClientes.ObtenerClientes().Select(c => new ClienteListadoViewModel{
+            List<ClienteListadoViewModel> clientes = CUObtenerClientes.ObtenerClientes().Select(c => new ClienteListadoViewModel
+            {
                 Id = c.Id,
                 RazonSocial = c.RazonSocial,
                 RUT = c.RUT,
@@ -28,7 +31,7 @@ namespace Obligatorio_Programacion_3.Controllers
             return View(clientes);
         }
 
-        
+
         public IActionResult ClientesPorGasto(decimal monto)
         {
             try
@@ -39,13 +42,33 @@ namespace Obligatorio_Programacion_3.Controllers
                     RazonSocial = c.RazonSocial,
                     RUT = c.RUT,
                 }).ToList(); ;
-                return View("Index",clientes);
-            }catch (Exception ex)
+                return View("Index", clientes);
+            }
+            catch (Exception ex)
             {
                 ViewBag.Error = "Hubo un error";
-                return View();
+                return View("Index", new List<ClienteListadoViewModel>());
             }
-            
+
+        }
+
+        public ActionResult ClientesPorNombre(string nombre)
+        {
+            try
+            {
+                List<ClienteListadoViewModel> clientes = CUBuscarClienterPorNombre.FindClientesPorNombre(nombre).Select(c => new ClienteListadoViewModel
+                {
+                    Id = c.Id,
+                    RazonSocial = c.RazonSocial,
+                    RUT = c.RUT,
+                }).ToList(); ;
+                return View("Index", clientes);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Hubo un error";
+                return View("Index", new List<ClienteListadoViewModel>());
+            }
         }
 
     }
