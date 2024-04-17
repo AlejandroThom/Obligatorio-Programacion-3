@@ -11,7 +11,8 @@ namespace DTO
     {
         public int Id { get; set; }
         public DateTime FechaEntrega { get; set; }
-        public ClienteDTO Cliente { get; set; }
+        public int IdCliente { get; set; }
+        public string Cliente { get; set; }
         public decimal PrecioTotal { get; set; }
         public bool IsExpress { get; set; }
     }

@@ -12,7 +12,11 @@ namespace Mapper
                 throw new Exception("El objeto no puede ser nulo");
             Pedido dev;
             if (dto.IsExpress)
-                dev = new PedidoExpress() {FechaEntrega=dto.FechaEntrega,PrecioPedidoFinal=dto.PrecioTotal,Id=dto.Id };
+                dev = new PedidoExpress() {
+                    Id = dto.Id,
+                    FechaEntrega =dto.FechaEntrega,
+                    PrecioPedidoFinal=dto.PrecioTotal,
+                    Cliente=new Cliente() {RazonSocial=dto.Cliente,Id=dto.IdCliente } };
             else
                 dev = new PedidoComun();
             return dev;
@@ -28,7 +32,9 @@ namespace Mapper
                 FechaEntrega = pedido.FechaEntrega,
                 Id = pedido.Id,
                 IsExpress = pedido is PedidoExpress,
-                PrecioTotal = pedido.PrecioPedidoFinal
+                PrecioTotal = pedido.PrecioPedidoFinal,
+                Cliente = pedido.Cliente.RazonSocial,
+                IdCliente = pedido.Cliente.Id,
             };
         }
         /// <summary>
