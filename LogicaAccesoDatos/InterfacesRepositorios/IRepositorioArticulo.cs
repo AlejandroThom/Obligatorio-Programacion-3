@@ -10,5 +10,7 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
     public interface IRepositorioArticulo :IRepositorio<Articulo>
     {
         bool NombreArticuloExiste (string nombreArticulo);
+
+        List<Articulo> ArticulosOrdenados();
     }
 }

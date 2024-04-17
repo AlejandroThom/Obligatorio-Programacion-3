@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio.EntidadesNegocio
 {
     
-    public class Articulo : IValidable,IEquatable<Articulo>
+    public class Articulo : IValidable,IEquatable<Articulo>,IComparable<Articulo>
     {
         public int Id { get; set; }
 
@@ -67,6 +67,11 @@ namespace LogicaNegocio.EntidadesNegocio
         public bool Equals(Articulo? other)
         {
             return other.NombreArticulo.Nombre.Equals(NombreArticulo.Nombre);
+        }
+
+        public int CompareTo(Articulo? other)
+        {
+            return NombreArticulo.Nombre.CompareTo(other.NombreArticulo.Nombre);
         }
     }
 }

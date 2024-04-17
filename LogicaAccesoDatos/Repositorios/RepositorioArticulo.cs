@@ -26,6 +26,13 @@ namespace LogicaAccesoDatos.Repositorios
             _context.SaveChanges();
         }
 
+        public List<Articulo> ArticulosOrdenados()
+        {
+            List<Articulo> dev = _context.Articulos.ToList();
+            dev.Sort();
+            return dev;
+        }
+
         public void Delete(int id)
         {
             Articulo art = FindById(id);
