@@ -91,7 +91,9 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindPedidosAnulados()
         {
-            return _context.Pedidos.Include(p => p.Cliente).Where(p => p.IsAnulado);
+            IEnumerable<Pedido> dev = _context.Pedidos.Include(p => p.Cliente).Where(p => p.IsAnulado);
+            dev.ToList().Sort();
+            return dev;
         }
 
         public IEnumerable<Pedido> FindPedidosByDate(DateTime date)

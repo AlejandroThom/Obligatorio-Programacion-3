@@ -26,7 +26,7 @@ namespace LogicaAccesoDatos.Repositorios
             _context.SaveChanges();
         }
 
-        public List<Articulo> ArticulosOrdenados()
+        public IEnumerable<Articulo> ArticulosOrdenados()
         {
             List<Articulo> dev = _context.Articulos.ToList();
             dev.Sort();

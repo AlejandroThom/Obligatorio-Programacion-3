@@ -11,6 +11,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
     {
         bool NombreArticuloExiste (string nombreArticulo);
 
-        List<Articulo> ArticulosOrdenados();
+        IEnumerable<Articulo> ArticulosOrdenados();
     }
 }

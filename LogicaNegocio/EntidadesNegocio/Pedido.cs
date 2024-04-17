@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
-    public abstract class Pedido:IValidable
+    public abstract class Pedido:IValidable,IComparable<Pedido>
     {
         public int Id { get; set; }
         [AllowedValues([1,2],ErrorMessage ="El pedido solo puede ser Express o común")]
@@ -96,6 +96,11 @@ namespace LogicaNegocio.EntidadesNegocio
         {
             if (Lineas.Contains(item))
                 throw new PedidoException("El articulo que intenta agregar ya esta agregado.");
+        }
+
+        public int CompareTo(Pedido? other)
+        {
+            return -1*FechaPedido.CompareTo(other.FechaPedido);
         }
     }
 }
