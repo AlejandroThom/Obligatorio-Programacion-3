@@ -1,7 +1,4 @@
-﻿using LogicaNegocio.EntidadesNegocio;
-using System.ComponentModel.DataAnnotations;
-
-namespace DTO
+﻿namespace DTO
 {
     public class ClienteDTO
     {
@@ -12,7 +9,6 @@ namespace DTO
         public int Numero { get; set; }
         public string Ciudad { get; set; }
         public double DistanciaPapeleria { get; set; }
-        public List<PedidoListadoDTO> Pedidos { get; set; }
 
     }
 }

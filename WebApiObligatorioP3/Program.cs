@@ -1,6 +1,8 @@
 
 using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaAplicacion.CasosUso.CUPedido.Implementacion;
+using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
 
 namespace WebApiObligatorioP3
 {
@@ -17,6 +19,8 @@ namespace WebApiObligatorioP3
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ICUObtenerArticulosOrdenados, CUObtenerArticulosOrdenados>();
+            builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
+
 
             var app = builder.Build();
 

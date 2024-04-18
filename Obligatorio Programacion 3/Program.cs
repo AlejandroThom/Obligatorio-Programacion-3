@@ -28,7 +28,7 @@ namespace Obligatorio_Programacion_3
             });
 
             //Repositorio Articulos
-            builder.Services.AddScoped<IRepositorioArticulo,RepositorioArticulo>();
+            builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticulo>();
 
             //CASO DE USO DE LOS ARTICULOS
             builder.Services.AddScoped<ICUAltaArticulo, CUAltaArticulo>();
@@ -44,7 +44,7 @@ namespace Obligatorio_Programacion_3
 
             //CASO DE USO DE LOS CLIENTES
             builder.Services.AddScoped<ICUObtenerClientes, CUObtenerClientes>();
-            builder.Services.AddScoped<ICUBuscarClientesPorMonto,CUBuscarClientesPorMonto>();
+            builder.Services.AddScoped<ICUBuscarClientesPorMonto, CUBuscarClientesPorMonto>();
             builder.Services.AddScoped<ICUBuscarClientesPorNombre, CUBuscarClientesPorNombre>();
             builder.Services.AddScoped<ICUBuscarClientePorId, CUBuscarClientePorId>();
 
@@ -58,7 +58,6 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUEliminarPedido, CUEliminarPedido>();
             builder.Services.AddScoped<ICUModificarPedido, CUModificarPedido>();
             builder.Services.AddScoped<ICUObtenerPedidos, CUObtenerPedidos>();
-            builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
             builder.Services.AddScoped<ICUObtenerPedidosPorFecha, CUObtenerPedidosPorFecha>();
             builder.Services.AddScoped<ICUAnularPedido, CUAnularPedido>();
             builder.Services.AddScoped<ICUAgregarLinea, CUAgregarLinea>();
@@ -78,7 +77,7 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<IRepositorioParametro, RepositorioParametro>();
 
             //Caso de uso Parametros
-            builder.Services.AddScoped<ICUModificarParametro,CUModificarParametro>();
+            builder.Services.AddScoped<ICUModificarParametro, CUModificarParametro>();
             builder.Services.AddScoped<ICUObtenerParametroPorNombre, CUObtenerParametroPorNombre>();
 
 
@@ -95,7 +94,7 @@ namespace Obligatorio_Programacion_3
                 options.Cookie.IsEssential = true;
             });
 
-            
+
 
             var app = builder.Build();
 
