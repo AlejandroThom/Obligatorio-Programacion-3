@@ -1,11 +1,10 @@
 ﻿using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
-using LogicaNegocio.Utils;
 using LogicaNegocio.Excepciones.Cliente;
+using LogicaNegocio.Utils;
+using LogicaNegocio.ValueObjects.UsuarioVO;
 using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion_3.Models;
-using LogicaNegocio.ValueObjects.UsuarioVO;
-using Microsoft.AspNetCore.Http;
 
 namespace Obligatorio_Programacion_3.Controllers
 {
@@ -33,7 +32,7 @@ namespace Obligatorio_Programacion_3.Controllers
             IEnumerable<Usuario> usuarios = CUObtenerUsuarios.ObtenerUsuarios();
             IEnumerable<UsuarioListadoViewModel> usuarioVM = usuarios.Select(u => new UsuarioListadoViewModel()
             {
-                Id = u.Id ,
+                Id = u.Id,
                 Email = u.EmailUsuario,
                 Nombre = u.NombreUsuario,
                 Apellido = u.ApellidoUsuario,
@@ -115,20 +114,20 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             try
             {
-            Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorId(id);
-            if(usuarioBuscado == null)
-            {
-                throw new Exception("No existe un usuario con ese id");
+                Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorId(id);
+                if (usuarioBuscado == null)
+                {
+                    throw new Exception("No existe un usuario con ese id");
+                }
+                UsuarioListadoViewModel usuarioVM = new UsuarioListadoViewModel()
+                {
+                    Id = usuarioBuscado.Id,
+                    Nombre = usuarioBuscado.NombreUsuario,
+                    Apellido = usuarioBuscado.ApellidoUsuario,
+                };
+                return View(usuarioVM);
             }
-            UsuarioListadoViewModel usuarioVM = new UsuarioListadoViewModel()
-            {
-                Id = usuarioBuscado.Id,
-                Nombre = usuarioBuscado.NombreUsuario,
-                Apellido = usuarioBuscado.ApellidoUsuario,
-            };
-            return View(usuarioVM);
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Mensaje = ex.Message;
                 return View(new UsuarioListadoViewModel());
@@ -161,12 +160,21 @@ namespace Obligatorio_Programacion_3.Controllers
         public IActionResult InicioDeSesion(UsuarioLoginViewModel usuarioLoginVM)
         {
             //Buscar el usuario. Cual es la mejor opcion? por id que ya existe o por email? No se como hacer!!!
+            //Del form del login obtienes el email y la pwd entonces tenes que buscar con esos datos
+            /*Vas desde la interfaz del repo y creas el método, luego lo implementas en el repositorio,
+             * despues de eso creas el caso de uso,por consiguiente le pones el addscoped en program de mvc y luego lo
+             * usas en el controlador, cualquier cosa me decis. :D
+             */
             Usuario usuario = new Usuario()
             {
-                EmailUsuario  = usuarioLoginVM.Email,
+                EmailUsuario = usuarioLoginVM.Email,
                 PasswordUsuario = usuarioLoginVM.Password
 
             };
+            /*TODO:Crear Caso de uso para buscar Usuario por email y password
+             * (usar el FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password))
+              siendo 'user' el parametro del método.
+             */
             Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuario(usuario);
             if (usuarioBuscado != null)
             {
@@ -182,5 +190,5 @@ namespace Obligatorio_Programacion_3.Controllers
 
         }
     }
-    }
+}
 }
