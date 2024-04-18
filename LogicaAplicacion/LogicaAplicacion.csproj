@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\LogicaAccesoDatos\LogicaAccesoDatos.csproj" />
     <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
+    <ProjectReference Include="..\Mapper\Mapper.csproj" />
   </ItemGroup>
 
 </Project>

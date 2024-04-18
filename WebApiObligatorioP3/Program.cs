@@ -1,4 +1,7 @@
 
+using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
+using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+
 namespace WebApiObligatorioP3
 {
     public class Program
@@ -13,6 +16,7 @@ namespace WebApiObligatorioP3
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<ICUObtenerArticulosOrdenados, CUObtenerArticulosOrdenados>();
 
             var app = builder.Build();
 

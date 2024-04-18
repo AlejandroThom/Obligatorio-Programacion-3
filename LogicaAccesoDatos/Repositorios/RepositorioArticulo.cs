@@ -1,12 +1,6 @@
 ﻿using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
@@ -14,7 +8,7 @@ namespace LogicaAccesoDatos.Repositorios
     {
         private readonly PapeleriaContext _context;
 
-        public RepositorioArticulo (PapeleriaContext context)
+        public RepositorioArticulo(PapeleriaContext context)
         {
             _context = context;
         }
@@ -26,7 +20,7 @@ namespace LogicaAccesoDatos.Repositorios
             _context.SaveChanges();
         }
 
-        public IEnumerable<Articulo> ArticulosOrdenados()
+        public IEnumerable<Articulo> ObtenerArticulosOrdenados()
         {
             List<Articulo> dev = _context.Articulos.ToList();
             dev.Sort();
@@ -41,7 +35,8 @@ namespace LogicaAccesoDatos.Repositorios
                 _context.Articulos.Remove(art);
                 _context.SaveChanges();
             }
-            else{
+            else
+            {
                 throw new Exception($"El articulo con el Id '{id}' no existe.");
             }
         }
@@ -57,7 +52,7 @@ namespace LogicaAccesoDatos.Repositorios
 
         public bool NombreArticuloExiste(string nombreArticulo)
         {
-            if(_context.Articulos.FirstOrDefault(a => a.NombreArticulo.Nombre.Equals(nombreArticulo)) == null)
+            if (_context.Articulos.FirstOrDefault(a => a.NombreArticulo.Nombre.Equals(nombreArticulo)) == null)
                 return false;
             return true;
         }
