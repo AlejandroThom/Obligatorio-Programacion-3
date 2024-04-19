@@ -3,7 +3,7 @@ using LogicaNegocio.EntidadesNegocio;
 
 namespace Mapper
 {
-    public class PedidoMappers
+    public static class PedidoMappers
     {
         public static Pedido FromDto(PedidoListadoDTO dto)
         {
@@ -12,11 +12,13 @@ namespace Mapper
                 throw new Exception("El objeto no puede ser nulo");
             Pedido dev;
             if (dto.IsExpress)
-                dev = new PedidoExpress() {
+                dev = new PedidoExpress()
+                {
                     Id = dto.Id,
-                    FechaEntrega =dto.FechaEntrega,
-                    PrecioPedidoFinal=dto.PrecioTotal,
-                    Cliente=new Cliente() {RazonSocial=dto.Cliente,Id=dto.IdCliente } };
+                    FechaEntrega = dto.FechaEntrega,
+                    PrecioPedidoFinal = dto.PrecioTotal,
+                    Cliente = new Cliente() { RazonSocial = dto.Cliente, Id = dto.IdCliente }
+                };
             else
                 dev = new PedidoComun();
             return dev;

@@ -3,7 +3,7 @@ using LogicaNegocio.EntidadesNegocio;
 
 namespace Mapper
 {
-    public class ArticuloMappers
+    public static class ArticuloMappers
     {
         public static ArticuloListadoDTO ToDto(Articulo articulo)
         {
