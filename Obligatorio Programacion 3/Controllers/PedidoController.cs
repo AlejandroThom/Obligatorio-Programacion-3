@@ -183,7 +183,12 @@ namespace Obligatorio_Programacion_3.Controllers
             try
             {
                 Articulo art = CUObtenerArticulo.BuscarArticuloPorId(aPedidoVM.IdArticulo);
-                Linea linea = new Linea() { Articulo = art, CantArticulo = aPedidoVM.CantidadArticulo, PrecioUnitario = art.PrecioPublico };
+                Linea linea = new Linea()
+                {
+                    Articulo = art,
+                    CantArticulo = aPedidoVM.CantidadArticulo,
+                    PrecioUnitario = art.PrecioPublico
+                };
                 CUAgregarLinea.AgregarLinea(aPedidoVM.IdPedido, linea);
                 if (aPedidoVM.AgregarOtroArticulo)
                     return RedirectToAction(nameof(AgregarLinea), aPedidoVM.IdPedido);

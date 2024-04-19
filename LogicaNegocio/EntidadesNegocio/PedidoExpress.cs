@@ -1,10 +1,4 @@
-﻿using LogicaNegocio.Enums;
-using LogicaNegocio.Excepciones.Pedido;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicaNegocio.Excepciones.Pedido;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
@@ -26,6 +20,18 @@ namespace LogicaNegocio.EntidadesNegocio
             else
                 PrecioPedidoFinal += PrecioPedidoFinal * (decimal)0.10;
             PrecioPedidoFinal += (PrecioPedidoFinal * (iva / 100));
+        }
+
+        public override void AgregarLinea(decimal iva, Linea linea)
+        {
+            Lineas.Add(linea);
+            decimal precioLineaFinal = linea.PrecioTotal();
+            if (FechaEntrega.Date == FechaPedido.Date)
+                precioLineaFinal += precioLineaFinal * (decimal)0.15;
+            else
+                precioLineaFinal += precioLineaFinal * (decimal)0.10;
+            precioLineaFinal += (precioLineaFinal * (iva / 100));
+            PrecioPedidoFinal += precioLineaFinal;
         }
     }
 }

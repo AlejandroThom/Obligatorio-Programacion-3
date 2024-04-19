@@ -71,9 +71,9 @@ namespace LogicaAccesoDatos.Repositorios
             Pedido pedido = FindById(idPedido);
             if (pedido != null)
             {
+                _context.Entry(item.Articulo).State = EntityState.Unchanged;
                 pedido.IsLineaExistente(item);
-                pedido.Lineas.Add(item);
-                pedido.AsignarPrecioFinal(_context.Parametros.Where(p => p.Nombre == "IVA").First().Valor);
+                pedido.AgregarLinea(_context.Parametros.FirstOrDefault(p => p.Nombre == "IVA").Valor, item);
                 _context.Pedidos.Update(pedido);
                 _context.SaveChanges();
             }

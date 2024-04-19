@@ -1,30 +1,24 @@
-﻿using LogicaNegocio.Enums;
-using LogicaNegocio.Excepciones.Pedido;
+﻿using LogicaNegocio.Excepciones.Pedido;
 using LogicaNegocio.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
-    public abstract class Pedido:IValidable,IComparable<Pedido>
+    public abstract class Pedido : IValidable, IComparable<Pedido>
     {
         public int Id { get; set; }
-        [AllowedValues([1,2],ErrorMessage ="El pedido solo puede ser Express o común")]
+        [AllowedValues([1, 2], ErrorMessage = "El pedido solo puede ser Express o común")]
         public Cliente Cliente { get; set; }
         public DateTime FechaPedido { get; set; }
         public DateTime FechaEntrega { get; set; }
         [DefaultValue(false)]
         public bool IsAnulado { get; set; }
-        public List<Linea> Lineas { get; set; } 
-        public decimal PrecioPedidoFinal {  get; set; }
+        public List<Linea> Lineas { get; set; }
+        public decimal PrecioPedidoFinal { get; set; }
 
-        public Pedido(){
+        public Pedido()
+        {
             Lineas = new List<Linea>();
         }
 
@@ -54,7 +48,7 @@ namespace LogicaNegocio.EntidadesNegocio
 
         public virtual void ValidarFechaEntrega()
         {
-            if ((FechaEntrega - FechaPedido).TotalDays<0)
+            if ((FechaEntrega - FechaPedido).TotalDays < 0)
             {
                 throw new PedidoException("Los pedidos no pueden entregar en el pasado");
             }
@@ -63,7 +57,7 @@ namespace LogicaNegocio.EntidadesNegocio
         private decimal PrecioTotalLineas()
         {
             decimal total = 0;
-            foreach(Linea linea in Lineas)
+            foreach (Linea linea in Lineas)
             {
                 total += linea.PrecioTotal();
             }
@@ -75,7 +69,8 @@ namespace LogicaNegocio.EntidadesNegocio
             PrecioPedidoFinal = PrecioTotalLineas();
         }
 
-        private void IsPedidoAnulado() {
+        private void IsPedidoAnulado()
+        {
             if (IsAnulado)
                 throw new PedidoException("El pedido está anulado, no puede agregarle nuevas lineas");
         }
@@ -92,6 +87,8 @@ namespace LogicaNegocio.EntidadesNegocio
             IsPedidoEntregado();
         }
 
+        public abstract void AgregarLinea(decimal iva, Linea linea);
+
         public void IsLineaExistente(Linea item)
         {
             if (Lineas.Contains(item))
@@ -100,7 +97,7 @@ namespace LogicaNegocio.EntidadesNegocio
 
         public int CompareTo(Pedido? other)
         {
-            return -1*FechaPedido.CompareTo(other.FechaPedido);
+            return -1 * FechaPedido.CompareTo(other.FechaPedido);
         }
     }
 }
