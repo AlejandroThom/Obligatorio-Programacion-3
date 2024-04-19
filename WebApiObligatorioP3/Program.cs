@@ -1,10 +1,12 @@
 
+using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAccesoDatos.Repositorios;
 using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
 using LogicaAplicacion.CasosUso.CUPedido.Implementacion;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApiObligatorioP3
 {
@@ -20,8 +22,16 @@ namespace WebApiObligatorioP3
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<PapeleriaContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionDb"));
+            });
+
             builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticulo>();
+
             builder.Services.AddScoped<ICUObtenerArticulosOrdenados, CUObtenerArticulosOrdenados>();
+
             builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidos>();
 
             builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
