@@ -57,7 +57,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidos.ObtenerPedidos().Select(p => new PedidoListadoViewModel()
             {
-                Id= p.Id,
+                Id = p.Id,
                 Cliente = p.Cliente,
                 FechaEntrega = p.FechaEntrega,
                 FechaPedido = p.FechaPedido,
@@ -70,14 +70,17 @@ namespace Obligatorio_Programacion_3.Controllers
         public IActionResult BuscarPedidoPorFecha(DateTime fecha)
         {
             IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidosPorFecha.ObtenerPedidosPorFecha(fecha.Date).Select(
-                p=>new PedidoListadoViewModel() {
+                p => new PedidoListadoViewModel()
+                {
                     Id = p.Id,
-                    Cliente = p.Cliente,Precio=p.PrecioPedidoFinal,
-                    FechaEntrega=p.FechaEntrega,FechaPedido=p.FechaPedido,
+                    Cliente = p.Cliente,
+                    Precio = p.PrecioPedidoFinal,
+                    FechaEntrega = p.FechaEntrega,
+                    FechaPedido = p.FechaPedido,
                     IsAnulado = p.IsAnulado,
                 }
                 ).ToList();
-            return View("Index",pedidos);
+            return View("Index", pedidos);
         }
 
         public ActionResult Create()
@@ -96,16 +99,17 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     Pedido pedido;
                     Articulo art = CUObtenerArticulo.BuscarArticuloPorId(newPedido.ArticuloId);
-                    Linea nuevaLin = new Linea() { 
+                    Linea nuevaLin = new Linea()
+                    {
                         CantArticulo = newPedido.CantidadArticulo,
                         Articulo = art,
                         PrecioUnitario = art.PrecioPublico,
                     };
-                    if ((DateTime.Now - newPedido.FechaEntrega).TotalDays <= 5)
+                    if ((newPedido.FechaEntrega - DateTime.Now).TotalDays <= 5)
                     {
                         pedido = new PedidoExpress();
                     }
@@ -141,23 +145,25 @@ namespace Obligatorio_Programacion_3.Controllers
         }
 
         [HttpGet]
-        public ActionResult AgregarLinea(int id) 
+        public ActionResult AgregarLinea(int id)
         {
             try
             {
                 Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
                 ped.IsPedidoModificable();
-                ArticuloPedidoViewModel articuloPedidoViewModel = new ArticuloPedidoViewModel() { 
+                ArticuloPedidoViewModel articuloPedidoViewModel = new ArticuloPedidoViewModel()
+                {
                     IsEnvioExpress = ped is PedidoExpress,
-                    Cliente = new ClienteListadoViewModel() {RazonSocial = ped.Cliente.RazonSocial },
+                    Cliente = new ClienteListadoViewModel() { RazonSocial = ped.Cliente.RazonSocial },
                     FechaEntrega = ped.FechaEntrega,
                     IdPedido = id
                 };
                 IEnumerable<ArticuloSelectViewModel> articulos = SelectArticuloViewModel();
                 ViewBag.Articulos = new SelectList(articulos, "Id", "Nombre");
                 return View(articuloPedidoViewModel);
-                
-            }catch(PedidoException pedEx)
+
+            }
+            catch (PedidoException pedEx)
             {
                 ViewBag.Mensaje = pedEx.Message;
                 return View(new ArticuloPedidoViewModel());
@@ -167,7 +173,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 ViewBag.Mensaje = "Hubo un error";
                 return View(new ArticuloPedidoViewModel());
             }
-            
+
         }
 
         [HttpPost]
@@ -176,15 +182,15 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             try
             {
-                    Articulo art = CUObtenerArticulo.BuscarArticuloPorId(aPedidoVM.IdArticulo);
-                    Linea linea = new Linea() { Articulo = art, CantArticulo = aPedidoVM.CantidadArticulo, PrecioUnitario = art.PrecioPublico };
-                    CUAgregarLinea.AgregarLinea(aPedidoVM.IdPedido, linea);
-                    if (aPedidoVM.AgregarOtroArticulo)
-                        return RedirectToAction(nameof(AgregarLinea), aPedidoVM.IdPedido);
-                    return RedirectToAction(nameof(Details),aPedidoVM.IdPedido);
+                Articulo art = CUObtenerArticulo.BuscarArticuloPorId(aPedidoVM.IdArticulo);
+                Linea linea = new Linea() { Articulo = art, CantArticulo = aPedidoVM.CantidadArticulo, PrecioUnitario = art.PrecioPublico };
+                CUAgregarLinea.AgregarLinea(aPedidoVM.IdPedido, linea);
+                if (aPedidoVM.AgregarOtroArticulo)
+                    return RedirectToAction(nameof(AgregarLinea), aPedidoVM.IdPedido);
+                return RedirectToAction(nameof(Details), aPedidoVM.IdPedido);
 
             }
-            catch(PedidoException peEx)
+            catch (PedidoException peEx)
             {
                 //TODO: Cambiar el viewbag por TempData y redirigirlo al método Get si el id es distinto de 0.
 
@@ -235,13 +241,13 @@ namespace Obligatorio_Programacion_3.Controllers
                 ViewData["Mensaje"] = "Hubo un error al cargar el pedido";
                 return View(new PedidoListadoViewModel());
             }
-            
+
         }
 
         // POST: ArticuloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Anular(int id,PedidoListadoViewModel pedidoLVM)
+        public ActionResult Anular(int id, PedidoListadoViewModel pedidoLVM)
         {
             try
             {
@@ -263,12 +269,14 @@ namespace Obligatorio_Programacion_3.Controllers
         public ActionResult Details(int id)
         {
             Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
-            List<LineaListadoViewModel> lineasLVM = ped.Lineas.Select(p => new LineaListadoViewModel() {
+            List<LineaListadoViewModel> lineasLVM = ped.Lineas.Select(p => new LineaListadoViewModel()
+            {
                 CantidadArticulo = p.CantArticulo,
                 NombreArticulo = p.Articulo.NombreArticulo.Nombre,
                 PrecioTotal = p.PrecioTotal()
             }).ToList();
-            PedidoDetailsViewModel details = new PedidoDetailsViewModel() {
+            PedidoDetailsViewModel details = new PedidoDetailsViewModel()
+            {
                 Cliente = ped.Cliente.RazonSocial,
                 FechaEntrega = ped.FechaEntrega,
                 FechaPedido = ped.FechaPedido,

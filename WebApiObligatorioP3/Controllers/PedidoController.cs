@@ -1,5 +1,6 @@
 ﻿using DTO;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
+using Mapper;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,7 +18,7 @@ namespace WebApiObligatorioP3.Controllers
             CUObtenerPedidosAnulados = cuObtenerPedidosAnulados;
         }
 
-
+        /*
         // GET: api/<PedidoController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -30,14 +31,14 @@ namespace WebApiObligatorioP3.Controllers
         public string Get(int id)
         {
             return "value";
-        }
+        }*/
 
         [HttpGet]
         public IEnumerable<PedidoListadoDTO> GetPedidosAnuladosOrdenados()
         {
-            return CUObtenerPedidosAnulados.ObtenerPedidosAnulados();
+            return PedidoMappers.ToListaDto(CUObtenerPedidosAnulados.ObtenerPedidosAnulados());
         }
-
+        /*
 
         // POST api/<PedidoController>
         [HttpPost]
@@ -55,6 +56,6 @@ namespace WebApiObligatorioP3.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }

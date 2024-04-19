@@ -1,7 +1,6 @@
-﻿using DTO;
-using LogicaAccesoDatos.InterfacesRepositorios;
+﻿using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
-using Mapper;
+using LogicaNegocio.EntidadesNegocio;
 
 namespace LogicaAplicacion.CasosUso.CUArticulo.Implementacion
 {
@@ -13,9 +12,9 @@ namespace LogicaAplicacion.CasosUso.CUArticulo.Implementacion
             Repo = repo;
         }
 
-        public IEnumerable<ArticuloListadoDTO> ObtenerArticulosOrdenados()
+        public IEnumerable<Articulo> ObtenerArticulosOrdenados()
         {
-            return ArticuloMappers.ToListaDto(Repo.ObtenerArticulosOrdenados());
+            return Repo.ObtenerArticulosOrdenados();
         }
     }
 }

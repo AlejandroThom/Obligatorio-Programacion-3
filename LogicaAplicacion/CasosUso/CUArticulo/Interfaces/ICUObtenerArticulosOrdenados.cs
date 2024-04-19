@@ -1,9 +1,9 @@
-﻿using DTO;
+﻿using LogicaNegocio.EntidadesNegocio;
 
 namespace LogicaAplicacion.CasosUso.CUArticulo.Interfaces
 {
     public interface ICUObtenerArticulosOrdenados
     {
-        IEnumerable<ArticuloListadoDTO> ObtenerArticulosOrdenados();
+        IEnumerable<Articulo> ObtenerArticulosOrdenados();
     }
 }

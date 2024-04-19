@@ -1,7 +1,7 @@
-﻿using DTO;
+﻿
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
-using Mapper;
+using LogicaNegocio.EntidadesNegocio;
 
 namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
 {
@@ -14,9 +14,9 @@ namespace LogicaAplicacion.CasosUso.CUPedido.Implementacion
             Repositorio = repo;
         }
 
-        public IEnumerable<PedidoListadoDTO> ObtenerPedidosAnulados()
+        public IEnumerable<Pedido> ObtenerPedidosAnulados()
         {
-            return PedidoMappers.ToListaDto(Repositorio.FindPedidosAnulados());
+            return Repositorio.FindPedidosAnulados();
         }
     }
 }

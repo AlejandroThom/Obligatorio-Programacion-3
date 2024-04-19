@@ -1,5 +1,6 @@
 ﻿using DTO;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using Mapper;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,20 +17,20 @@ namespace WebApiObligatorioP3.Controllers
         {
             CUObtenerArticulosOrdenados = cuObtenerArtuculosOrdenados;
         }
-
+        /*
         // GET: api/<ArticuloController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
-        }
+        }*/
 
         [HttpGet]
         public IEnumerable<ArticuloListadoDTO> GetArticulosOrdenados()
         {
-            return CUObtenerArticulosOrdenados.ObtenerArticulosOrdenados();
+            return ArticuloMappers.ToListaDto(CUObtenerArticulosOrdenados.ObtenerArticulosOrdenados());
         }
-
+        /*
 
         // GET api/<ArticuloController>/5
         [HttpGet("{id}")]
@@ -54,6 +55,6 @@ namespace WebApiObligatorioP3.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }

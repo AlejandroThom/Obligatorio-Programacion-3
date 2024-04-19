@@ -1,9 +1,9 @@
-﻿using DTO;
+﻿using LogicaNegocio.EntidadesNegocio;
 
 namespace LogicaAplicacion.CasosUso.CUPedido.Interfaces
 {
     public interface ICUObtenerPedidosAnulados
     {
-        IEnumerable<PedidoListadoDTO> ObtenerPedidosAnulados();
+        IEnumerable<Pedido> ObtenerPedidosAnulados();
     }
 }

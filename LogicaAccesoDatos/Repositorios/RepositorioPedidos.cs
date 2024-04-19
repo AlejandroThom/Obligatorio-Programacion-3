@@ -2,11 +2,6 @@
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
@@ -20,7 +15,7 @@ namespace LogicaAccesoDatos.Repositorios
         public void Add(Pedido item)
         {
             item.Validar();
-            foreach(Linea lin in item.Lineas)
+            foreach (Linea lin in item.Lineas)
             {
                 lin.Validar();
                 _context.Entry(lin.Articulo).State = EntityState.Unchanged;
@@ -39,19 +34,20 @@ namespace LogicaAccesoDatos.Repositorios
                 _context.Pedidos.Remove(pedido);
                 _context.SaveChanges();
             }
-            else{
+            else
+            {
                 throw new Exception("No existe un pedido con ese id");
             }
         }
 
         public IEnumerable<Pedido> FindAll()
         {
-            return _context.Pedidos.Include(p=>p.Cliente);
+            return _context.Pedidos.Include(p => p.Cliente).ToList();
         }
 
         public Pedido FindById(int id)
         {
-            return _context.Pedidos.Include(p => p.Cliente).Include(p=>p.Lineas).ThenInclude(linea => linea.Articulo).FirstOrDefault(p=>p.Id==id);
+            return _context.Pedidos.Include(p => p.Cliente).Include(p => p.Lineas).ThenInclude(linea => linea.Articulo).FirstOrDefault(p => p.Id == id);
         }
 
         public void Update(Pedido item)
@@ -69,7 +65,7 @@ namespace LogicaAccesoDatos.Repositorios
             }
         }
 
-        public void AgregarLinea(int idPedido,Linea item)
+        public void AgregarLinea(int idPedido, Linea item)
         {
             item.Validar();
             Pedido pedido = FindById(idPedido);
@@ -77,7 +73,7 @@ namespace LogicaAccesoDatos.Repositorios
             {
                 pedido.IsLineaExistente(item);
                 pedido.Lineas.Add(item);
-                pedido.AsignarPrecioFinal(_context.Parametros.Where(p=>p.Nombre == "IVA").First().Valor);
+                pedido.AsignarPrecioFinal(_context.Parametros.Where(p => p.Nombre == "IVA").First().Valor);
                 _context.Pedidos.Update(pedido);
                 _context.SaveChanges();
             }
@@ -91,15 +87,15 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindPedidosAnulados()
         {
-            IEnumerable<Pedido> dev = _context.Pedidos.Include(p => p.Cliente).Where(p => p.IsAnulado);
+            IEnumerable<Pedido> dev = _context.Pedidos.Include(p => p.Cliente).Where(p => p.IsAnulado).ToList();
             dev.ToList().Sort();
             return dev;
         }
 
         public IEnumerable<Pedido> FindPedidosByDate(DateTime date)
         {
-            return _context.Pedidos.Include(p=>p.Cliente)
-                .Where(p => p.FechaPedido.Date == date.Date && p.FechaEntrega>DateTime.Now && !p.IsAnulado);
+            return _context.Pedidos.Include(p => p.Cliente)
+                .Where(p => p.FechaPedido.Date == date.Date && p.FechaEntrega > DateTime.Now && !p.IsAnulado).ToList();
         }
 
         public void AnularPedido(int id)
