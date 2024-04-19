@@ -175,6 +175,7 @@ namespace Obligatorio_Programacion_3.Controllers
              * (usar el FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password))
               siendo 'user' el parametro del método.
              */
+            /*
             Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuario(usuario);
             if (usuarioBuscado != null)
             {
@@ -185,10 +186,10 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 ViewBag.Mensaje = "Datos incorrectos";
             }
-
+            */
             return View();
 
         }
     }
 }
-}
+

@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaAccesoDatos", "..\Log
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicaAplicacion", "..\LogicaAplicacion\LogicaAplicacion.csproj", "{21D92ECC-4242-4DD3-9115-3FDF810992D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiObligatorioP3", "..\WebApiObligatorioP3\WebApiObligatorioP3.csproj", "{2A5F74F4-615D-41CA-B9AF-301FAD72D098}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiObligatorioP3", "..\WebApiObligatorioP3\WebApiObligatorioP3.csproj", "{2A5F74F4-615D-41CA-B9AF-301FAD72D098}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "..\DTO\DTO.csproj", "{476EE8D6-618B-47DB-B020-231868F88D64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "..\DTO\DTO.csproj", "{476EE8D6-618B-47DB-B020-231868F88D64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "..\Mapper\Mapper.csproj", "{39C635F9-B77A-4E1F-8699-C924AB5D7016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper", "..\Mapper\Mapper.csproj", "{39C635F9-B77A-4E1F-8699-C924AB5D7016}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
