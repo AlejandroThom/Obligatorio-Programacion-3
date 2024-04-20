@@ -12,9 +12,9 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
 {
     public class CUBuscarUsuario : ICUBuscarUsuario
     {
-        public IRepositorio<Usuario> Repositorio { get; set; }
+        public IRepositorioUsuario Repositorio { get; set; }
 
-        public CUBuscarUsuario(IRepositorio<Usuario> repositorio)
+        public CUBuscarUsuario(IRepositorioUsuario repositorio)
         {
             Repositorio = repositorio;
         }

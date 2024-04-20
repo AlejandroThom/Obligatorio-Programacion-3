@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
 {
     public class CUObtenerUsuarios : ICUObtenerUsuarios
     {
-        public IRepositorio<Usuario> Repositorio { get; set; }
+        public IRepositorioUsuario Repositorio { get; set; }
 
-        public CUObtenerUsuarios(IRepositorio<Usuario> repositorio)
+        public CUObtenerUsuarios(IRepositorioUsuario repositorio)
         {
             Repositorio = repositorio;
         }
