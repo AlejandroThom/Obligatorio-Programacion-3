@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
-    public class RepositorioUsuarios : IRepositorio<Usuario>
+    public class RepositorioUsuarios : IRepositorioUsuario
     {
         private readonly PapeleriaContext _context;
         public RepositorioUsuarios(PapeleriaContext context) {
