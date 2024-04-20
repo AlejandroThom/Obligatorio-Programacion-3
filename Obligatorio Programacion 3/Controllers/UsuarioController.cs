@@ -1,6 +1,7 @@
 ﻿using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
 using LogicaNegocio.Excepciones.Cliente;
+using LogicaNegocio.Excepciones.Usuario;
 using LogicaNegocio.Utils;
 using LogicaNegocio.ValueObjects.UsuarioVO;
 using Microsoft.AspNetCore.Mvc;
@@ -159,35 +160,29 @@ namespace Obligatorio_Programacion_3.Controllers
         [HttpPost]
         public IActionResult InicioDeSesion(UsuarioLoginViewModel usuarioLoginVM)
         {
-            //Buscar el usuario. Cual es la mejor opcion? por id que ya existe o por email? No se como hacer!!!
-            //Del form del login obtienes el email y la pwd entonces tenes que buscar con esos datos
-            /*Vas desde la interfaz del repo y creas el método, luego lo implementas en el repositorio,
-             * despues de eso creas el caso de uso,por consiguiente le pones el addscoped en program de mvc y luego lo
-             * usas en el controlador, cualquier cosa me decis. :D
-             */
-            Usuario usuario = new Usuario()
-            {
-                EmailUsuario = usuarioLoginVM.Email,
-                PasswordUsuario = usuarioLoginVM.Password
 
-            };
-            /*TODO:Crear Caso de uso para buscar Usuario por email y password
-             * (usar el FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password))
-              siendo 'user' el parametro del método.
-             */
-            /*
-            Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuario(usuario);
-            if (usuarioBuscado != null)
+            try
             {
-                HttpContext.Session.SetString("nombreUsu", usuarioBuscado.NombreUsuario);
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
+                Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorEmailYPassword(usuarioLoginVM.Email, usuarioLoginVM.Password);
+                if (usuarioBuscado != null)
+                {
+                    HttpContext.Session.SetString("nombreUsu", usuarioBuscado.NombreUsuario.ToString());
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
                 ViewBag.Mensaje = "Datos incorrectos";
+                return View();
+
+                }
             }
-            */
-            return View();
+            catch (UsuarioException ex) 
+            {
+                ViewBag.Mensaje = ex.Message;
+                return View(new UsuarioLoginViewModel());
+
+            }
+
 
         }
     }

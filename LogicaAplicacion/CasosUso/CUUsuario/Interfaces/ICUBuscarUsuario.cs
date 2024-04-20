@@ -1,4 +1,5 @@
 ﻿using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.ValueObjects.UsuarioVO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Interfaces
     public interface ICUBuscarUsuario
     {
         Usuario BuscarUsuarioPorId(int id);
+        Usuario BuscarUsuarioPorEmailYPassword(EmailVO email, PasswordVO pass);
 
     }
 }
