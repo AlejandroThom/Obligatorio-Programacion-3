@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicaNegocio.ValueObjects.UsuarioVO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
         IEnumerable<T> FindAll();//Obtener todos
 
         T FindById(int id); //Buscar por identificador
+        T FIndByEmailAndPass(EmailVO email, PasswordVO pass); //Buscar por email y password
     }
 }

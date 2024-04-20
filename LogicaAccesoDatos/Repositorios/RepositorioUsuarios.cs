@@ -1,6 +1,7 @@
 ﻿using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.ValueObjects.UsuarioVO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,10 @@ namespace LogicaAccesoDatos.Repositorios
             {
                 throw new Exception("No existe un usuario con ese id");
             }
+        }
+        public Usuario FindByEmailAndPAss(EmailVO email, PasswordVO pass)
+        {
+            return _context.Usuarios.SingleOrDefault(u => u.EmailUsuario == email && u.PasswordUsuario == pass);
         }
     }
 }
