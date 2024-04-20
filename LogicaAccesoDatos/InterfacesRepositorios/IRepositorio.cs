@@ -16,6 +16,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
         IEnumerable<T> FindAll();//Obtener todos
 
         T FindById(int id); //Buscar por identificador
-        Usuario FindByEmailAndPass(EmailVO email, PasswordVO pass);
+        
     }
 }
