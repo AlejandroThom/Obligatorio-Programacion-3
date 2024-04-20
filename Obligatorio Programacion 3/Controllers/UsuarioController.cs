@@ -152,7 +152,7 @@ namespace Obligatorio_Programacion_3.Controllers
             }
         }
         //GET Login
-        public IActionResult Login()
+        public IActionResult InicioDeSesion()
         {
             return View();
         }
