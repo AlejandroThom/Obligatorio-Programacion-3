@@ -64,7 +64,7 @@ namespace LogicaAccesoDatos.Repositorios
                 throw new Exception("No existe un usuario con ese id");
             }
         }
-        public Usuario FindByEmailAndPAss(EmailVO email, PasswordVO pass)
+        public Usuario FindByEmailAndPass(EmailVO email, PasswordVO pass)
         {
             return _context.Usuarios.SingleOrDefault(u => u.EmailUsuario == email && u.PasswordUsuario == pass);
         }
