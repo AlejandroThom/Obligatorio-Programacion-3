@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
 {
     public class CUModificarUsuario : ICUModificarUsuario
     {
-        public IRepositorio<Usuario> Repositorio { get; set; }
+        public IRepositorioUsuario Repositorio { get; set; }
 
-        public CUModificarUsuario(IRepositorio<Usuario> repo) => Repositorio = repo;
+        public CUModificarUsuario(IRepositorioUsuario repo) => Repositorio = repo;
 
         public void ModificarUsuario(Usuario usuario)
         {

@@ -8,14 +8,8 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.InterfacesRepositorios
 {
-    public interface IRepositorio<T>
+    public interface IRepositorioUsuario:IRepositorio<Usuario>
     {
-        void Add(T item);//Alta
-        void Update(T item);//Modificar
-        void Delete(int id);//Borrar
-        IEnumerable<T> FindAll();//Obtener todos
-
-        T FindById(int id); //Buscar por identificador
-        
+        Usuario FindByEmailAndPass(EmailVO email, PasswordVO pass); //Buscar por email y password
     }
 }

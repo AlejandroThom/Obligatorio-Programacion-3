@@ -12,9 +12,9 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
 {
     public class CUAltaUsuario : ICUAltaUsuario
     {
-        public IRepositorio<Usuario> Repositorio { get; set; }
+        public IRepositorioUsuario Repositorio { get; set; }
 
-        public CUAltaUsuario(IRepositorio<Usuario> repositorio)
+        public CUAltaUsuario(IRepositorioUsuario repositorio)
         {
             Repositorio = repositorio;
         }

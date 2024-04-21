@@ -64,7 +64,7 @@ namespace Obligatorio_Programacion_3
 
 
             //Repositorio Usuarios
-            builder.Services.AddScoped<IRepositorio<Usuario>, RepositorioUsuarios>();
+            builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuarios>();
 
             //CASO DE USO DE LOS USUARIOS
             builder.Services.AddScoped<ICUAltaUsuario, CUAltaUsuario>();

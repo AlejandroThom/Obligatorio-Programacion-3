@@ -11,9 +11,9 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
 {
     public class CUEliminarUsuario : ICUEliminarUsuario
     {
-        public IRepositorio<Usuario> Repositorio { get; set; }
+        public IRepositorioUsuario Repositorio { get; set; }
 
-        public CUEliminarUsuario(IRepositorio<Usuario> repositorio)
+        public CUEliminarUsuario(IRepositorioUsuario repositorio)
         {
             Repositorio = repositorio;
         }
