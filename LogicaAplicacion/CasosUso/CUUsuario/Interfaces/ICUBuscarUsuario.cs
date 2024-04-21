@@ -11,7 +11,7 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Interfaces
     public interface ICUBuscarUsuario
     {
         Usuario BuscarUsuarioPorId(int id);
-        Usuario BuscarUsuarioPorEmailYPassword(EmailVO email, PasswordVO pass);
+        Usuario BuscarUsuarioPorEmailYPassword(String email, String pass);
 
     }
 }

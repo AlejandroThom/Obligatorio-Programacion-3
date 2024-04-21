@@ -30,6 +30,10 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController
         public ActionResult Index()
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
             IEnumerable<Usuario> usuarios = CUObtenerUsuarios.ObtenerUsuarios();
             IEnumerable<UsuarioListadoViewModel> usuarioVM = usuarios.Select(u => new UsuarioListadoViewModel()
             {
@@ -45,12 +49,20 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
             return View();
         }
 
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
             return View();
         }
 
@@ -59,6 +71,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UsuarioViewModel usuarioVM)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
             try
             {
                 if (usuarioVM == null)
@@ -92,14 +108,32 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController/Edit/5
         public ActionResult Edit(int id)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
+
+            //Busqueda del usuario desde el viewModel y colocarlo en pantalla
+            // Crear vm UsuarioEditViewModel tendra el Id, nombre, apellido y pass
+            // Modificar en la vista al final agregar el id para la navegacion.
+            // BuscarUsuarioPorId.
             return View();
         }
 
         // POST: UsuarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(UsuarioEditViewModel usuarioEditVM)
         {
+            if(HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
+            //modificacion de usuario nombre apellido y contrasenia
+            //Agregar en todos los metodos que tienen que estar logueados para poder realizarlos
+            //Agregar en el resto de los controladores la verificacion de la variable de sesion 
+            // crear un nuevo usuario y pasarle todos los datos del vm
+            //llamar al caso de uso de editar (inyeccion de dependencia)
             try
             {
                 return RedirectToAction(nameof(Index));
@@ -113,6 +147,10 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController/Delete/5
         public ActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
             try
             {
                 Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorId(id);
@@ -140,6 +178,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, UsuarioListadoViewModel usuarioVM)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction(nameof(InicioDeSesion));
+            }
             try
             {
                 CUEliminarUsuario.EliminarUsuario(id);
@@ -163,23 +205,24 @@ namespace Obligatorio_Programacion_3.Controllers
 
             try
             {
+                usuarioLoginVM.Password = Utilities.Encriptar(usuarioLoginVM.Password);
                 Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorEmailYPassword(usuarioLoginVM.Email, usuarioLoginVM.Password);
                 if (usuarioBuscado != null)
                 {
-                    HttpContext.Session.SetString("nombreUsu", usuarioBuscado.NombreUsuario.ToString());
-                    return RedirectToAction(nameof(Index));
+                    HttpContext.Session.SetString("emailUsu", usuarioBuscado.EmailUsuario.ToString());
+                    return RedirectToAction(nameof(Index), "Home");
                 }
                 else
                 {
                 ViewBag.Mensaje = "Datos incorrectos";
-                return View();
+                return View(usuarioLoginVM);
 
                 }
             }
             catch (UsuarioException ex) 
             {
                 ViewBag.Mensaje = ex.Message;
-                return View(new UsuarioLoginViewModel());
+                return View(usuarioLoginVM);
 
             }
 
@@ -189,7 +232,7 @@ namespace Obligatorio_Programacion_3.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index),"Home");
         }
     }
 }

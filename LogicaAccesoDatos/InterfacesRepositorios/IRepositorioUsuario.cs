@@ -10,6 +10,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
 {
     public interface IRepositorioUsuario:IRepositorio<Usuario>
     {
-        Usuario FindByEmailAndPass(EmailVO email, PasswordVO pass); //Buscar por email y password
+        Usuario FindByEmailAndPass(String email, String pass); //Buscar por email y password
     }
 }

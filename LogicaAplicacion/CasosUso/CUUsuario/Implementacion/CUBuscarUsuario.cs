@@ -24,7 +24,7 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
             return Repositorio.FindById(id);
         }
 
-        public Usuario BuscarUsuarioPorEmailYPassword(EmailVO email,PasswordVO pass) 
+        public Usuario BuscarUsuarioPorEmailYPassword(String email,String pass) // incorporar en un nuevo caso de uso
         {
             return Repositorio.FindByEmailAndPass(email, pass);
         }
