@@ -55,6 +55,10 @@ namespace Obligatorio_Programacion_3.Controllers
         #endregion
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidos.ObtenerPedidos().Select(p => new PedidoListadoViewModel()
             {
                 Id = p.Id,
@@ -69,6 +73,10 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public IActionResult BuscarPedidoPorFecha(DateTime fecha)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidosPorFecha.ObtenerPedidosPorFecha(fecha.Date).Select(
                 p => new PedidoListadoViewModel()
                 {
@@ -85,6 +93,10 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ActionResult Create()
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             IEnumerable<ClienteListadoViewModel> clientes = ListadoClienteViewModel();
             ViewData["Clientes"] = new SelectList(clientes, "Id", "RazonSocial");
             IEnumerable<ArticuloSelectViewModel> articulos = SelectArticuloViewModel();
@@ -97,6 +109,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PedidoViewModel newPedido)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 if (ModelState.IsValid)
@@ -147,6 +163,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [HttpGet]
         public ActionResult AgregarLinea(int id)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
@@ -180,6 +200,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgregarLinea(ArticuloPedidoViewModel aPedidoVM)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 Articulo art = CUObtenerArticulo.BuscarArticuloPorId(aPedidoVM.IdArticulo);
@@ -220,6 +244,10 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ActionResult Anular(int id)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
@@ -254,6 +282,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Anular(int id, PedidoListadoViewModel pedidoLVM)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 CUAnularPedido.AnularPedido(id);
@@ -273,6 +305,10 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ActionResult Details(int id)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
             List<LineaListadoViewModel> lineasLVM = ped.Lineas.Select(p => new LineaListadoViewModel()
             {
@@ -296,6 +332,7 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public IEnumerable<ClienteListadoViewModel> ListadoClienteViewModel()
         {
+
             return cUObtenerClientes.ObtenerClientes()
                 .Select(c =>
                  new ClienteListadoViewModel() { Id = c.Id, RazonSocial = c.RazonSocial })
@@ -304,6 +341,7 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public IEnumerable<ArticuloSelectViewModel> SelectArticuloViewModel()
         {
+
             return cUObtenerArticulos.ObtenerArticulos()
                     .Select(a => new ArticuloSelectViewModel()
                     { Id = a.Id, Nombre = a.NombreArticulo.Nombre })
