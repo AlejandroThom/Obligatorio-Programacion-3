@@ -130,8 +130,6 @@ namespace Obligatorio_Programacion_3.Controllers
                 return RedirectToAction(nameof(InicioDeSesion));
             }
             //modificacion de usuario nombre apellido y contrasenia
-            //Agregar en todos los metodos que tienen que estar logueados para poder realizarlos
-            //Agregar en el resto de los controladores la verificacion de la variable de sesion 
             // crear un nuevo usuario y pasarle todos los datos del vm
             //llamar al caso de uso de editar (inyeccion de dependencia)
             try
