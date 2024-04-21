@@ -1,5 +1,6 @@
 ﻿using DTO;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaNegocio.EntidadesNegocio;
 using Mapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,12 +27,25 @@ namespace WebApiObligatorioP3.Controllers
         }*/
 
         [HttpGet]
+        [Route("OrderByName")]
         public IEnumerable<ArticuloListadoDTO> GetArticulosOrdenados()
         {
-            return ArticuloMappers.ToListaDto(CUObtenerArticulosOrdenados.ObtenerArticulosOrdenados());
-        }
-        /*
+            try
+            {
+                IEnumerable<Articulo> articulos = CUObtenerArticulosOrdenados.ObtenerArticulosOrdenados();
+                IEnumerable<ArticuloListadoDTO> articulosdto = ArticuloMappers.ToListaDto(articulos).ToList();
 
+                return articulosdto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return new List<ArticuloListadoDTO>();
+            }
+
+        }
+
+        /*
         // GET api/<ArticuloController>/5
         [HttpGet("{id}")]
         public string Get(int id)

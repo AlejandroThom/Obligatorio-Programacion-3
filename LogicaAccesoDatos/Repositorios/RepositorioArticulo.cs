@@ -22,8 +22,7 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Articulo> ObtenerArticulosOrdenados()
         {
-            List<Articulo> dev = _context.Articulos.ToList();
-            dev.Sort();
+            IEnumerable<Articulo> dev = _context.Articulos.OrderBy(a => a.NombreArticulo.Nombre).ToList();
             return dev;
         }
 
