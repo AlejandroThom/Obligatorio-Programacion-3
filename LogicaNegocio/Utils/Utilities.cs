@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaNegocio.Utils
 {
@@ -17,10 +13,11 @@ namespace LogicaNegocio.Utils
         public static string Encriptar(string text)
         {
             StringBuilder sb = new StringBuilder();
-            using(SHA256 hash  = SHA256.Create()) {
+            using (SHA256 hash = SHA256.Create())
+            {
                 Encoding enc = Encoding.UTF8;
                 byte[] result = hash.ComputeHash(enc.GetBytes(text));
-                foreach(byte b in result)
+                foreach (byte b in result)
                 {
                     sb.Append(b.ToString("x2"));
                 }
@@ -30,7 +27,7 @@ namespace LogicaNegocio.Utils
 
         public static string ConvertirPrimeraLetraAMayuscula(string text)
         {
-            if (text == null || text.Length == 0) throw new Exception("El texto es vacío");
+            if (string.IsNullOrEmpty(text)) throw new Exception("El texto es vacío");
             return text.First().ToString().ToUpper() + text.Substring(1);
         }
 

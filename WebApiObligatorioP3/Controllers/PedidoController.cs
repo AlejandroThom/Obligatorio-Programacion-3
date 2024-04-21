@@ -34,7 +34,7 @@ namespace WebApiObligatorioP3.Controllers
         }*/
 
         [HttpGet]
-        [Route("PedidosAnulados")]
+        [Route("Anulados")]
         public IEnumerable<PedidoListadoDTO> GetPedidosAnuladosOrdenados()
         {
             return PedidoMappers.ToListaDto(CUObtenerPedidosAnulados.ObtenerPedidosAnulados());
