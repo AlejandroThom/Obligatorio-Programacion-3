@@ -32,6 +32,10 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: ArticuloController
         public ActionResult Index()
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             IEnumerable<Articulo> articulos = cUObtenerArticulos.ObtenerArticulos();
             IEnumerable<ArticuloListadoViewModel> articulosVM = articulos.Select(a => new ArticuloListadoViewModel()
             {
@@ -50,6 +54,10 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: ArticuloController/Create
         public ActionResult Create()
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             return View();
         }
 
@@ -58,6 +66,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ArticuloViewModel newArticulo)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 newArticulo.Nombre = Utilities.ConvertirPrimeraLetraAMayuscula(newArticulo.Nombre);
@@ -89,6 +101,10 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: ArticuloController/Delete/5
         public ActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             return View();
         }
 
@@ -97,6 +113,10 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 return RedirectToAction(nameof(Index));
