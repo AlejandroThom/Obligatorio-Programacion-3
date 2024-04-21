@@ -185,6 +185,12 @@ namespace Obligatorio_Programacion_3.Controllers
 
 
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
 
