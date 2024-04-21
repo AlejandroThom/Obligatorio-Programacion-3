@@ -22,6 +22,10 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             List<ClienteListadoViewModel> clientes = CUObtenerClientes.ObtenerClientes().Select(c => new ClienteListadoViewModel
             {
                 Id = c.Id,
@@ -34,6 +38,10 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public IActionResult ClientesPorGasto(decimal monto)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 List<ClienteListadoViewModel> clientes = CUBuscarClientesPorMonto.FindClientePorMonto(monto).Select(c => new ClienteListadoViewModel
@@ -54,6 +62,10 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ActionResult ClientesPorNombre(string nombre)
         {
+            if (HttpContext.Session.GetString("emailUsu") == null)
+            {
+                return RedirectToAction("InicioDeSesion", "UsuarioController");
+            }
             try
             {
                 List<ClienteListadoViewModel> clientes = CUBuscarClienterPorNombre.FindClientesPorNombre(nombre).Select(c => new ClienteListadoViewModel
