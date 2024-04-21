@@ -17,12 +17,6 @@ namespace WebApiObligatorioP3
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
             builder.Services.AddDbContext<PapeleriaContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionDb"));
@@ -36,6 +30,13 @@ namespace WebApiObligatorioP3
 
             builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
 
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+
+
 
             var app = builder.Build();
 
@@ -47,11 +48,18 @@ namespace WebApiObligatorioP3
             }
 
             app.UseHttpsRedirection();
+            app.UseRouting();
 
             app.UseAuthorization();
 
 
             app.MapControllers();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
 
             app.Run();
         }
