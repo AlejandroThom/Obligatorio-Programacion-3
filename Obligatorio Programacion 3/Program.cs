@@ -72,6 +72,7 @@ namespace Obligatorio_Programacion_3
             builder.Services.AddScoped<ICUEliminarUsuario, CUEliminarUsuario>();
             builder.Services.AddScoped<ICUModificarUsuario, CUModificarUsuario>();
             builder.Services.AddScoped<ICUObtenerUsuarios, CUObtenerUsuarios>();
+            builder.Services.AddScoped<ICUInicioDeSesion, CUInicioDeSesion>();
 
             //Repositorio Parametro
             builder.Services.AddScoped<IRepositorioParametro, RepositorioParametro>();
