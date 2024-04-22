@@ -18,12 +18,15 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ICUEliminarUsuario CUEliminarUsuario { get; set; }
 
-        public UsuarioController(ICUAltaUsuario cUAltaUsuario, ICUObtenerUsuarios cUObtenerUsuarios, ICUBuscarUsuario cUBuscarUsuario, ICUEliminarUsuario cUEliminarUsuario)
+        public ICUModificarUsuario CUModificarUsuario { get; set; }
+
+        public UsuarioController(ICUAltaUsuario cUAltaUsuario, ICUObtenerUsuarios cUObtenerUsuarios, ICUBuscarUsuario cUBuscarUsuario, ICUEliminarUsuario cUEliminarUsuario, ICUModificarUsuario cUModificarUsuario)
         {
             CUAltaUsuario = cUAltaUsuario;
             CUObtenerUsuarios = cUObtenerUsuarios;
             CUBuscarUsuario = cUBuscarUsuario;
             CUEliminarUsuario = cUEliminarUsuario;
+            CUModificarUsuario = cUModificarUsuario;
         }
 
 
@@ -112,12 +115,16 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 return RedirectToAction(nameof(InicioDeSesion));
             }
+            Usuario usuario = CUBuscarUsuario.BuscarUsuarioPorId(id);
 
-            //Busqueda del usuario desde el viewModel y colocarlo en pantalla
-            // Crear vm UsuarioEditViewModel tendra el Id, nombre, apellido y pass
-            // Modificar en la vista al final agregar el id para la navegacion.
-            // BuscarUsuarioPorId.
-            return View();
+            UsuarioEditViewModel usuarioEditVM = new UsuarioEditViewModel()
+            {
+                Id = usuario.Id,
+                Nombre = usuario.NombreUsuario.Nombre,
+                Apellido = usuario.ApellidoUsuario.Apellido,
+                Password = usuario.PasswordUsuario.Password,
+            };
+            return View(usuarioEditVM);
         }
 
         // POST: UsuarioController/Edit/5
