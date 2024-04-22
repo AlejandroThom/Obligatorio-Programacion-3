@@ -135,19 +135,18 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UsuarioEditViewModel usuarioEditVM)
         {
-            if(HttpContext.Session.GetString("emailUsu") == null)
+            if (HttpContext.Session.GetString("emailUsu") == null)
             {
                 return RedirectToAction(nameof(InicioDeSesion));
             }
-            
+
             try
             {
-                if(usuarioEditVM == null)
+                if (!ModelState.IsValid)
                 {
                     throw new Exception("Datos incorrectos");
                 }
 
-                String passwordEncriptada = Utilities.Encriptar(usuarioEditVM.Password);
 
                 Usuario usuarioAModificar = new Usuario
                 {
@@ -155,9 +154,9 @@ namespace Obligatorio_Programacion_3.Controllers
                     NombreUsuario = new NombreVO(usuarioEditVM.Nombre),
                     ApellidoUsuario = new ApellidoVO(usuarioEditVM.Apellido),
                     PasswordUsuario = new PasswordVO(usuarioEditVM.Password),
-                    PasswordEncriptada = passwordEncriptada
                 };
-
+                String passwordEncriptada = Utilities.Encriptar(usuarioEditVM.Password);
+                usuarioAModificar.PasswordEncriptada = passwordEncriptada;
                 CUModificarUsuario.ModificarUsuario(usuarioAModificar);
 
                 return RedirectToAction(nameof(Index));
@@ -239,12 +238,12 @@ namespace Obligatorio_Programacion_3.Controllers
                 }
                 else
                 {
-                ViewBag.Mensaje = "Datos incorrectos";
-                return View(usuarioLoginVM);
+                    ViewBag.Mensaje = "Datos incorrectos";
+                    return View(usuarioLoginVM);
 
                 }
             }
-            catch (UsuarioException ex) 
+            catch (UsuarioException ex)
             {
                 ViewBag.Mensaje = ex.Message;
                 return View(usuarioLoginVM);
@@ -257,7 +256,7 @@ namespace Obligatorio_Programacion_3.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction(nameof(Index),"Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
     }
 }
