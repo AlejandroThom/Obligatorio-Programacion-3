@@ -139,16 +139,33 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 return RedirectToAction(nameof(InicioDeSesion));
             }
-            //modificacion de usuario nombre apellido y contrasenia
-            // crear un nuevo usuario y pasarle todos los datos del vm
-            //llamar al caso de uso de editar (inyeccion de dependencia)
+            
             try
             {
+                if(usuarioEditVM == null)
+                {
+                    throw new Exception("Datos incorrectos");
+                }
+
+                String passwordEncriptada = Utilities.Encriptar(usuarioEditVM.Password);
+
+                Usuario usuarioAModificar = new Usuario
+                {
+                    Id = usuarioEditVM.Id,
+                    NombreUsuario = new NombreVO(usuarioEditVM.Nombre),
+                    ApellidoUsuario = new ApellidoVO(usuarioEditVM.Apellido),
+                    PasswordUsuario = new PasswordVO(usuarioEditVM.Password),
+                    PasswordEncriptada = passwordEncriptada
+                };
+
+                CUModificarUsuario.ModificarUsuario(usuarioAModificar);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Mensaje = ex.Message;
+                return View(usuarioEditVM);
             }
         }
 
