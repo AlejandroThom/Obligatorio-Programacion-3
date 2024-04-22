@@ -1,7 +1,6 @@
 ﻿using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
-using LogicaNegocio.ValueObjects.UsuarioVO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
 {
-    public class CUBuscarUsuario : ICUBuscarUsuario
+    public class CUInicioDeSesion : ICUInicioDeSesion
     {
-        public IRepositorioUsuario Repositorio { get; set; }
+        public IRepositorioUsuario Repositorio {  get; set; }
 
-        public CUBuscarUsuario(IRepositorioUsuario repositorio)
+        public CUInicioDeSesion(IRepositorioUsuario repositorio)
         {
             Repositorio = repositorio;
         }
 
-        public Usuario BuscarUsuarioPorId(int id)
+        public Usuario BuscarUsuarioPorEmailYPassword(String email, String pass)
         {
-            return Repositorio.FindById(id);
+            return Repositorio.FindByEmailAndPass(email, pass);
         }
     }
 }

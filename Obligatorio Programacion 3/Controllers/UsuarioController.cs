@@ -20,13 +20,16 @@ namespace Obligatorio_Programacion_3.Controllers
 
         public ICUModificarUsuario CUModificarUsuario { get; set; }
 
-        public UsuarioController(ICUAltaUsuario cUAltaUsuario, ICUObtenerUsuarios cUObtenerUsuarios, ICUBuscarUsuario cUBuscarUsuario, ICUEliminarUsuario cUEliminarUsuario, ICUModificarUsuario cUModificarUsuario)
+        public ICUInicioDeSesion CUInicioDeSesion { get; set; }
+
+        public UsuarioController(ICUAltaUsuario cUAltaUsuario, ICUObtenerUsuarios cUObtenerUsuarios, ICUBuscarUsuario cUBuscarUsuario, ICUEliminarUsuario cUEliminarUsuario, ICUModificarUsuario cUModificarUsuario, ICUInicioDeSesion cUInicioDeSesion)
         {
             CUAltaUsuario = cUAltaUsuario;
             CUObtenerUsuarios = cUObtenerUsuarios;
             CUBuscarUsuario = cUBuscarUsuario;
             CUEliminarUsuario = cUEliminarUsuario;
             CUModificarUsuario = cUModificarUsuario;
+            CUInicioDeSesion = cUInicioDeSesion;
         }
 
 
@@ -211,7 +214,7 @@ namespace Obligatorio_Programacion_3.Controllers
             try
             {
                 usuarioLoginVM.Password = Utilities.Encriptar(usuarioLoginVM.Password);
-                Usuario usuarioBuscado = CUBuscarUsuario.BuscarUsuarioPorEmailYPassword(usuarioLoginVM.Email, usuarioLoginVM.Password);
+                Usuario usuarioBuscado = CUInicioDeSesion.BuscarUsuarioPorEmailYPassword(usuarioLoginVM.Email, usuarioLoginVM.Password);
                 if (usuarioBuscado != null)
                 {
                     HttpContext.Session.SetString("emailUsu", usuarioBuscado.EmailUsuario.ToString());
