@@ -1,24 +1,19 @@
 ﻿using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
-using LogicaNegocio.ValueObjects.UsuarioVO;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
     public class RepositorioUsuarios : IRepositorioUsuario
     {
         private readonly PapeleriaContext _context;
-        public RepositorioUsuarios(PapeleriaContext context) {
+        public RepositorioUsuarios(PapeleriaContext context)
+        {
             _context = context;
         }
         public void Add(Usuario item)
         {
+            item.Validar();
             _context.Add(item);
             _context.SaveChanges();
         }
@@ -51,7 +46,8 @@ namespace LogicaAccesoDatos.Repositorios
         public void Update(Usuario item)
         {
             Usuario user = FindById(item.Id);
-            if(user != null){
+            if (user != null)
+            {
                 user.NombreUsuario = item.NombreUsuario;
                 user.ApellidoUsuario = item.ApellidoUsuario;
                 user.PasswordUsuario = item.PasswordUsuario;
@@ -67,6 +63,11 @@ namespace LogicaAccesoDatos.Repositorios
         public Usuario FindByEmailAndPass(String email, String pass)
         {
             return _context.Usuarios.SingleOrDefault(u => u.EmailUsuario.Email == email && u.PasswordEncriptada == pass);
+        }
+
+        public bool UsuarioExiste(Usuario usuario)
+        {
+            return _context.Usuarios.FirstOrDefault(u => u.EmailUsuario.Email.Equals(usuario.EmailUsuario.Email)) != null;
         }
     }
 }

@@ -1,18 +1,9 @@
 ﻿using LogicaNegocio.Excepciones.Usuario;
-using LogicaNegocio.Interfaces;
 using LogicaNegocio.ValueObjects.UsuarioVO;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
-    public class Usuario 
+    public class Usuario
     {
         public int Id { get; set; }
         public EmailVO EmailUsuario { get; set; }
@@ -22,7 +13,29 @@ namespace LogicaNegocio.EntidadesNegocio
         public PasswordVO PasswordUsuario { get; set; }
         public string PasswordEncriptada { get; set; }
 
-        public Usuario() {  }
+        public Usuario() { }
+
+        public Usuario(string email, string nombre, string apellido, string password, string passwordEncript)
+        {
+            EmailUsuario = new EmailVO(email);
+            NombreUsuario = new NombreVO(nombre);
+            ApellidoUsuario = new ApellidoVO(apellido);
+            PasswordUsuario = new PasswordVO(password);
+            PasswordEncriptada = passwordEncript;
+        }
+
+        public void Validar()
+        {
+            if (String.IsNullOrEmpty(EmailUsuario.Email))
+                throw new UsuarioException("El email no puede ser vacio");
+            if (String.IsNullOrEmpty(PasswordUsuario.Password))
+                throw new UsuarioException("El email no puede ser vacio");
+            if (String.IsNullOrEmpty(ApellidoUsuario.Apellido))
+                throw new UsuarioException("El email no puede ser vacio");
+            if (String.IsNullOrEmpty(NombreUsuario.Nombre))
+                throw new UsuarioException("El email no puede ser vacio");
+        }
+
 
     }
 }

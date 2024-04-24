@@ -1,23 +1,18 @@
 ﻿using LogicaNegocio.Excepciones.Usuario;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio.ValueObjects.UsuarioVO
 {
     [Owned]
-    [Index(nameof(Email),IsUnique =true)]
+    [Index(nameof(Email), IsUnique = true)]
     public class EmailVO
     {
         public string Email { get; }
 
-        public EmailVO(string email) {
-        
+        public EmailVO(string email)
+        {
+
             this.Email = email;
             Validar();
         }
@@ -38,6 +33,10 @@ namespace LogicaNegocio.ValueObjects.UsuarioVO
             int index = Email.IndexOf("@");
             string subS = Email.Substring(index);
             bool match = regex.IsMatch(subS);
+            if (Email.StartsWith("@"))
+            {
+                throw new UsuarioException("El email no es valido");
+            }
             if (!match)
             {
                 throw new UsuarioException("El email no es valido");
@@ -46,7 +45,7 @@ namespace LogicaNegocio.ValueObjects.UsuarioVO
             {
                 throw new UsuarioException("El email no es valido, no tiene nombre");
             }
-            if(Regex.IsMatch(Email.Substring(0, 1), @"^[^a-zA-Z]"))
+            if (Regex.IsMatch(Email.Substring(0, 1), @"^[^a-zA-Z]"))
             {
                 throw new UsuarioException("El email no puede comenzar un un caracter no alfabetico");
             }

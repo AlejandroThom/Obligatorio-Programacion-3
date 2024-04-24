@@ -65,10 +65,6 @@ namespace Obligatorio_Programacion_3.Controllers
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
-            if (HttpContext.Session.GetString("emailUsu") == null)
-            {
-                return RedirectToAction(nameof(InicioDeSesion));
-            }
             return View();
         }
 
@@ -77,10 +73,6 @@ namespace Obligatorio_Programacion_3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UsuarioViewModel usuarioVM)
         {
-            if (HttpContext.Session.GetString("emailUsu") == null)
-            {
-                return RedirectToAction(nameof(InicioDeSesion));
-            }
             try
             {
                 if (usuarioVM == null)
@@ -96,7 +88,8 @@ namespace Obligatorio_Programacion_3.Controllers
                     PasswordEncriptada = Utilities.Encriptar(usuarioVM.Password),
                 };
                 CUAltaUsuario.AltaUsuario(usuario);
-                return RedirectToAction(nameof(Index));
+                HttpContext.Session.SetString("emailUsu", usuarioVM.Email);
+                return RedirectToAction(nameof(Index), "Home");
             }
             catch (ClienteException ex)
             {
@@ -233,21 +226,20 @@ namespace Obligatorio_Programacion_3.Controllers
                 Usuario usuarioBuscado = CUInicioDeSesion.BuscarUsuarioPorEmailYPassword(usuarioLoginVM.Email, usuarioLoginVM.Password);
                 if (usuarioBuscado != null)
                 {
-                    HttpContext.Session.SetString("emailUsu", usuarioBuscado.EmailUsuario.ToString());
+                    HttpContext.Session.SetString("emailUsu", usuarioLoginVM.Email);
                     return RedirectToAction(nameof(Index), "Home");
                 }
-                else
-                {
-                    ViewBag.Mensaje = "Datos incorrectos";
-                    return View(usuarioLoginVM);
-
-                }
+                throw new Exception("Credenciales incorrectas");
             }
             catch (UsuarioException ex)
             {
                 ViewBag.Mensaje = ex.Message;
                 return View(usuarioLoginVM);
-
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensaje = ex.Message;
+                return View(usuarioLoginVM);
             }
 
 
