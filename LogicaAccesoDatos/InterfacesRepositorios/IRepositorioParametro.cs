@@ -1,9 +1,4 @@
 ﻿using LogicaNegocio.EntidadesNegocio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.InterfacesRepositorios
 {
@@ -11,6 +6,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
     {
         void Update(Parametro paramater);
 
-        decimal GetParametroPorNombre(string nombre);
+        Parametro GetParametroPorNombre(string nombre);
     }
 }

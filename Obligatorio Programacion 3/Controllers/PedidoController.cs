@@ -97,10 +97,10 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 return RedirectToAction("InicioDeSesion", "UsuarioController");
             }
-            IEnumerable<ClienteListadoViewModel> clientes = ListadoClienteViewModel();
-            ViewData["Clientes"] = new SelectList(clientes, "Id", "RazonSocial");
+            IEnumerable<ClienteSelectViewModel> clientes = ListadoClienteViewModel();
+            ViewData["Clientes"] = new SelectList(clientes, "Id", "Informacion");
             IEnumerable<ArticuloSelectViewModel> articulos = SelectArticuloViewModel();
-            ViewData["Articulos"] = new SelectList(articulos, "Id", "Nombre");
+            ViewData["Articulos"] = new SelectList(articulos, "Id", "Informacion");
             return View();
         }
 
@@ -138,11 +138,11 @@ namespace Obligatorio_Programacion_3.Controllers
                     pedido.Cliente = new Cliente() { Id = newPedido.ClienteId };
                     pedido.IsAnulado = false;
                     pedido.Lineas.Add(nuevaLin);
-                    pedido.AsignarPrecioFinal(CUObtenerParametroPorNombre.ObtenerParametroPorNombre("IVA"));
+                    pedido.AsignarPrecioFinal(CUObtenerParametroPorNombre.ObtenerParametroPorNombre("IVA").Valor);
                     CUAltaPedido.AltaPedido(pedido);
                     return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Create));
+                throw new Exception("Error modelo no valido");
             }
             catch (PedidoException excep)
             {
@@ -152,10 +152,10 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 ViewBag.Mensaje = "Hubo un error al crear un nuevo pedido";
             }
-            IEnumerable<ClienteListadoViewModel> clientes = ListadoClienteViewModel();
-            ViewData["Clientes"] = new SelectList(clientes, "Id", "RazonSocial");
+            IEnumerable<ClienteSelectViewModel> clientes = ListadoClienteViewModel();
+            ViewData["Clientes"] = new SelectList(clientes, "Id", "Informacion");
             IEnumerable<ArticuloSelectViewModel> articulos = SelectArticuloViewModel();
-            ViewData["Articulos"] = new SelectList(articulos, "Id", "Nombre");
+            ViewData["Articulos"] = new SelectList(articulos, "Id", "Informacion");
             return View(newPedido);
 
         }
@@ -179,7 +179,7 @@ namespace Obligatorio_Programacion_3.Controllers
                     IdPedido = id
                 };
                 IEnumerable<ArticuloSelectViewModel> articulos = SelectArticuloViewModel();
-                ViewBag.Articulos = new SelectList(articulos, "Id", "Nombre");
+                ViewBag.Articulos = new SelectList(articulos, "Id", "Informacion");
                 return View(articuloPedidoViewModel);
 
             }
@@ -237,7 +237,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 ViewBag.Mensaje = "Hubo un error al agregar la linea";
             }
             IEnumerable<ArticuloSelectViewModel> articulos = SelectArticuloViewModel();
-            ViewBag.Articulos = new SelectList(articulos, "Id", "Nombre");
+            ViewBag.Articulos = new SelectList(articulos, "Id", "Informacion");
             return View(new ArticuloPedidoViewModel());
 
         }
@@ -330,13 +330,13 @@ namespace Obligatorio_Programacion_3.Controllers
         }
 
 
-        public IEnumerable<ClienteListadoViewModel> ListadoClienteViewModel()
+        public IEnumerable<ClienteSelectViewModel> ListadoClienteViewModel()
         {
 
             return cUObtenerClientes.ObtenerClientes()
                 .Select(c =>
-                 new ClienteListadoViewModel() { Id = c.Id, RazonSocial = c.RazonSocial })
-                .ToList().Prepend(new ClienteListadoViewModel() { RazonSocial = "Seleccione un cliente" });
+                 new ClienteSelectViewModel() { Id = c.Id, Informacion = c.RazonSocial })
+                .ToList().Prepend(new ClienteSelectViewModel() { Informacion = "Seleccione un cliente" });
         }
 
         public IEnumerable<ArticuloSelectViewModel> SelectArticuloViewModel()
@@ -344,8 +344,8 @@ namespace Obligatorio_Programacion_3.Controllers
 
             return cUObtenerArticulos.ObtenerArticulos()
                     .Select(a => new ArticuloSelectViewModel()
-                    { Id = a.Id, Nombre = a.NombreArticulo.Nombre })
-                    .ToList().Prepend(new ArticuloSelectViewModel() { Nombre = "Seleccione un articulo" });
+                    { Id = a.Id, Informacion = $"{a.NombreArticulo.Nombre} - {a.PrecioPublico}" })
+                    .ToList().Prepend(new ArticuloSelectViewModel() { Informacion = "Seleccione un articulo" });
         }
     }
 }

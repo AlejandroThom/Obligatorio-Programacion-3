@@ -1,10 +1,6 @@
 ﻿using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LogicaNegocio.EntidadesNegocio;
 
 namespace LogicaAplicacion.CasosUso.CUParametro.Implementacion
 {
@@ -16,7 +12,7 @@ namespace LogicaAplicacion.CasosUso.CUParametro.Implementacion
         {
             Repo = repo;
         }
-        public decimal ObtenerParametroPorNombre(string nombre)
+        public Parametro ObtenerParametroPorNombre(string nombre)
         {
             return Repo.GetParametroPorNombre(nombre);
         }

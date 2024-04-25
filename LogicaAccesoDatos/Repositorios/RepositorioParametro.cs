@@ -1,11 +1,6 @@
 ﻿using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos.Repositorios
 {
@@ -18,9 +13,9 @@ namespace LogicaAccesoDatos.Repositorios
             _context = context;
         }
 
-        public decimal GetParametroPorNombre(string nombre)
+        public Parametro GetParametroPorNombre(string nombre)
         {
-            return _context.Parametros.Where(p => p.Nombre == nombre).First().Valor;
+            return _context.Parametros.FirstOrDefault(p => p.Nombre == nombre);
         }
 
         public void Update(Parametro paramater)
