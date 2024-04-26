@@ -20,7 +20,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             Parametro par = CUObtenerParametroPorNombre.ObtenerParametroPorNombre(nombre);
 
@@ -33,7 +33,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             if (ModelState.IsValid)
             {

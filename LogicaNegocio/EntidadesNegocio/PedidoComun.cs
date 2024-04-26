@@ -7,7 +7,7 @@ namespace LogicaNegocio.EntidadesNegocio
         public override void ValidarFechaEntrega()
         {
             base.ValidarFechaEntrega();
-            if ((FechaEntrega - FechaPedido).TotalDays <= 7)
+            if ((FechaEntrega.Date - FechaPedido.Date).TotalDays < 7)
             {
                 throw new PedidoException("Los pedidos común no pueden tener una fecha prometida menor a una semana");
             }

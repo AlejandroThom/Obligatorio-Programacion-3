@@ -42,8 +42,10 @@ namespace LogicaNegocio.EntidadesNegocio
         /// <exception cref="PedidoException"></exception>
         private void ValidarCliente()
         {
-            if (Cliente is null)
+            if (Cliente == null)
                 throw new PedidoException("El cliente debe existe para realizar el pedido.");
+            if (Cliente.Id == 0)
+                throw new PedidoException("El cliente no existe");
         }
 
         public virtual void ValidarFechaEntrega()

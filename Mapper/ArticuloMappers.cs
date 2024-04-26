@@ -1,9 +1,10 @@
 ﻿using DTO;
 using LogicaNegocio.EntidadesNegocio;
+using Mapper.InterfacesMapper;
 
 namespace Mapper
 {
-    public static class ArticuloMappers
+    public class ArticuloMappers : IMapper<ArticuloListadoDTO, Articulo>
     {
         public static ArticuloListadoDTO ToDto(Articulo articulo)
         {
@@ -23,7 +24,7 @@ namespace Mapper
         {
             if (articulos == null)
                 throw new ArgumentNullException();
-            return articulos.Select(ar => ToDto(ar));
+            return articulos.Select(ToDto);
         }
 
     }

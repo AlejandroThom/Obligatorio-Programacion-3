@@ -29,11 +29,11 @@ namespace LogicaNegocio.EntidadesNegocio
             if (String.IsNullOrEmpty(EmailUsuario.Email))
                 throw new UsuarioException("El email no puede ser vacio");
             if (String.IsNullOrEmpty(PasswordUsuario.Password))
-                throw new UsuarioException("El email no puede ser vacio");
+                throw new UsuarioException("la password no puede ser vacio");
             if (String.IsNullOrEmpty(ApellidoUsuario.Apellido))
-                throw new UsuarioException("El email no puede ser vacio");
+                throw new UsuarioException("el apellido no puede ser vacio");
             if (String.IsNullOrEmpty(NombreUsuario.Nombre))
-                throw new UsuarioException("El email no puede ser vacio");
+                throw new UsuarioException("El nombre no puede ser vacio");
         }
 
 

@@ -3,10 +3,8 @@ using LogicaNegocio.EntidadesNegocio;
 using LogicaNegocio.Excepciones.Articulo;
 using LogicaNegocio.Utils;
 using LogicaNegocio.ValueObjects.ArticulosVO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Obligatorio_Programacion_3.Models;
-using System.Collections.Immutable;
 
 namespace Obligatorio_Programacion_3.Controllers
 {
@@ -28,23 +26,23 @@ namespace Obligatorio_Programacion_3.Controllers
             cUAltaArticulo = cuAlta;
             CUArticuloExiste = cUArticuloExiste;
         }
-        
+
         // GET: ArticuloController
         public ActionResult Index()
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             IEnumerable<Articulo> articulos = cUObtenerArticulos.ObtenerArticulos();
             IEnumerable<ArticuloListadoViewModel> articulosVM = articulos.Select(a => new ArticuloListadoViewModel()
             {
                 Id = a.Id,
-                CodigoArticulo=a.CodigoArticulo.Codigo,
+                CodigoArticulo = a.CodigoArticulo.Codigo,
                 Nombre = a.NombreArticulo.Nombre,
                 PrecioPublico = a.PrecioPublico,
-                Descripcion=a.DescripcionArticulo.Descripcion,
-                Stock=a.Stock,
+                Descripcion = a.DescripcionArticulo.Descripcion,
+                Stock = a.Stock,
             });
             articulosVM.ToList().Sort();
             return View(articulosVM);
@@ -56,7 +54,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             return View();
         }
@@ -68,7 +66,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {
@@ -76,7 +74,8 @@ namespace Obligatorio_Programacion_3.Controllers
                 if (CUArticuloExiste.ArticuloExiste(newArticulo.Nombre))
                     throw new ArticuloException("Ese articulo ya existe");
                 newArticulo.Descripcion = Utilities.ConvertirPrimeraLetraAMayuscula(newArticulo.Descripcion); ;
-                Articulo articuloNuevo = new Articulo() {
+                Articulo articuloNuevo = new Articulo()
+                {
                     NombreArticulo = new NombreVO(newArticulo.Nombre),
                     DescripcionArticulo = new DescripcionVO(newArticulo.Descripcion),
                     CodigoArticulo = new CodigoVO(newArticulo.Codigo),
@@ -91,7 +90,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 ViewBag.Mensaje = excep.Message;
                 return View(newArticulo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Mensaje = "Hubo un error al crear un nuevo artículo";
                 return View(newArticulo);
@@ -103,7 +102,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             return View();
         }
@@ -115,7 +114,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {

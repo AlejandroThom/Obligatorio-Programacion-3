@@ -24,7 +24,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             List<ClienteListadoViewModel> clientes = CUObtenerClientes.ObtenerClientes().Select(c => new ClienteListadoViewModel
             {
@@ -40,7 +40,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {
@@ -64,7 +64,11 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
+            }
+            if (string.IsNullOrEmpty(nombre))
+            {
+                return RedirectToAction(nameof(Index));
             }
             try
             {

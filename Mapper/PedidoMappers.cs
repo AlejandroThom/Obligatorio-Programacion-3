@@ -1,32 +1,30 @@
 ﻿using DTO;
 using LogicaNegocio.EntidadesNegocio;
+using Mapper.InterfacesMapper;
 
 namespace Mapper
 {
-    public static class PedidoMappers
+    public class PedidoMappers : IMapper<PedidoListadoDTO, Pedido>
     {
+        /*
         public static Pedido FromDto(PedidoListadoDTO dto)
         {
-            //TODO:Falta mappear de ClienteDTO A Cliente.
             if (dto == null)
                 throw new Exception("El objeto no puede ser nulo");
             Pedido dev;
             if (dto.IsExpress)
-                dev = new PedidoExpress()
-                {
-                    Id = dto.Id,
-                    FechaEntrega = dto.FechaEntrega,
-                    PrecioPedidoFinal = dto.PrecioTotal,
-                    Cliente = new Cliente() { RazonSocial = dto.Cliente, Id = dto.IdCliente }
-                };
+                dev = new PedidoExpress();
             else
                 dev = new PedidoComun();
+            dev.Id = dto.Id;
+            dev.FechaEntrega = dto.FechaEntrega;
+            dev.PrecioPedidoFinal = dto.PrecioTotal;
+            dev.Cliente = new Cliente() { RazonSocial = dto.Cliente, Id = dto.IdCliente };
             return dev;
-        }
+        }*/
 
         public static PedidoListadoDTO ToDto(Pedido pedido)
         {
-            //TODO:Falta mappear de Cliente A ClienteDTO.
             if (pedido == null)
                 throw new Exception("El objeto no puede ser nulo");
             return new PedidoListadoDTO
@@ -49,7 +47,7 @@ namespace Mapper
         {
             if (pedis == null)
                 throw new Exception("El objeto no puede ser nulo");
-            return pedis.Select(p => ToDto(p));
+            return pedis.Select(ToDto);
         }
 
     }

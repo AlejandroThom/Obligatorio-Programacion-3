@@ -8,6 +8,7 @@
 <p class="text-danger">@ViewBag.Error</p>
 @using (Html.BeginForm("ClientesPorNombre", "Cliente", FormMethod.Get))
 {
+    <h2>Buscar por Nombre</h2>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label for="nombre" class="control-label"></label>
@@ -20,6 +21,7 @@
 }
 @using (Html.BeginForm("ClientesPorGasto", "Cliente", FormMethod.Get))
 {
+    <h2>Buscar por monto gastado</h2>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label for="monto" class="control-label"></label>

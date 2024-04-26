@@ -1,11 +1,8 @@
 ﻿using LogicaNegocio.Excepciones.Linea;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
-    public class Linea:IEquatable<Linea>
+    public class Linea : IEquatable<Linea>
     {
         public int Id { get; set; }
         public Articulo Articulo { get; set; }
@@ -15,7 +12,7 @@ namespace LogicaNegocio.EntidadesNegocio
 
         public decimal PrecioTotal()
         {
-            return CantArticulo*PrecioUnitario;
+            return CantArticulo * PrecioUnitario;
         }
 
         /// <summary>
@@ -23,6 +20,10 @@ namespace LogicaNegocio.EntidadesNegocio
         /// </summary>
         public void Validar()
         {
+            if (Articulo.Id == 0)
+            {
+                throw new LineaException("El articulo no existe");
+            }
             ValidarCantArticulo();
             ValidarPrecioUnitario();
         }
@@ -33,7 +34,7 @@ namespace LogicaNegocio.EntidadesNegocio
         /// <exception cref="LineaException"></exception>
         private void ValidarCantArticulo()
         {
-            if(CantArticulo <= 0)
+            if (CantArticulo <= 0)
                 throw new LineaException("La cantidad de del articulo debe ser mayor a 0");
         }
         /// <summary>

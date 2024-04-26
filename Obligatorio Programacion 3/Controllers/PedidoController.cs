@@ -3,6 +3,8 @@ using LogicaAplicacion.CasosUso.CUCliente.Interfaces;
 using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones.Articulo;
+using LogicaNegocio.Excepciones.Cliente;
 using LogicaNegocio.Excepciones.Linea;
 using LogicaNegocio.Excepciones.Pedido;
 using Microsoft.AspNetCore.Mvc;
@@ -57,7 +59,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidos.ObtenerPedidos().Select(p => new PedidoListadoViewModel()
             {
@@ -75,16 +77,16 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             IEnumerable<PedidoListadoViewModel> pedidos = CUObtenerPedidosPorFecha.ObtenerPedidosPorFecha(fecha.Date).Select(
                 p => new PedidoListadoViewModel()
                 {
                     Id = p.Id,
                     Cliente = p.Cliente,
+                    FechaPedido = p.FechaPedido,
                     Precio = p.PrecioPedidoFinal,
                     FechaEntrega = p.FechaEntrega,
-                    FechaPedido = p.FechaPedido,
                     IsAnulado = p.IsAnulado,
                 }
                 ).ToList();
@@ -95,7 +97,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             IEnumerable<ClienteSelectViewModel> clientes = ListadoClienteViewModel();
             ViewData["Clientes"] = new SelectList(clientes, "Id", "Informacion");
@@ -111,7 +113,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {
@@ -119,6 +121,16 @@ namespace Obligatorio_Programacion_3.Controllers
                 {
                     Pedido pedido;
                     Articulo art = CUObtenerArticulo.BuscarArticuloPorId(newPedido.ArticuloId);
+                    if (art == null)
+                    {
+                        throw new ArticuloException("Seleccione articulo valido!");
+                    }
+                    if (newPedido.ClienteId <= 0)
+                    {
+                        throw new ClienteException("Seleccione un cliente valido!");
+
+
+                    }
                     Linea nuevaLin = new Linea()
                     {
                         CantArticulo = newPedido.CantidadArticulo,
@@ -148,7 +160,15 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 ViewBag.Mensaje = excep.Message;
             }
-            catch
+            catch (ArticuloException excep)
+            {
+                ViewBag.Mensaje = excep.Message;
+            }
+            catch (ClienteException excep)
+            {
+                ViewBag.Mensaje = excep.Message;
+            }
+            catch (Exception ex)
             {
                 ViewBag.Mensaje = "Hubo un error al crear un nuevo pedido";
             }
@@ -165,7 +185,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {
@@ -202,11 +222,15 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {
                 Articulo art = CUObtenerArticulo.BuscarArticuloPorId(aPedidoVM.IdArticulo);
+                if (art == null)
+                {
+                    throw new ArticuloException("El articulo no existe!");
+                }
                 Linea linea = new Linea()
                 {
                     Articulo = art,
@@ -216,7 +240,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 CUAgregarLinea.AgregarLinea(aPedidoVM.IdPedido, linea);
                 if (aPedidoVM.AgregarOtroArticulo)
                     return RedirectToAction(nameof(AgregarLinea), aPedidoVM.IdPedido);
-                return RedirectToAction(nameof(Details), aPedidoVM.IdPedido);
+                return Redirect($"/Pedido/Details?id={aPedidoVM.IdPedido}");
 
             }
             catch (PedidoException peEx)
@@ -230,6 +254,10 @@ namespace Obligatorio_Programacion_3.Controllers
                 //TODO: Cambiar el viewbag por TempData y redirigirlo al método Get si el id es distinto de 0.
 
                 ViewBag.Mensaje = liEx.Message;
+            }
+            catch (ArticuloException artEx)
+            {
+                ViewBag.Mensaje = artEx.Message;
             }
             catch (Exception ex)
             {
@@ -246,7 +274,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {
@@ -258,8 +286,6 @@ namespace Obligatorio_Programacion_3.Controllers
                     FechaEntrega = ped.FechaEntrega,
                     Cliente = ped.Cliente,
                     Precio = ped.PrecioPedidoFinal,
-                    FechaPedido = ped.FechaPedido,
-
                 };
                 return View(pedidoListadoViewModel);
             }
@@ -284,7 +310,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             try
             {
@@ -307,7 +333,7 @@ namespace Obligatorio_Programacion_3.Controllers
         {
             if (HttpContext.Session.GetString("emailUsu") == null)
             {
-                return RedirectToAction("InicioDeSesion", "UsuarioController");
+                return RedirectToAction("InicioDeSesion", "Usuario");
             }
             Pedido ped = CUBuscarPedido.BuscarPedidoPorId(id);
             List<LineaListadoViewModel> lineasLVM = ped.Lineas.Select(p => new LineaListadoViewModel()
@@ -330,7 +356,7 @@ namespace Obligatorio_Programacion_3.Controllers
         }
 
 
-        public IEnumerable<ClienteSelectViewModel> ListadoClienteViewModel()
+        private IEnumerable<ClienteSelectViewModel> ListadoClienteViewModel()
         {
 
             return cUObtenerClientes.ObtenerClientes()
@@ -339,7 +365,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 .ToList().Prepend(new ClienteSelectViewModel() { Informacion = "Seleccione un cliente" });
         }
 
-        public IEnumerable<ArticuloSelectViewModel> SelectArticuloViewModel()
+        private IEnumerable<ArticuloSelectViewModel> SelectArticuloViewModel()
         {
 
             return cUObtenerArticulos.ObtenerArticulos()
