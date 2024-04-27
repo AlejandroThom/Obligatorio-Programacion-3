@@ -6,23 +6,6 @@ namespace Mapper
 {
     public class PedidoMappers : IMapper<PedidoListadoDTO, Pedido>
     {
-        /*
-        public static Pedido FromDto(PedidoListadoDTO dto)
-        {
-            if (dto == null)
-                throw new Exception("El objeto no puede ser nulo");
-            Pedido dev;
-            if (dto.IsExpress)
-                dev = new PedidoExpress();
-            else
-                dev = new PedidoComun();
-            dev.Id = dto.Id;
-            dev.FechaEntrega = dto.FechaEntrega;
-            dev.PrecioPedidoFinal = dto.PrecioTotal;
-            dev.Cliente = new Cliente() { RazonSocial = dto.Cliente, Id = dto.IdCliente };
-            return dev;
-        }*/
-
         public static PedidoListadoDTO ToDto(Pedido pedido)
         {
             if (pedido == null)

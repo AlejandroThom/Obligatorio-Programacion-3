@@ -47,7 +47,8 @@ namespace LogicaAccesoDatos.Repositorios
 
         public Pedido FindById(int id)
         {
-            return _context.Pedidos.Include(p => p.Cliente).Include(p => p.Lineas).ThenInclude(linea => linea.Articulo).FirstOrDefault(p => p.Id == id);
+            return _context.Pedidos.Include(p => p.Cliente).Include(p => p.Lineas)
+                .ThenInclude(linea => linea.Articulo).FirstOrDefault(p => p.Id == id);
         }
 
         public void Update(Pedido item)
