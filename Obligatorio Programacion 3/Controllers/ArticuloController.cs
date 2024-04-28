@@ -73,7 +73,7 @@ namespace Obligatorio_Programacion_3.Controllers
                 newArticulo.Nombre = Utilities.ConvertirPrimeraLetraAMayuscula(newArticulo.Nombre);
                 if (CUArticuloExiste.ArticuloExiste(newArticulo.Nombre))
                     throw new ArticuloException("Ese articulo ya existe");
-                newArticulo.Descripcion = Utilities.ConvertirPrimeraLetraAMayuscula(newArticulo.Descripcion); ;
+                newArticulo.Descripcion = Utilities.ConvertirPrimeraLetraAMayuscula(newArticulo.Descripcion);
                 Articulo articuloNuevo = new Articulo()
                 {
                     NombreArticulo = new NombreVO(newArticulo.Nombre),

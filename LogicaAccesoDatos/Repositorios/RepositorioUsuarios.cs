@@ -35,7 +35,7 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Usuario> FindAll()
         {
-            return _context.Usuarios;
+            return _context.Usuarios.ToList();
         }
 
         public Usuario FindById(int id)

@@ -39,8 +39,7 @@ namespace WebApiObligatorioP3.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                return new List<ArticuloListadoDTO>();
+                return (IEnumerable<ArticuloListadoDTO>)NotFound();
             }
 
         }

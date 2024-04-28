@@ -13,15 +13,17 @@ namespace Testing
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             var databaseContext = new PapeleriaContext(options);
             databaseContext.Database.EnsureCreated();
-            for (int i = 0; i < 4; i++)
+            if (await databaseContext.Usuarios.CountAsync() < 1)
             {
-                databaseContext.Usuarios.Add(new Usuario(
-                    $"ola{i}@gmail.com", $"Luis{i}a", $"Thom{i}a", "abcAb1.", Utilities.Encriptar("abcAb1.")));
+                for (int i = 0; i < 11; i++)
+                {
+                    databaseContext.Usuarios.Add(new Usuario(
+                        $"ola{i}@gmail.com", $"Luis{i}a", $"Thom{i}a", "abcAb1.", Utilities.Encriptar("abcAb1.")));
+                }
+                await databaseContext.SaveChangesAsync();
             }
-            await databaseContext.SaveChangesAsync();
             return databaseContext;
         }
-
 
 
         [Fact]
@@ -74,8 +76,33 @@ namespace Testing
         {
             var dbContext = await GetDBContext();
             var usuarioRepositorio = new RepositorioUsuarios(dbContext);
-            Assert.Throws<Exception>(() => { usuarioRepositorio.Delete(10); });
+            Assert.Throws<Exception>(() => { usuarioRepositorio.Delete(15); });
         }
 
+        [Fact]
+        public async void UsuarioRepositorio_NotEliminarByIdExistente()
+        {
+            var dbContext = await GetDBContext();
+            var usuarioRepositorio = new RepositorioUsuarios(dbContext);
+            usuarioRepositorio.Delete(8);
+            Assert.Throws<Exception>(() => { usuarioRepositorio.Delete(8); });
+        }
+
+        [Fact]
+        public async void UsuarioRepositorio_FindAll()
+        {
+            var dbContext = await GetDBContext();
+            var usuarioRepositorio = new RepositorioUsuarios(dbContext);
+            IEnumerable<Usuario> usuarios = usuarioRepositorio.FindAll();
+            Assert.IsAssignableFrom<IEnumerable<Usuario>>(usuarios);
+            Assert.True(usuarios.Count() == 11);
+        }
+        /*
+        [Fact]
+        public async void UsuarioRepositorio_()
+        {
+
+        }
+        */
     }
 }

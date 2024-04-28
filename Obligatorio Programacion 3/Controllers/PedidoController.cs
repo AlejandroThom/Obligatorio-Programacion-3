@@ -122,15 +122,9 @@ namespace Obligatorio_Programacion_3.Controllers
                     Pedido pedido;
                     Articulo art = CUObtenerArticulo.BuscarArticuloPorId(newPedido.ArticuloId);
                     if (art == null)
-                    {
                         throw new ArticuloException("Seleccione articulo valido!");
-                    }
                     if (newPedido.ClienteId <= 0)
-                    {
                         throw new ClienteException("Seleccione un cliente valido!");
-
-
-                    }
                     Linea nuevaLin = new Linea()
                     {
                         CantArticulo = newPedido.CantidadArticulo,
@@ -245,14 +239,11 @@ namespace Obligatorio_Programacion_3.Controllers
             }
             catch (PedidoException peEx)
             {
-                //TODO: Cambiar el viewbag por TempData y redirigirlo al método Get si el id es distinto de 0.
 
                 ViewBag.Mensaje = peEx.Message;
             }
             catch (LineaException liEx)
             {
-                //TODO: Cambiar el viewbag por TempData y redirigirlo al método Get si el id es distinto de 0.
-
                 ViewBag.Mensaje = liEx.Message;
             }
             catch (ArticuloException artEx)
