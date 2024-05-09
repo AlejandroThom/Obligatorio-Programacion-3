@@ -1,7 +1,4 @@
-﻿using DTO;
-using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
-using LogicaNegocio.EntidadesNegocio;
-using Mapper;
+﻿using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -28,18 +25,15 @@ namespace WebApiObligatorioP3.Controllers
 
         [HttpGet]
         [Route("OrderByName")]
-        public IEnumerable<ArticuloListadoDTO> GetArticulosOrdenados()
+        public ActionResult GetArticulosOrdenados()
         {
             try
             {
-                IEnumerable<Articulo> articulos = CUObtenerArticulosOrdenados.ObtenerArticulosOrdenados();
-                IEnumerable<ArticuloListadoDTO> articulosdto = ArticuloMappers.ToListaDto(articulos).ToList();
-
-                return articulosdto;
+                return Ok(CUObtenerArticulosOrdenados.ObtenerArticulosOrdenados());
             }
             catch (Exception ex)
             {
-                return (IEnumerable<ArticuloListadoDTO>)NotFound();
+                return NotFound();
             }
 
         }

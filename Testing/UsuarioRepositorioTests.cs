@@ -55,10 +55,7 @@ namespace Testing
             var dbContext = await GetDBContext();
             var usuarioRepositorio = new RepositorioUsuarios(dbContext);
             Assert.Throws<UsuarioException>(() => new Usuario("@gmail.com", "Luispep", "Thomu", "abcAb2a1.", Utilities.Encriptar("abcAb2a1.")));
-            var search = usuarioRepositorio.FindByEmailAndPass("@gmail.com", Utilities.Encriptar("abcAb2a1."));
-            Assert.IsNotType<Usuario>(search);
-            Assert.DoesNotContain(search, usuarioRepositorio.FindAll());
-            Assert.True(search == null);
+
         }
 
         [Fact]

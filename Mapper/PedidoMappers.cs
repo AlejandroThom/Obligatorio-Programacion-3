@@ -1,10 +1,9 @@
 ﻿using DTO;
 using LogicaNegocio.EntidadesNegocio;
-using Mapper.InterfacesMapper;
 
 namespace Mapper
 {
-    public class PedidoMappers : IMapper<PedidoListadoDTO, Pedido>
+    public class PedidoMappers
     {
         public static PedidoListadoDTO ToDto(Pedido pedido)
         {
