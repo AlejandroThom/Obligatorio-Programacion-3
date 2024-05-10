@@ -116,6 +116,7 @@ namespace Obligatorio_Programacion_3.Controllers
             UsuarioEditViewModel usuarioEditVM = new UsuarioEditViewModel()
             {
                 Id = usuario.Id,
+                Email = usuario.EmailUsuario.Email,
                 Nombre = usuario.NombreUsuario.Nombre,
                 Apellido = usuario.ApellidoUsuario.Apellido,
                 Password = usuario.PasswordUsuario.Password,
