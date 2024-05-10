@@ -111,17 +111,34 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 return RedirectToAction(nameof(InicioDeSesion));
             }
-            Usuario usuario = CUBuscarUsuario.BuscarUsuarioPorId(id);
-
-            UsuarioEditViewModel usuarioEditVM = new UsuarioEditViewModel()
+            try
             {
-                Id = usuario.Id,
-                Email = usuario.EmailUsuario.Email,
-                Nombre = usuario.NombreUsuario.Nombre,
-                Apellido = usuario.ApellidoUsuario.Apellido,
-                Password = usuario.PasswordUsuario.Password,
-            };
-            return View(usuarioEditVM);
+                Usuario usuario = CUBuscarUsuario.BuscarUsuarioPorId(id);
+                if (usuario == null)
+                {
+                    throw new UsuarioException("El usuario con esa id no existe!");
+                }
+                UsuarioEditViewModel usuarioEditVM = new UsuarioEditViewModel()
+                {
+                    Id = usuario.Id,
+                    Email = usuario.EmailUsuario.Email,
+                    Nombre = usuario.NombreUsuario.Nombre,
+                    Apellido = usuario.ApellidoUsuario.Apellido,
+                    Password = usuario.PasswordUsuario.Password,
+                };
+                return View(usuarioEditVM);
+
+            }
+            catch (UsuarioException ex)
+            {
+                ViewBag.Mensaje = ex.Message;
+                return View(new UsuarioEditViewModel());
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensaje = ex.Message;
+                return View(new UsuarioEditViewModel());
+            }
         }
 
         // POST: UsuarioController/Edit/5
