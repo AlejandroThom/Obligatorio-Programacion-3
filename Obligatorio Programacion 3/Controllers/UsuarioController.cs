@@ -59,7 +59,15 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 return RedirectToAction(nameof(InicioDeSesion));
             }
-            return View();
+            Usuario user = CUBuscarUsuario.BuscarUsuarioPorId(id);
+
+            return View(new UsuarioEditViewModel()
+            {
+                Id = user.Id,
+                Apellido = user.ApellidoUsuario.Apellido,
+                Email = user.EmailUsuario.Email,
+                Nombre = user.NombreUsuario.Nombre,
+            });
         }
 
         // GET: UsuarioController/Create
