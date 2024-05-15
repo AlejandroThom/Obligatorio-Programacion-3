@@ -1,8 +1,6 @@
 ﻿using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebApiObligatorioP3.Controllers
 {
     [Route("api/[controller]")]
@@ -28,7 +26,7 @@ namespace WebApiObligatorioP3.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, "Ocurrió un error interno en el servidor.");
             }
         }
     }

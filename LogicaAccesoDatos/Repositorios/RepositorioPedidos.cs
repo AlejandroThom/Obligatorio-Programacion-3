@@ -72,6 +72,10 @@ namespace LogicaAccesoDatos.Repositorios
             Pedido pedido = FindById(idPedido);
             if (pedido != null)
             {
+                foreach (Linea lin in pedido.Lineas)
+                {
+                    _context.Entry(lin.Articulo).State = EntityState.Unchanged;
+                }
                 _context.Entry(item.Articulo).State = EntityState.Unchanged;
                 pedido.IsLineaExistente(item);
                 pedido.AgregarLinea(_context.Parametros.FirstOrDefault(p => p.Nombre == "IVA").Valor, item);
@@ -88,8 +92,8 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Pedido> FindPedidosAnulados()
         {
-            IEnumerable<Pedido> dev = _context.Pedidos.Include(p => p.Cliente).Where(p => p.IsAnulado).ToList();
-            dev.ToList().Sort();
+            IEnumerable<Pedido> dev = _context.Pedidos.Include(p => p.Cliente).Where(p => p.IsAnulado).OrderByDescending(p => p.FechaEntrega).ToList();
+
             return dev;
         }
 

@@ -162,6 +162,10 @@ namespace Obligatorio_Programacion_3.Controllers
             {
                 ViewBag.Mensaje = excep.Message;
             }
+            catch (LineaException excep)
+            {
+                ViewBag.Mensaje = excep.Message;
+            }
             catch (Exception ex)
             {
                 ViewBag.Mensaje = "Hubo un error al crear un nuevo pedido";

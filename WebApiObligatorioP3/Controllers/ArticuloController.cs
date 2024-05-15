@@ -33,7 +33,7 @@ namespace WebApiObligatorioP3.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, "Hubo un error en el servidor");
             }
 
         }

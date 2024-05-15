@@ -14,6 +14,10 @@ namespace LogicaAccesoDatos.Repositorios
         public void Add(Usuario item)
         {
             item.Validar();
+            if (_context.Usuarios.SingleOrDefault(u => u.EmailUsuario.Email.Equals(item.EmailUsuario.Email)) != null)
+            {
+                throw new Exception("Ya existe un usuario con ese email");
+            }
             _context.Add(item);
             _context.SaveChanges();
         }

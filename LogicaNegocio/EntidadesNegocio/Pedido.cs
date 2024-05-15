@@ -10,7 +10,7 @@ namespace LogicaNegocio.EntidadesNegocio
         public int Id { get; set; }
         [AllowedValues([1, 2], ErrorMessage = "El pedido solo puede ser Express o común")]
         public Cliente Cliente { get; set; }
-        public DateTime FechaPedido { get; set; }
+        public DateTime FechaPedido { get; set; } = DateTime.Now;
         public DateTime FechaEntrega { get; set; }
         [DefaultValue(false)]
         public bool IsAnulado { get; set; }

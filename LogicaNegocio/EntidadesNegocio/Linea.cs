@@ -36,6 +36,8 @@ namespace LogicaNegocio.EntidadesNegocio
         {
             if (CantArticulo <= 0)
                 throw new LineaException("La cantidad de del articulo debe ser mayor a 0");
+            if (CantArticulo > Articulo.Stock)
+                throw new LineaException("La cantidad deseada supera el stock del articulo");
         }
         /// <summary>
         /// Valida que el precio unitario deba ser mayor a 0
