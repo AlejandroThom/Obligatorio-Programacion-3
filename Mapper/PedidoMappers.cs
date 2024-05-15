@@ -12,7 +12,6 @@ namespace Mapper
             return new PedidoListadoDTO
             {
                 FechaEntrega = pedido.FechaEntrega,
-                Id = pedido.Id,
                 IsExpress = pedido is PedidoExpress,
                 PrecioTotal = pedido.PrecioPedidoFinal,
                 Cliente = pedido.Cliente.RazonSocial,

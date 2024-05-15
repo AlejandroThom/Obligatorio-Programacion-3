@@ -56,6 +56,7 @@ namespace LogicaAccesoDatos.Repositorios
                 user.ApellidoUsuario = item.ApellidoUsuario;
                 user.PasswordUsuario = item.PasswordUsuario;
                 user.PasswordEncriptada = item.PasswordEncriptada;
+                user.Validar();
                 _context.Usuarios.Update(user);
                 _context.SaveChanges();
             }
