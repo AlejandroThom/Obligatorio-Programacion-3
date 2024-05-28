@@ -2,6 +2,8 @@
 using LogicaNegocio.Interfaces;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
@@ -15,6 +17,7 @@ namespace LogicaNegocio.EntidadesNegocio
         [DefaultValue(false)]
         public bool IsAnulado { get; set; }
         public List<Linea> Lineas { get; set; }
+        [Column(TypeName ="decimal(18,5)")]
         public decimal PrecioPedidoFinal { get; set; }
 
         public Pedido()

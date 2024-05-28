@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Xml.Linq;
 namespace LogicaNegocio.EntidadesNegocio
 {
     [Index(nameof(RUT),IsUnique =true)]
+    [Table("Clientes")]
     public class Cliente : IValidable
     {
         public int Id { get; set; }
@@ -19,6 +21,7 @@ namespace LogicaNegocio.EntidadesNegocio
 
         [MaxLength(12,ErrorMessage ="Debe tener como maximo 12 caracteres")]
         [MinLength(12,ErrorMessage = "Debe tener como minimo 12 caracteres")]
+        [Required]
         public string RUT { get; set;}
         public Direccion Direccion { get; set; }
 
