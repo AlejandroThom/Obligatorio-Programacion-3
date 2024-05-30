@@ -18,7 +18,7 @@ namespace LogicaAplicacion.CasosUso.CUTipoMovimiento.Implementacion
         {
             Repo = repo;
         }
-        public IEnumerable<TipoMovimientoDTO> ObtenerTIposDeMovimiento()
+        public IEnumerable<TipoMovimientoDTO> ObtenerTiposDeMovimiento()
         {
             return TipoMovimientoMappers.ToListadoDto(Repo.FindAll());
         }

@@ -10,6 +10,6 @@ namespace LogicaAplicacion.CasosUso.CUTipoMovimiento.Interfaces
 {
     public interface ICUObtenerTiposDeMovimiento
     {
-        IEnumerable<TipoMovimientoDTO> ObtenerTIposDeMovimiento();
+        IEnumerable<TipoMovimientoDTO> ObtenerTiposDeMovimiento();
     }
 }
