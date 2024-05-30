@@ -1,6 +1,8 @@
-﻿using LogicaAccesoDatos.InterfacesRepositorios;
+﻿using DTO;
+using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAplicacion.CasosUso.CUTipoMovimiento.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using Mapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,9 @@ namespace LogicaAplicacion.CasosUso.CUTipoMovimiento.Implementacion
             Repo = repo;
         }
 
-        public void AltaTipoMovimiento(TipoMovimiento item)
+        public void AltaTipoMovimiento(TipoMovimientoDTO item)
         {
-            Repo.Add(item);
+            Repo.Add(TipoMovimientoMappers.ToTipoMovimiento(item));
         }
     }
 }

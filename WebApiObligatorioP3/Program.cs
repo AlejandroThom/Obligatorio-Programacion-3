@@ -6,6 +6,8 @@ using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
 using LogicaAplicacion.CasosUso.CUPedido.Implementacion;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
+using LogicaAplicacion.CasosUso.CUTipoMovimiento.Implementacion;
+using LogicaAplicacion.CasosUso.CUTipoMovimiento.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebApiObligatorioP3
@@ -31,6 +33,16 @@ namespace WebApiObligatorioP3
             builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
 
             builder.Services.AddScoped<IRepositorioTipoMovimiento, RepositorioTipoMovimiento>();
+
+            builder.Services.AddScoped<ICUActualizarTipoMovimiento, CUActualizarTipoMovimiento>();
+            builder.Services.AddScoped<ICUAltaTipoMovimiento, CUAltaTipoMovimiento>();
+            builder.Services.AddScoped<ICUEliminarTipoMovimiento, CUEliminarTipoMovimiento>();
+            builder.Services.AddScoped<ICUObtenerTiposDeMovimiento, CUObtenerTiposDeMovimiento>();
+            builder.Services.AddScoped<ICUObtenerTipoMovimientoPorId, CUObtenerTipoMovimientoPorId>();
+
+
+
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

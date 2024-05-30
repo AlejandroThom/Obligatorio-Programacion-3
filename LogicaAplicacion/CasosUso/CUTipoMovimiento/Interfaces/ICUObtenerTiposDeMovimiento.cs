@@ -1,4 +1,5 @@
-﻿using LogicaNegocio.EntidadesNegocio;
+﻿using DTO;
+using LogicaNegocio.EntidadesNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace LogicaAplicacion.CasosUso.CUTipoMovimiento.Interfaces
 {
     public interface ICUObtenerTiposDeMovimiento
     {
-        IEnumerable<TipoMovimiento> ObtenerTIposDeMovimiento();
+        IEnumerable<TipoMovimientoDTO> ObtenerTIposDeMovimiento();
     }
 }
