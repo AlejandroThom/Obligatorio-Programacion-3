@@ -30,6 +30,8 @@ namespace WebApiObligatorioP3
 
             builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
 
+            builder.Services.AddScoped<IRepositorioTipoMovimiento, RepositorioTipoMovimiento>();
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
