@@ -1,5 +1,7 @@
 ﻿using LogicaNegocio.Excepciones.Usuario;
 using LogicaNegocio.ValueObjects.UsuarioVO;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
@@ -12,6 +14,9 @@ namespace LogicaNegocio.EntidadesNegocio
 
         public PasswordVO PasswordUsuario { get; set; }
         public string PasswordEncriptada { get; set; }
+        [ForeignKey(nameof(RolId))]
+        public int RolId { get; set; }
+        public Rol RolUsuario { get; set; }
 
         public Usuario() { }
 

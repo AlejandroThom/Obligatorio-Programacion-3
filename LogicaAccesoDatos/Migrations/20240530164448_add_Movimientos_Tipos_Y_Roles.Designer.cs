@@ -4,6 +4,7 @@ using LogicaAccesoDatos.BaseDatos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogicaAccesoDatos.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    partial class PapeleriaContextModelSnapshot : ModelSnapshot
+    [Migration("20240530164448_add_Movimientos_Tipos_Y_Roles")]
+    partial class add_Movimientos_Tipos_Y_Roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,9 +439,9 @@ namespace LogicaAccesoDatos.Migrations
             modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Usuario", b =>
                 {
                     b.HasOne("LogicaNegocio.EntidadesNegocio.Rol", "RolUsuario")
-                        .WithMany("Usuarios")
+                        .WithMany()
                         .HasForeignKey("RolId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.OwnsOne("LogicaNegocio.ValueObjects.UsuarioVO.ApellidoVO", "ApellidoUsuario", b1 =>
@@ -541,11 +544,6 @@ namespace LogicaAccesoDatos.Migrations
             modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Pedido", b =>
                 {
                     b.Navigation("Lineas");
-                });
-
-            modelBuilder.Entity("LogicaNegocio.EntidadesNegocio.Rol", b =>
-                {
-                    b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

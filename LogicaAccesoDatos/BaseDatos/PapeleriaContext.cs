@@ -19,6 +19,9 @@ namespace LogicaAccesoDatos.BaseDatos
         public DbSet<Parametro> Parametros { get; set; }
         public DbSet<PedidoComun> PedidosComunes { get; set; }
         public DbSet<PedidoExpress> PedidosExpress { get; set; }
+        public DbSet<MovimientosStock> Movimientos {  get; set; }
+        public DbSet<TipoMovimiento> TiposDeMovimiento { get; set; }
+        public DbSet<Rol> Roles { get; set; }
 
         public PapeleriaContext(DbContextOptions options) : base(options)
         {
@@ -27,6 +30,7 @@ namespace LogicaAccesoDatos.BaseDatos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Usuario>().HasOne(u => u.RolUsuario).WithMany(r=>r.Usuarios).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Pedido>().UseTphMappingStrategy();
             base.OnModelCreating(modelBuilder);
         }
