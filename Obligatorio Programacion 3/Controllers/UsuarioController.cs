@@ -170,6 +170,7 @@ namespace Obligatorio_Programacion_3.Controllers
                     Id = usuarioEditVM.Id,
                     NombreUsuario = new NombreVO(usuarioEditVM.Nombre),
                     ApellidoUsuario = new ApellidoVO(usuarioEditVM.Apellido),
+                    PasswordUsuario = new PasswordVO(usuarioEditVM.Password)
                 };
                 String passwordEncriptada = Utilities.Encriptar(usuarioEditVM.Password);
                 usuarioAModificar.PasswordEncriptada = passwordEncriptada;
