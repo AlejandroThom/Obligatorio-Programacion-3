@@ -106,6 +106,7 @@ namespace WebApiObligatorioP3.Controllers
         {
             try
             {
+                item.Id = id;
                 CUActualizarTipoMovimiento.ActualizarTipoMovimiento(item);
                 return Ok(item);
             }
