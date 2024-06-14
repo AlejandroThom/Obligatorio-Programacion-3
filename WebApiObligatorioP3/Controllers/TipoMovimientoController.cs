@@ -27,7 +27,13 @@ namespace WebApiObligatorioP3.Controllers
         }
 
         // GET: api/<TipoMovimientoController>
+        /// <summary>
+        /// Recupera todos los tipos de movimiento
+        /// </summary>
+        /// <returns>Una lista de todos los tipos de movimiento</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Get()
         {
             try
@@ -43,7 +49,15 @@ namespace WebApiObligatorioP3.Controllers
         }
 
         // GET api/<TipoMovimientoController>/5
+        /// <summary>
+        /// Recupera un Tipo de Movimiento especifico dado un id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Get(int id)
         {
             try
@@ -54,7 +68,7 @@ namespace WebApiObligatorioP3.Controllers
             {
                 return new ContentResult
                 {
-                    StatusCode = 500,
+                    StatusCode = 400,
                     Content = ex.Message,
                     ContentType = "text/plain"
                 };
@@ -71,19 +85,27 @@ namespace WebApiObligatorioP3.Controllers
         }
 
         // POST api/<TipoMovimientoController>
+        /// <summary>
+        /// Crea un nuevo Tipo de Movimiento
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Post([FromBody] TipoMovimientoDTO item)
         {
             try
             {
                 CUAltaTipoMovimiento.AltaTipoMovimiento(item);
-                return Ok(item);
+                return Created();
             }
             catch (TipoMovimientoException ex)
             {
                 return new ContentResult
                 {
-                    StatusCode = 500,
+                    StatusCode = 400,
                     Content = ex.Message,
                     ContentType = "text/plain"
                 };
@@ -101,7 +123,16 @@ namespace WebApiObligatorioP3.Controllers
         }
 
         // PUT api/<TipoMovimientoController>/5
+        /// <summary>
+        /// Actualiza un Tipo de Movimiento dado su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Put(int id, [FromBody] TipoMovimientoDTO item)
         {
             try
@@ -114,7 +145,7 @@ namespace WebApiObligatorioP3.Controllers
             {
                 return new ContentResult
                 {
-                    StatusCode = 500,
+                    StatusCode = 400,
                     Content = ex.Message,
                     ContentType = "text/plain"
                 };
@@ -131,7 +162,15 @@ namespace WebApiObligatorioP3.Controllers
         }
 
         // DELETE api/<TipoMovimientoController>/5
+        /// <summary>
+        /// Elimina un tipo de movimiento dado su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Delete(int id)
         {
             try
@@ -143,7 +182,7 @@ namespace WebApiObligatorioP3.Controllers
             {
                 return new ContentResult
                 {
-                    StatusCode = 500,
+                    StatusCode = 400,
                     Content = ex.Message,
                     ContentType = "text/plain"
                 };

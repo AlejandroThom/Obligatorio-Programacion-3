@@ -1,6 +1,7 @@
 ﻿using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones.Usuario;
 
 namespace LogicaAccesoDatos.Repositorios
 {
@@ -72,7 +73,13 @@ namespace LogicaAccesoDatos.Repositorios
 
         public bool UsuarioExiste(Usuario usuario)
         {
-            return _context.Usuarios.FirstOrDefault(u => u.EmailUsuario.Email.Equals(usuario.EmailUsuario.Email)) != null;
+            return _context.Usuarios.SingleOrDefault(u => u.EmailUsuario.Email.Equals(usuario.EmailUsuario.Email)) != null;
+        }
+
+        public int UsuarioExiste(string email)
+        {
+            Usuario user = _context.Usuarios.SingleOrDefault(u=>u.EmailUsuario.Email.Equals(email));
+            return user != null ? user.Id : throw new UsuarioException("Usuario no encontrado");
         }
     }
 }

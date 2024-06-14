@@ -74,5 +74,10 @@ namespace LogicaAccesoDatos.Repositorios
                 throw new Exception($"El articulo con el Id '{item.Id}' no existe.");
             }
         }
+
+        public bool ArticuloExiste(int id)
+        {
+            return _context.Articulos.Find(id) != null;
+        }
     }
 }

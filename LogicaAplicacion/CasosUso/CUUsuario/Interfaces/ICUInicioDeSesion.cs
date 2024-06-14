@@ -1,4 +1,5 @@
-﻿using LogicaNegocio.EntidadesNegocio;
+﻿using DTO;
+using LogicaNegocio.EntidadesNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Interfaces
 {
     public interface ICUInicioDeSesion
     {
-        Usuario BuscarUsuarioPorEmailYPassword(String email, String pass);
+        UsuarioLoginRetornoDTO BuscarUsuarioPorEmailYPassword(String email, String pass);
     }
 }

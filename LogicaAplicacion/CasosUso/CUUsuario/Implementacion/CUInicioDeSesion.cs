@@ -1,6 +1,8 @@
-﻿using LogicaAccesoDatos.InterfacesRepositorios;
+﻿using DTO;
+using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using Mapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,9 @@ namespace LogicaAplicacion.CasosUso.CUUsuario.Implementacion
             Repositorio = repositorio;
         }
 
-        public Usuario BuscarUsuarioPorEmailYPassword(String email, String pass)
+        public UsuarioLoginRetornoDTO BuscarUsuarioPorEmailYPassword(String email, String pass)
         {
-            return Repositorio.FindByEmailAndPass(email, pass);
+            return UsuarioMappers.ToRetornoLoginUsuarioDTO(Repositorio.FindByEmailAndPass(email, pass));
         }
     }
 }

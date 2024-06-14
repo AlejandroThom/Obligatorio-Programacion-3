@@ -9,5 +9,8 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
 {
     public interface IRepositorioTipoMovimiento : IRepositorio<TipoMovimiento>
     {
+        bool TipoMovimientoExiste(int id);
+
+        bool TipoDeMovimientoNoTipoTraslado(int id);
     }
 }

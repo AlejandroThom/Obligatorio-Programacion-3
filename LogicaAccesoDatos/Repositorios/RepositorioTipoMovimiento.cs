@@ -57,5 +57,16 @@ namespace LogicaAccesoDatos.Repositorios
             if (item.Movimientos.Any())
                 throw new TipoMovimientoException("El tipo de movimiento tiene movimientos asociados");
         }
+
+        public bool TipoMovimientoExiste(int id)
+        {
+            return Context.TiposDeMovimiento.Find(id) != null;
+        }
+
+        public bool TipoDeMovimientoNoTipoTraslado(int id)
+        {
+            TipoMovimiento tp = FindById(id);
+            return tp.Tipo != '='; 
+        }
     }
 }

@@ -9,6 +9,9 @@ namespace LogicaNegocio.EntidadesNegocio
         [Required]
         public string NombreMovimiento { get; set; }
 
+        [AllowedValues(['-','+','=','*'])]
+        public char Tipo {  get; set; }
+
         public virtual IEnumerable<MovimientosStock> Movimientos { get; set; }
 
         public void Validar()

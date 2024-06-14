@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicaNegocio.Excepciones.MovimientoStock;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace LogicaNegocio.EntidadesNegocio
         public TipoMovimiento TipoDeMovimiento { get; set; }
         public Usuario UsuarioEncargado { get; set; }
         public int CantidadEnMovimiento { get; set; }
+
+        public void Validar()
+        {
+            ValidarCantidadEnMovimiento();
+        }
+
+        public void ValidarCantidadEnMovimiento()
+        {
+            if (CantidadEnMovimiento <= 0) throw new MovimientoStockException("La cantidad de un articulo debe ser mayor a 0");
+        }
 
     }
 }
