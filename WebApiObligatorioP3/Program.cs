@@ -4,8 +4,12 @@ using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAccesoDatos.Repositorios;
 using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaAplicacion.CasosUso.CUParametro.Implementacion;
+using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
 using LogicaAplicacion.CasosUso.CUPedido.Implementacion;
 using LogicaAplicacion.CasosUso.CUPedido.Interfaces;
+using LogicaAplicacion.CasosUso.CURol.Implementacion;
+using LogicaAplicacion.CasosUso.CURol.Interfaces;
 using LogicaAplicacion.CasosUso.CUTipoMovimiento.Implementacion;
 using LogicaAplicacion.CasosUso.CUTipoMovimiento.Interfaces;
 using LogicaAplicacion.CasosUso.CUUsuario.Implementacion;
@@ -27,25 +31,33 @@ namespace WebApiObligatorioP3
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionDb"));
             });
-
+            //ARTICULO
             builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticulo>();
-
             builder.Services.AddScoped<ICUObtenerArticulosOrdenados, CUObtenerArticulosOrdenados>();
-
+            //PEDIDO
             builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidos>();
-
             builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();
 
+            //TIPO MOVIMIENTO
             builder.Services.AddScoped<IRepositorioTipoMovimiento, RepositorioTipoMovimiento>();
-
             builder.Services.AddScoped<ICUActualizarTipoMovimiento, CUActualizarTipoMovimiento>();
             builder.Services.AddScoped<ICUAltaTipoMovimiento, CUAltaTipoMovimiento>();
             builder.Services.AddScoped<ICUEliminarTipoMovimiento, CUEliminarTipoMovimiento>();
             builder.Services.AddScoped<ICUObtenerTiposDeMovimiento, CUObtenerTiposDeMovimiento>();
             builder.Services.AddScoped<ICUObtenerTipoMovimientoPorId, CUObtenerTipoMovimientoPorId>();
 
+            //USUARIO
             builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuarios>();
             builder.Services.AddScoped<ICUInicioDeSesion,CUInicioDeSesion>();
+            builder.Services.AddScoped<ICUAltaUsuario, CUAltaUsuario>();
+            
+            //PARAMETRO
+            builder.Services.AddScoped<IRepositorioParametro, RepositorioParametro>();
+            builder.Services.AddScoped<ICUObtenerParametroPorNombre,CUObtenerParametroPorNombre>();
+
+            //Rol
+            builder.Services.AddScoped<IRepositorioRol, RepositorioRol>();
+            builder.Services.AddScoped<ICUBuscarRolPorNombre,CUBuscarRolPorNombre>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

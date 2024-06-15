@@ -1,4 +1,5 @@
 ﻿using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,16 +16,34 @@ namespace WebApiObligatorioP3.Controllers
         {
             CUObtenerArticulosOrdenados = cuObtenerArtuculosOrdenados;
         }
+
         /*
+         -https://localhost:7048/api/Articulo/Listado GET
+         -https://localhost:7048/api/TipoMovimiento GET
+         */
+
+        
         // GET: api/<ArticuloController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("Select")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
-        }*/
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return new ContentResult { StatusCode = 500, Content = "Hubo un error" };
+            }
+        }
 
         [HttpGet]
         [Route("OrderByName")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult GetArticulosOrdenados()
         {
             try
@@ -37,31 +56,5 @@ namespace WebApiObligatorioP3.Controllers
             }
 
         }
-
-        /*
-        // GET api/<ArticuloController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ArticuloController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ArticuloController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ArticuloController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
     }
 }

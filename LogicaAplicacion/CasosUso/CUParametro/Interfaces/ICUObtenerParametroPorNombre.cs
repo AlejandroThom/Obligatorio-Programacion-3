@@ -1,9 +1,10 @@
-﻿using LogicaNegocio.EntidadesNegocio;
+﻿using DTO;
+using LogicaNegocio.EntidadesNegocio;
 
 namespace LogicaAplicacion.CasosUso.CUParametro.Interfaces
 {
     public interface ICUObtenerParametroPorNombre
-    {
-        Parametro ObtenerParametroPorNombre(string nombre);
+    { 
+        ParametroDTO ObtenerParametroPorNombre(string nombre);
     }
 }

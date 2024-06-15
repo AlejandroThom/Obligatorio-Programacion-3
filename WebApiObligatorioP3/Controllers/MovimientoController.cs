@@ -14,7 +14,6 @@ namespace WebApiObligatorioP3.Controllers
     [ApiController]
     public class MovimientoController : ControllerBase
     {
-        
 
         /// <summary>
         /// Realiza la creacion de un nuevo movimiento
@@ -33,10 +32,7 @@ namespace WebApiObligatorioP3.Controllers
                 if (dto.IdArticulo == 0) throw new ArticuloException("El articulo no existe");
                 if (string.IsNullOrEmpty(dto.EmailUsaurio)) throw new UsuarioException("El email no es valido");
                 if (dto.TipoMovimientoId == 0) throw new TipoMovimientoException("El tipo de movimiento no existe");
-                //BUSCAR ARTICULO
-                //BUSCAR Usuario
-                //Buscar TipoMovimiento
-                //CREAR EL TIPO MOVIMIENTO
+                //FALTA OBTENER EL ID DEL USUARIO - SE TIENE SOLO EL EMAIL
                 MovimientosStock movimiento = new MovimientosStock() {
                     FechaMovimiento= new DateOnly(dto.FechaRealizacion.Year,dto.FechaRealizacion.Month, dto.FechaRealizacion.Day),
                     HoraMovimiento= new TimeOnly(dto.FechaRealizacion.Ticks),

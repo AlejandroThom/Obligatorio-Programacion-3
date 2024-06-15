@@ -1,6 +1,8 @@
-﻿using LogicaAccesoDatos.InterfacesRepositorios;
+﻿using DTO;
+using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using Mapper;
 
 namespace LogicaAplicacion.CasosUso.CUParametro.Implementacion
 {
@@ -12,9 +14,9 @@ namespace LogicaAplicacion.CasosUso.CUParametro.Implementacion
         {
             Repo = repo;
         }
-        public Parametro ObtenerParametroPorNombre(string nombre)
+        public ParametroDTO ObtenerParametroPorNombre(string nombre)
         {
-            return Repo.GetParametroPorNombre(nombre);
+            return ParametroMappers.ToDTO(Repo.GetParametroPorNombre(nombre));
         }
     }
 }

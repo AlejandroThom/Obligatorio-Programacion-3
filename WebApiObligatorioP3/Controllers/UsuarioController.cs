@@ -1,7 +1,10 @@
 ﻿using DTO;
+using LogicaAplicacion.CasosUso.CURol.Interfaces;
 using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
+using LogicaNegocio.EntidadesNegocio;
 using LogicaNegocio.Excepciones.Usuario;
 using LogicaNegocio.Utils;
+using Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApiObligatorioP3.Token;
@@ -13,10 +16,44 @@ namespace WebApiObligatorioP3.Controllers
     public class UsuarioController : ControllerBase
     {
         public ICUInicioDeSesion CUInicioDeSesion { get; set; }
+        public ICUAltaUsuario CUAltaUsuario { get; set; }
+        public ICUBuscarRolPorNombre CUBuscarRolPorNombre { get; set; }
 
-        public UsuarioController(ICUInicioDeSesion cUInicioDeSesion)
+        public UsuarioController(ICUInicioDeSesion cUInicioDeSesion, ICUAltaUsuario cUAltaUsuario,ICUBuscarRolPorNombre cUBuscarRolPorNombre)
         {
             CUInicioDeSesion = cUInicioDeSesion;
+            CUAltaUsuario = cUAltaUsuario;
+            CUBuscarRolPorNombre = cUBuscarRolPorNombre;
+        }
+
+        /// <summary>
+        /// Permite registrar un nuevo Usuario, por defecto un encargado
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Registro([FromBody] DTOUsuarioRegistro dto)
+        {
+            try
+            {
+                Usuario user = UsuarioMappers.ToUsuarioFromDTOUsuarioRegistro(dto);
+                user.PasswordEncriptada = Utilities.Encriptar(dto.Password);
+                user.RolId = CUBuscarRolPorNombre.BuscarRolPorNombre(dto.GetNombreRol()).Id;
+                CUAltaUsuario.AltaUsuario(user);
+                return Created();
+            }
+            catch(UsuarioException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex) 
+            { 
+                return new ContentResult { Content = "Error inesperado", StatusCode = 500 };
+            }
         }
 
         /// <summary>

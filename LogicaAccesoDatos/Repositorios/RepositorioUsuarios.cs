@@ -2,6 +2,7 @@
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
 using LogicaNegocio.Excepciones.Usuario;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogicaAccesoDatos.Repositorios
 {
@@ -17,7 +18,7 @@ namespace LogicaAccesoDatos.Repositorios
             item.Validar();
             if (_context.Usuarios.SingleOrDefault(u => u.EmailUsuario.Email.Equals(item.EmailUsuario.Email)) != null)
             {
-                throw new Exception("Ya existe un usuario con ese email");
+                throw new UsuarioException("Ya existe un usuario con ese email");
             }
             _context.Add(item);
             _context.SaveChanges();
@@ -68,7 +69,8 @@ namespace LogicaAccesoDatos.Repositorios
         }
         public Usuario FindByEmailAndPass(String email, String pass)
         {
-            return _context.Usuarios.SingleOrDefault(u => u.EmailUsuario.Email == email && u.PasswordEncriptada == pass);
+            return _context.Usuarios.Include(u=>u.RolUsuario).SingleOrDefault(u => u.EmailUsuario.Email == email && u.PasswordEncriptada == pass) ??
+                throw new UsuarioException("El email o la contraseña son incorrectos");
         }
 
         public bool UsuarioExiste(Usuario usuario)
