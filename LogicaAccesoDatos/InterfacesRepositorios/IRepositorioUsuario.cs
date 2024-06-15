@@ -8,5 +8,6 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
 
         bool UsuarioExiste(Usuario usuario);
         int UsuarioExiste(string email);
+        Usuario FindByEmail(string email);
     }
 }

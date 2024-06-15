@@ -12,6 +12,6 @@ namespace DTO
         public DateTime FechaRealizacion { get; set; }
         public int CantidadArticulo { get; set; }
         public int TipoMovimientoId { get; set; }
-        public string EmailUsaurio {  get; set; }
+        public string EmailUsuario {  get; set; }
     }
 }

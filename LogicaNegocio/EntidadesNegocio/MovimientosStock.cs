@@ -13,8 +13,11 @@ namespace LogicaNegocio.EntidadesNegocio
         public DateOnly FechaMovimiento { get; set; }
         public TimeOnly HoraMovimiento { get; set; }
         public Articulo ArticuloMovimiento { get; set; }
+        public int ArticuloMovimientoId { get; set; }
         public TipoMovimiento TipoDeMovimiento { get; set; }
+        public int TipoDeMovimientoId { get; set; }
         public Usuario UsuarioEncargado { get; set; }
+        public int UsuarioEncargadoId { get; set; }
         public int CantidadEnMovimiento { get; set; }
 
         public void Validar()

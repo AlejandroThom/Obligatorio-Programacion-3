@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Mapper\Mapper.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CasosUso\CUMovimientoStock\" />
-  </ItemGroup>
-
 </Project>

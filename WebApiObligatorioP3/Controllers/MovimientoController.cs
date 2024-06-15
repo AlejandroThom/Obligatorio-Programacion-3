@@ -1,7 +1,12 @@
 ﻿using DTO;
+using LogicaAplicacion.CasosUso.CUMovimientoStock.Interfaces;
+using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
+using LogicaAplicacion.CasosUso.CUTipoMovimiento.Interfaces;
+using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
 using LogicaNegocio.Excepciones.Articulo;
 using LogicaNegocio.Excepciones.MovimientoStock;
+using LogicaNegocio.Excepciones.Params;
 using LogicaNegocio.Excepciones.TipoMovimiento;
 using LogicaNegocio.Excepciones.Usuario;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +19,23 @@ namespace WebApiObligatorioP3.Controllers
     [ApiController]
     public class MovimientoController : ControllerBase
     {
+        public ICUBuscarUsuarioPorEmail CUBuscarUsuarioPorEmail {  get; set; }
+        public ICUAltaMovimientoStock CUAltaMovimientoStock { get; set; }
+        public ICUObtenerTipoMovimientoPorId CUObtenerTipoMovimientoPorId { get; set; }
+        public ICUObtenerParametroPorNombre CUObtenerParametroPorNombre { get; set; }
+
+        public MovimientoController(ICUBuscarUsuarioPorEmail cuBuscarUsuarioPorEmail,
+            ICUAltaMovimientoStock cUAltaMovimientoStock,
+            ICUObtenerTipoMovimientoPorId cUObtenerTipoMovimientoPorId,
+            ICUObtenerParametroPorNombre cUObtenerParametroPorNombre)
+        {
+            CUBuscarUsuarioPorEmail = cuBuscarUsuarioPorEmail;
+            CUAltaMovimientoStock = cUAltaMovimientoStock;
+            CUObtenerTipoMovimientoPorId = cUObtenerTipoMovimientoPorId;
+            CUObtenerParametroPorNombre = cUObtenerParametroPorNombre;
+        }
+
+
 
         /// <summary>
         /// Realiza la creacion de un nuevo movimiento
@@ -24,27 +46,48 @@ namespace WebApiObligatorioP3.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Encargado de depósito")]
         public IActionResult RealizarMovimiento([FromBody] MovimientoCreateDTO dto)
         {
             try
             {
                 if (dto.IdArticulo == 0) throw new ArticuloException("El articulo no existe");
-                if (string.IsNullOrEmpty(dto.EmailUsaurio)) throw new UsuarioException("El email no es valido");
+                if (string.IsNullOrEmpty(dto.EmailUsuario)) throw new UsuarioException("El email no es valido");
                 if (dto.TipoMovimientoId == 0) throw new TipoMovimientoException("El tipo de movimiento no existe");
-                //FALTA OBTENER EL ID DEL USUARIO - SE TIENE SOLO EL EMAIL
+                UsuarioDTO user = CUBuscarUsuarioPorEmail.BuscarUsuarioPorEmail(dto.EmailUsuario);
+                if (CUObtenerTipoMovimientoPorId.ObtenerTipoMovimientoPorId(dto.TipoMovimientoId).TipoDeMovimiento == '=')
+                    throw new TipoMovimientoException("No se manejan movimientos de tipo de traslado");
+                if ((int)CUObtenerParametroPorNombre.ObtenerParametroPorNombre("Tope").Valor < dto.CantidadArticulo)
+                    throw new ParametroException("Se ha pasado el tope maximo de movimiento");
                 MovimientosStock movimiento = new MovimientosStock() {
-                    FechaMovimiento= new DateOnly(dto.FechaRealizacion.Year,dto.FechaRealizacion.Month, dto.FechaRealizacion.Day),
-                    HoraMovimiento= new TimeOnly(dto.FechaRealizacion.Ticks),
+                    FechaMovimiento= DateOnly.FromDateTime(dto.FechaRealizacion),
+                    HoraMovimiento= TimeOnly.FromDateTime(dto.FechaRealizacion),
                     CantidadEnMovimiento = dto.CantidadArticulo,
-                    ArticuloMovimiento = new Articulo() { Id=dto.IdArticulo},
-                    TipoDeMovimiento = new TipoMovimiento() { Id=dto.TipoMovimientoId},
-                    UsuarioEncargado = new Usuario() {Id = 1}
+                    ArticuloMovimientoId = dto.IdArticulo,
+                    TipoDeMovimientoId = dto.TipoMovimientoId,
+                    UsuarioEncargadoId = user.Id
                 };
-
                 //ENVIAR AL CASO DE USO
-
+                CUAltaMovimientoStock.AltaMovimientoStock(movimiento);
                 return Created();
-            }catch(MovimientoStockException ex)
+            }
+            catch (ParametroException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ArticuloException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UsuarioException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(TipoMovimientoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(MovimientoStockException ex)
             {
                 return BadRequest(ex.Message);
             }

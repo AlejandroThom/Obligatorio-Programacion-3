@@ -29,5 +29,16 @@ namespace Mapper
                 PasswordUsuario = new PasswordVO(dto.Password),
             };
         }
+
+        public static UsuarioDTO ToUsuarioDTO(Usuario user)
+        {
+            if (user == null) throw new UsuarioException("Error en los datos");
+            return new UsuarioDTO()
+            {
+                Id = user.Id,
+                Email = user.EmailUsuario.Email,
+                NombreCompleto = user.NombreUsuario.Nombre + " " + user.ApellidoUsuario.Apellido
+            };
+        }
     }
 }

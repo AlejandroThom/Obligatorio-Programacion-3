@@ -46,7 +46,12 @@ namespace LogicaAccesoDatos.Repositorios
 
         public Usuario FindById(int id)
         {
-            return _context.Usuarios.Find(id);
+            return _context.Usuarios.Find(id) ?? throw new UsuarioException("El usuario no existe");
+        }
+
+        public Usuario FindByEmail(string email)
+        {
+            return _context.Usuarios.SingleOrDefault(u=>u.EmailUsuario.Email.Equals(email)) ?? throw new UsuarioException("El usuario no existe");
         }
 
         public void Update(Usuario item)

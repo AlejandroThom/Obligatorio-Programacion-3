@@ -4,6 +4,8 @@ using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaAccesoDatos.Repositorios;
 using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
 using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaAplicacion.CasosUso.CUMovimientoStock.Implementacion;
+using LogicaAplicacion.CasosUso.CUMovimientoStock.Interfaces;
 using LogicaAplicacion.CasosUso.CUParametro.Implementacion;
 using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
 using LogicaAplicacion.CasosUso.CUPedido.Implementacion;
@@ -36,6 +38,10 @@ namespace WebApiObligatorioP3
             builder.Services.AddScoped<ICUObtenerArticulosOrdenados, CUObtenerArticulosOrdenados>();
             builder.Services.AddScoped<ICUObtenerArticulosParaSeleccion, CUObtenerArticulosParaSeleccion>();
 
+            //Movimiento
+            builder.Services.AddScoped<IRepositorioMovimiento,RepositorioMovimiento>();
+            builder.Services.AddScoped<ICUAltaMovimientoStock,CUAltaMovimientoStock>();
+
 
             //PEDIDO
             builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidos>();
@@ -53,6 +59,7 @@ namespace WebApiObligatorioP3
             builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuarios>();
             builder.Services.AddScoped<ICUInicioDeSesion,CUInicioDeSesion>();
             builder.Services.AddScoped<ICUAltaUsuario, CUAltaUsuario>();
+            builder.Services.AddScoped<ICUBuscarUsuarioPorEmail,CUBuscarUsuarioPorEmail>();
             
             //PARAMETRO
             builder.Services.AddScoped<IRepositorioParametro, RepositorioParametro>();
@@ -105,11 +112,6 @@ namespace WebApiObligatorioP3
 
 
             app.MapControllers();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
 
 
             app.Run();
