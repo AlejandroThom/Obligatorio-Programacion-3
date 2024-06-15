@@ -11,10 +11,13 @@ namespace WebApiObligatorioP3.Controllers
     public class ArticuloController : ControllerBase
     {
         public ICUObtenerArticulosOrdenados CUObtenerArticulosOrdenados { get; set; }
+        public ICUObtenerArticulosParaSeleccion CUObtenerArticulosParaSeleccion { get; set; }
 
-        public ArticuloController(ICUObtenerArticulosOrdenados cuObtenerArtuculosOrdenados)
+        public ArticuloController(ICUObtenerArticulosOrdenados cuObtenerArtuculosOrdenados,
+             ICUObtenerArticulosParaSeleccion cUObtenerArticulosParaSeleccion)
         {
             CUObtenerArticulosOrdenados = cuObtenerArtuculosOrdenados;
+            CUObtenerArticulosParaSeleccion = cUObtenerArticulosParaSeleccion;
         }
 
         /*
@@ -32,7 +35,7 @@ namespace WebApiObligatorioP3.Controllers
         {
             try
             {
-                return Ok();
+                return Ok(CUObtenerArticulosParaSeleccion.ObtenerArticulosParaSeleccion());
             }
             catch (Exception ex) 
             {

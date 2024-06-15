@@ -12,5 +12,8 @@ namespace DTO
         public int Id { get; set; }
         [StringLength(80,MinimumLength =4,ErrorMessage ="El nombre del tipo de movimiento debe tener al menos 4 caracteres.")]
         public String NombreMovimiento { get; set; }
+
+        [AllowedValues(['-', '+', '=', '*'])]
+        public char TipoDeMovimiento { get; set; }
     }
 }

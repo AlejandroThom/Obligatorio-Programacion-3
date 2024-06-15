@@ -17,7 +17,8 @@ namespace Mapper
             return new TipoMovimientoDTO
             {
                 Id = item.Id,
-                NombreMovimiento = item.NombreMovimiento
+                NombreMovimiento = item.NombreMovimiento,
+                TipoDeMovimiento = item.Tipo,
             };
         }
 
@@ -34,7 +35,8 @@ namespace Mapper
                 throw new Exception("El objeto no puede ser nulo");
             return new TipoMovimiento
             {
-                NombreMovimiento = item.NombreMovimiento
+                NombreMovimiento = item.NombreMovimiento,
+                Tipo = item.TipoDeMovimiento
             };
         }
 

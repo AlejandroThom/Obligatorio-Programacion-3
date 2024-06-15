@@ -38,7 +38,8 @@ namespace WebApiObligatorioP3.Controllers
         {
             try
             {
-                return Ok(CUObtenerTiposDeMovimiento.ObtenerTiposDeMovimiento());
+                var retorno = CUObtenerTiposDeMovimiento.ObtenerTiposDeMovimiento();
+                return Ok(retorno);
             }
             catch
             {
@@ -139,7 +140,7 @@ namespace WebApiObligatorioP3.Controllers
             {
                 item.Id = id;
                 CUActualizarTipoMovimiento.ActualizarTipoMovimiento(item);
-                return Ok(item);
+                return Ok();
             }
             catch (TipoMovimientoException ex)
             {

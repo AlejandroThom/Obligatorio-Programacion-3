@@ -34,6 +34,9 @@ namespace WebApiObligatorioP3
             //ARTICULO
             builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticulo>();
             builder.Services.AddScoped<ICUObtenerArticulosOrdenados, CUObtenerArticulosOrdenados>();
+            builder.Services.AddScoped<ICUObtenerArticulosParaSeleccion, CUObtenerArticulosParaSeleccion>();
+
+
             //PEDIDO
             builder.Services.AddScoped<IRepositorioPedido, RepositorioPedidos>();
             builder.Services.AddScoped<ICUObtenerPedidosAnulados, CUObtenerPedidosAnulados>();

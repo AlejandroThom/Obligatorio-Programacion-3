@@ -21,7 +21,6 @@ namespace WebApiObligatorioP3.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("RealizarMovimiento")]
-        [Authorize(Roles = "Encargado de depósito")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

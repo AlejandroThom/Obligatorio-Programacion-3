@@ -1,4 +1,5 @@
 ﻿using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -28,6 +29,7 @@ namespace WebApiObligatorioP3.Controllers
         [HttpGet("{nombre}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
         public IActionResult Get(string nombre)
         {
             try
