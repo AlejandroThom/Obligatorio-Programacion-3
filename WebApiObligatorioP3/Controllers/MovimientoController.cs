@@ -25,6 +25,7 @@ namespace WebApiObligatorioP3.Controllers
         public ICUObtenerTipoMovimientoPorId CUObtenerTipoMovimientoPorId { get; set; }
         public ICUObtenerParametroPorNombre CUObtenerParametroPorNombre { get; set; }
         public ICUObtenerResumenDeMovimientoPorAnio CUObtenerResumenDeMovimientoPorAnio { get; set; }
+        public ICUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento CUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento { get; set; }
         public ICUObtenerMovimientosDadoArticuloYTipoMovimiento CUObtenerMovimientosDadoArticuloYTipoMovimiento { get; set; }
 
         public MovimientoController(ICUBuscarUsuarioPorEmail cuBuscarUsuarioPorEmail,
@@ -32,7 +33,8 @@ namespace WebApiObligatorioP3.Controllers
             ICUObtenerTipoMovimientoPorId cUObtenerTipoMovimientoPorId,
             ICUObtenerParametroPorNombre cUObtenerParametroPorNombre,
             ICUObtenerMovimientosDadoArticuloYTipoMovimiento cUObtenerMovimientosDadoArticuloYTipoMovimiento,
-            ICUObtenerResumenDeMovimientoPorAnio cUObtenerResumenDeMovimientoPorAnio)
+            ICUObtenerResumenDeMovimientoPorAnio cUObtenerResumenDeMovimientoPorAnio,
+            ICUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento cUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento)
         {
             CUBuscarUsuarioPorEmail = cuBuscarUsuarioPorEmail;
             CUAltaMovimientoStock = cUAltaMovimientoStock;
@@ -40,6 +42,7 @@ namespace WebApiObligatorioP3.Controllers
             CUObtenerParametroPorNombre = cUObtenerParametroPorNombre;
             CUObtenerMovimientosDadoArticuloYTipoMovimiento = cUObtenerMovimientosDadoArticuloYTipoMovimiento;
             CUObtenerResumenDeMovimientoPorAnio = cUObtenerResumenDeMovimientoPorAnio;
+            CUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento = cUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento;
         }
 
         /// <summary>
@@ -64,6 +67,24 @@ namespace WebApiObligatorioP3.Controllers
             }
         }
 
+
+        [HttpGet("{idArticulo:int}/{idTipoMovimiento:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public IActionResult ObtenerMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento)
+        {
+            try
+            {
+                if (idArticulo <= 0) return BadRequest("El articulo que selecciono no es valido");
+                if (idTipoMovimiento <= 0) return BadRequest("El tipo de movimiento que selecciono no es valido");
+                return Ok(CUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento.ObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento(idArticulo, idTipoMovimiento));
+            }
+            catch (Exception ex)
+            {
+                return new ContentResult { Content = "Hubo un error al obtener los datos", StatusCode = 500 };
+            }
+        }
 
 
         [HttpGet("{idArticulo:int}/{idTipoMovimiento:int}/{pagina:int}")]

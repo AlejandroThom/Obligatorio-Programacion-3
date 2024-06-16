@@ -1,4 +1,5 @@
-﻿using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+﻿using LogicaAplicacion.CasosUso.CUArticulo.Implementacion;
+using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
 using LogicaNegocio.Excepciones;
 using LogicaNegocio.Excepciones.Articulo;
 using Microsoft.AspNetCore.Authorization;
@@ -16,16 +17,34 @@ namespace WebApiObligatorioP3.Controllers
         public ICUObtenerArticulosParaSeleccion CUObtenerArticulosParaSeleccion { get; set; }
         public ICUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos 
             CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos { get; set; }
-
+        public ICUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento { get; set; }
 
         public ArticuloController(ICUObtenerArticulosOrdenados cuObtenerArtuculosOrdenados,
              ICUObtenerArticulosParaSeleccion cUObtenerArticulosParaSeleccion,
              ICUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos cUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos
-            )
+            , ICUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento cUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento )
         {
             CUObtenerArticulosOrdenados = cuObtenerArtuculosOrdenados;
             CUObtenerArticulosParaSeleccion = cUObtenerArticulosParaSeleccion;
+            CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento = cUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento;
             CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos = cUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos;
+        }
+
+
+        [HttpGet("{inicio:datetime}/{fin:datetime}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public IActionResult ObtenerCantidadArticuloPorFechas(DateTime inicio, DateTime fin)
+        {
+            try
+            {
+                return Ok(CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento.ObtenerCantidadArticulosPorMovimientosDeStockEntreDosFechas(inicio, fin));
+            }
+            catch (Exception ex)
+            {
+                return new ContentResult { Content = "Hubo un error al obtener los datos", StatusCode = 500 };
+            }
         }
 
 

@@ -81,6 +81,20 @@ namespace LogicaAccesoDatos.Repositorios
             return _context.Articulos.Find(id) != null;
         }
 
+        public int ObtenerCantidadArticulosPorMovimientosDeStockEntreDosFechas(DateTime inicio, DateTime fin)
+        {
+            if (fin < inicio)
+            {
+                DateTime aux = fin;
+                fin = inicio;
+                inicio = aux;
+            }
+            IEnumerable<Articulo> articulos = _context.Articulos.Where(a => a.MovimientosStocks.Any(
+                m => DateOnly.FromDateTime(inicio) <= m.FechaMovimiento && DateOnly.FromDateTime(fin) >= m.FechaMovimiento))
+                .ToList();
+            return articulos.Count();
+        }
+
         public IEnumerable<Articulo> ObtenerArticulosPorMovimientosDeStockEntreDosFechas(DateTime inicio, DateTime fin,int pagina)
         {
             if ((_context.Articulos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");

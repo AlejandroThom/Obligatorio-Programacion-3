@@ -41,6 +41,12 @@ namespace LogicaAccesoDatos.Repositorios
             throw new NotImplementedException();
         }
 
+        public int CantidadDeMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento)
+        {
+            return _context.Movimientos.Where(m => m.ArticuloMovimientoId == idArticulo)
+                .Where(m => m.TipoDeMovimientoId == idTipoMovimiento).ToList().Count();
+        }
+
         public IEnumerable<MovimientosStock> ObtenerMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento, int pagina)
         {
             if ((_context.Movimientos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");

@@ -10,6 +10,7 @@ namespace LogicaAccesoDatos.InterfacesRepositorios
     public interface IRepositorioMovimiento : IRepositorio<MovimientosStock>
     {
         public IEnumerable<object> ResumenDeMovimientosPorAnio();
+        public int CantidadDeMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento);
         public IEnumerable<MovimientosStock> ObtenerMovimientosDadoArticuloYTipoMovimiento(int idArticulo,int idTipoMovimiento,int pagina);
     }
 }

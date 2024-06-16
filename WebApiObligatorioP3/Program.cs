@@ -39,6 +39,8 @@ namespace WebApiObligatorioP3
             builder.Services.AddScoped<ICUObtenerArticulosParaSeleccion, CUObtenerArticulosParaSeleccion>();
             builder.Services.AddScoped<ICUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos,
                 CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos>();
+            builder.Services.AddScoped<ICUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento,
+                CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento>();
 
             //Movimiento
             builder.Services.AddScoped<IRepositorioMovimiento,RepositorioMovimiento>();
@@ -46,6 +48,8 @@ namespace WebApiObligatorioP3
             builder.Services.AddScoped<ICUObtenerMovimientosDadoArticuloYTipoMovimiento,
                 CUObtenerMovimientosDadoArticuloYTipoMovimiento>();
             builder.Services.AddScoped<ICUObtenerResumenDeMovimientoPorAnio, CUObtenerResumenDeMovimientoPorAnio>();
+            builder.Services.AddScoped<ICUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento,
+                CUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento>();
 
 
             //PEDIDO
