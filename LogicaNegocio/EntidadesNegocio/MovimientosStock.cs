@@ -20,6 +20,7 @@ namespace LogicaNegocio.EntidadesNegocio
         public int UsuarioEncargadoId { get; set; }
         public int CantidadEnMovimiento { get; set; }
 
+
         public void Validar()
         {
             ValidarCantidadEnMovimiento();

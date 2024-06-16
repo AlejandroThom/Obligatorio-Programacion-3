@@ -4,6 +4,7 @@ using LogicaAplicacion.CasosUso.CUParametro.Interfaces;
 using LogicaAplicacion.CasosUso.CUTipoMovimiento.Interfaces;
 using LogicaAplicacion.CasosUso.CUUsuario.Interfaces;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones;
 using LogicaNegocio.Excepciones.Articulo;
 using LogicaNegocio.Excepciones.MovimientoStock;
 using LogicaNegocio.Excepciones.Params;
@@ -23,16 +24,82 @@ namespace WebApiObligatorioP3.Controllers
         public ICUAltaMovimientoStock CUAltaMovimientoStock { get; set; }
         public ICUObtenerTipoMovimientoPorId CUObtenerTipoMovimientoPorId { get; set; }
         public ICUObtenerParametroPorNombre CUObtenerParametroPorNombre { get; set; }
+        public ICUObtenerResumenDeMovimientoPorAnio CUObtenerResumenDeMovimientoPorAnio { get; set; }
+        public ICUObtenerMovimientosDadoArticuloYTipoMovimiento CUObtenerMovimientosDadoArticuloYTipoMovimiento { get; set; }
 
         public MovimientoController(ICUBuscarUsuarioPorEmail cuBuscarUsuarioPorEmail,
             ICUAltaMovimientoStock cUAltaMovimientoStock,
             ICUObtenerTipoMovimientoPorId cUObtenerTipoMovimientoPorId,
-            ICUObtenerParametroPorNombre cUObtenerParametroPorNombre)
+            ICUObtenerParametroPorNombre cUObtenerParametroPorNombre,
+            ICUObtenerMovimientosDadoArticuloYTipoMovimiento cUObtenerMovimientosDadoArticuloYTipoMovimiento,
+            ICUObtenerResumenDeMovimientoPorAnio cUObtenerResumenDeMovimientoPorAnio)
         {
             CUBuscarUsuarioPorEmail = cuBuscarUsuarioPorEmail;
             CUAltaMovimientoStock = cUAltaMovimientoStock;
             CUObtenerTipoMovimientoPorId = cUObtenerTipoMovimientoPorId;
             CUObtenerParametroPorNombre = cUObtenerParametroPorNombre;
+            CUObtenerMovimientosDadoArticuloYTipoMovimiento = cUObtenerMovimientosDadoArticuloYTipoMovimiento;
+            CUObtenerResumenDeMovimientoPorAnio = cUObtenerResumenDeMovimientoPorAnio;
+        }
+
+        /// <summary>
+        /// Obtienes el resumen por año de todos los movimientos detallando:
+        /// -la cantidad de cada tipo de movimiento(nombre)
+        /// -la cantidad de movimientos por año
+        /// </summary>
+        /// <returns>Una lista con el resumen</returns>
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("ResumenPorAño")]
+        [Authorize]
+        public IActionResult ObtenerResumenDeMovimientosPorAnio()
+        {
+            try
+            {
+                return Ok(CUObtenerResumenDeMovimientoPorAnio.ObtenerResumenDeMovimientoPorAnio());
+            }
+            catch (Exception ex) {
+                return new ContentResult { Content = "Hubo un error al obtener los datos", StatusCode = 500 };
+            }
+        }
+
+
+
+        [HttpGet("{idArticulo:int}/{idTipoMovimiento:int}/{pagina:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public IActionResult ObtenerMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento, int pagina)
+        {
+            try
+            {
+                if(pagina <= 0) return BadRequest("La pagina que selecciono no es valida");
+                if (idArticulo <= 0) return BadRequest("El articulo que selecciono no es valido");
+                if (idTipoMovimiento <= 0) return BadRequest("El tipo de movimiento que selecciono no es valido");
+                return Ok(CUObtenerMovimientosDadoArticuloYTipoMovimiento.ObtenerMovimientosDadoArticuloYTipoMovimiento(idArticulo, idTipoMovimiento, pagina));
+            }
+            catch(ParamException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(ArticuloException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(TipoMovimientoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UsuarioException ex)
+            {
+                return ValidationProblem(ex.Message);
+            }
+            catch (Exception ex) 
+            {
+                return new ContentResult { Content = "Hubo un error al obtener los datos",StatusCode=500};
+            }
         }
 
 

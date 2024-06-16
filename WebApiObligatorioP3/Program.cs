@@ -37,10 +37,15 @@ namespace WebApiObligatorioP3
             builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticulo>();
             builder.Services.AddScoped<ICUObtenerArticulosOrdenados, CUObtenerArticulosOrdenados>();
             builder.Services.AddScoped<ICUObtenerArticulosParaSeleccion, CUObtenerArticulosParaSeleccion>();
+            builder.Services.AddScoped<ICUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos,
+                CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos>();
 
             //Movimiento
             builder.Services.AddScoped<IRepositorioMovimiento,RepositorioMovimiento>();
             builder.Services.AddScoped<ICUAltaMovimientoStock,CUAltaMovimientoStock>();
+            builder.Services.AddScoped<ICUObtenerMovimientosDadoArticuloYTipoMovimiento,
+                CUObtenerMovimientosDadoArticuloYTipoMovimiento>();
+            builder.Services.AddScoped<ICUObtenerResumenDeMovimientoPorAnio, CUObtenerResumenDeMovimientoPorAnio>();
 
 
             //PEDIDO

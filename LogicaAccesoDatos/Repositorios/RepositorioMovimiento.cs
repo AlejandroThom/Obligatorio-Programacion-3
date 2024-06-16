@@ -1,6 +1,8 @@
 ﻿using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,40 @@ namespace LogicaAccesoDatos.Repositorios
         public MovimientosStock FindById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<MovimientosStock> ObtenerMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento, int pagina)
+        {
+            if ((_context.Movimientos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");
+            List<MovimientosStock> movi = _context.Movimientos.Where(m => m.ArticuloMovimientoId == idArticulo)
+                .Where(m => m.TipoDeMovimientoId == idTipoMovimiento)
+                .Include(m => m.ArticuloMovimiento)
+                .Include(m => m.TipoDeMovimiento)
+                .Include(m => m.UsuarioEncargado).ThenInclude(u => u.RolUsuario)
+                .Skip((pagina - 1) * 5)
+                .Take(pagina * 5)
+                .OrderByDescending(m=>m.FechaMovimiento)
+                .OrderBy(m=>m.CantidadEnMovimiento)
+                .ToList();
+            if ((movi.Count / 5) < pagina) throw new ParamException("pagina no valida");
+
+            return movi;
+        }
+
+        public IEnumerable<object> ResumenDeMovimientosPorAnio()
+        {
+              var result =  _context.Movimientos.GroupBy(m=>m.FechaMovimiento.Year)
+                .Select(g=> new {
+                    Anio = g.Key,
+                    TipoMovimiento = g.GroupBy(m=>m.TipoDeMovimiento.NombreMovimiento)
+                    .Select(tm => new
+                    {
+                        NombreTipo = tm.Key,
+                        Cantidad = tm.Count()
+                    }), 
+                    TotalMovimientos = g.Count()
+                }).OrderBy(g=>g.Anio).ToList();
+            return result;
         }
 
         public void Update(MovimientosStock item)

@@ -1,6 +1,7 @@
 ﻿using LogicaAccesoDatos.BaseDatos;
 using LogicaAccesoDatos.InterfacesRepositorios;
 using LogicaNegocio.EntidadesNegocio;
+using LogicaNegocio.Excepciones;
 
 namespace LogicaAccesoDatos.Repositorios
 {
@@ -78,6 +79,24 @@ namespace LogicaAccesoDatos.Repositorios
         public bool ArticuloExiste(int id)
         {
             return _context.Articulos.Find(id) != null;
+        }
+
+        public IEnumerable<Articulo> ObtenerArticulosPorMovimientosDeStockEntreDosFechas(DateTime inicio, DateTime fin,int pagina)
+        {
+            if ((_context.Articulos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");
+            if (fin < inicio)
+            {
+                DateTime aux = fin;
+                fin = inicio;
+                inicio = aux;
+            }
+            IEnumerable<Articulo> articulos = _context.Articulos.Where(a => a.MovimientosStocks.Any(
+                m => DateOnly.FromDateTime(inicio) <= m.FechaMovimiento && DateOnly.FromDateTime(fin) >= m.FechaMovimiento))
+                .Skip((pagina - 1) * 5)
+                .Take(pagina * 5)
+                .ToList();
+            if ((articulos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");
+            return articulos;
         }
     }
 }

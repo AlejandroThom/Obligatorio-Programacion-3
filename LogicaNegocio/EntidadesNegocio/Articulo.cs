@@ -23,6 +23,8 @@ namespace LogicaNegocio.EntidadesNegocio
         public CodigoVO CodigoArticulo { get; set; }
         public int Stock { get; set; }
 
+        public virtual IEnumerable<MovimientosStock> MovimientosStocks { get; set; }
+
         public Articulo() { }
 
         /// <summary>

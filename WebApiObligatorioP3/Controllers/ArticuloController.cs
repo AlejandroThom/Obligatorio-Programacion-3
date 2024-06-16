@@ -1,4 +1,6 @@
 ﻿using LogicaAplicacion.CasosUso.CUArticulo.Interfaces;
+using LogicaNegocio.Excepciones;
+using LogicaNegocio.Excepciones.Articulo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,18 +14,55 @@ namespace WebApiObligatorioP3.Controllers
     {
         public ICUObtenerArticulosOrdenados CUObtenerArticulosOrdenados { get; set; }
         public ICUObtenerArticulosParaSeleccion CUObtenerArticulosParaSeleccion { get; set; }
+        public ICUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos 
+            CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos { get; set; }
+
 
         public ArticuloController(ICUObtenerArticulosOrdenados cuObtenerArtuculosOrdenados,
-             ICUObtenerArticulosParaSeleccion cUObtenerArticulosParaSeleccion)
+             ICUObtenerArticulosParaSeleccion cUObtenerArticulosParaSeleccion,
+             ICUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos cUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos
+            )
         {
             CUObtenerArticulosOrdenados = cuObtenerArtuculosOrdenados;
             CUObtenerArticulosParaSeleccion = cUObtenerArticulosParaSeleccion;
+            CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos = cUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos;
         }
 
-        /*
-         -https://localhost:7048/api/Articulo/Listado GET
-         -https://localhost:7048/api/TipoMovimiento GET
-         */
+
+        /// <summary>
+        /// Dado un dos fecha y una pagina, filtra a los articulos que tuvieron al menos un
+        /// movimiento entre esas fechas
+        /// </summary>
+        /// <param name="inicio"></param>
+        /// <param name="fin"></param>
+        /// <param name="pagina"></param>
+        /// <returns>Devuelve un maximo de 5 articulos por pagina</returns>
+        [HttpGet("{inicio:datetime}/{fin:datetime}/{pagina:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public IActionResult ObtenerArticuloPorFechas(DateTime inicio,DateTime fin,int pagina)
+        {
+            try
+            {
+                if (pagina <= 0) throw new ParamException("Pagina no valida");
+                return Ok(CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos.ObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos(inicio,fin,pagina));
+            }
+            catch(ParamException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(ArticuloException ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+            catch (Exception ex) 
+            {
+                return new ContentResult { Content="Hubo un error al obtener los datos",StatusCode=500};
+            }
+        }
 
         
         // GET: api/<ArticuloController>

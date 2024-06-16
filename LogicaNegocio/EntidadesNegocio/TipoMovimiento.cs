@@ -1,8 +1,11 @@
 ﻿
+using LogicaNegocio.Excepciones.TipoMovimiento;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace LogicaNegocio.EntidadesNegocio
 {
+    [Index(nameof(NombreMovimiento),IsUnique =true)]
     public class TipoMovimiento
     {
         public int Id { get; set; }
@@ -16,7 +19,9 @@ namespace LogicaNegocio.EntidadesNegocio
 
         public void Validar()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(NombreMovimiento)) throw new TipoMovimientoException("El nombre debe ser uno valido");
+            if (NombreMovimiento.Length <3) throw new TipoMovimientoException("El nombre no es valido");
+
         }
     }
 }

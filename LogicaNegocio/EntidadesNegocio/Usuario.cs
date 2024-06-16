@@ -18,6 +18,8 @@ namespace LogicaNegocio.EntidadesNegocio
         public int RolId { get; set; }
         public Rol RolUsuario { get; set; }
 
+        public virtual IEnumerable<MovimientosStock> MovimientosStocks { get; set; }
+
         public Usuario() { }
 
         public Usuario(string email, string nombre, string apellido, string password, string passwordEncript)

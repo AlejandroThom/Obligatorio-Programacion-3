@@ -12,6 +12,18 @@ namespace Mapper
 {
     public class UsuarioMappers
     {
+        public static UsuarioListadoDTO ToUsuarioListadoDTO(Usuario usuario)
+        {
+            if (usuario == null) throw new UsuarioException("Error en los datos del usuario");
+            return new UsuarioListadoDTO()
+            {
+                Id = usuario.Id,
+                Email = usuario.EmailUsuario.Email,
+                NombreCompleto = usuario.NombreUsuario.Nombre + " " + usuario.ApellidoUsuario.Apellido,
+                Rol = usuario.RolUsuario.Nombre
+            };
+        }
+
         public static UsuarioLoginRetornoDTO ToRetornoLoginUsuarioDTO(Usuario user)
         {
             if (user == null) throw new UsuarioException("Hubo un error en los datos");
