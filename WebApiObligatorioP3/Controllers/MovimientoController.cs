@@ -54,7 +54,7 @@ namespace WebApiObligatorioP3.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [HttpGet("ResumenPorAño")]
+        [HttpGet("Resumen")]
         [Authorize]
         public IActionResult ObtenerResumenDeMovimientosPorAnio()
         {
@@ -68,17 +68,18 @@ namespace WebApiObligatorioP3.Controllers
         }
 
 
-        [HttpGet("{idArticulo:int}/{idTipoMovimiento:int}")]
+        [HttpGet("Busqueda/{idArticulo:int}/{idTipoMovimiento:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public IActionResult ObtenerMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento)
+        public IActionResult ObtenerCantidadMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento)
         {
             try
             {
                 if (idArticulo <= 0) return BadRequest("El articulo que selecciono no es valido");
                 if (idTipoMovimiento <= 0) return BadRequest("El tipo de movimiento que selecciono no es valido");
-                return Ok(CUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento.ObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento(idArticulo, idTipoMovimiento));
+                int value = CUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento.ObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento(idArticulo, idTipoMovimiento);
+                return Ok(new { cantidad = value });
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace WebApiObligatorioP3.Controllers
         }
 
 
-        [HttpGet("{idArticulo:int}/{idTipoMovimiento:int}/{pagina:int}")]
+        [HttpGet("BusquedaMovimiento/{idArticulo:int}/{idTipoMovimiento:int}/{pagina:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

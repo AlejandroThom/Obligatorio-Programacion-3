@@ -49,7 +49,6 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<MovimientosStock> ObtenerMovimientosDadoArticuloYTipoMovimiento(int idArticulo, int idTipoMovimiento, int pagina)
         {
-            if ((_context.Movimientos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");
             List<MovimientosStock> movi = _context.Movimientos.Where(m => m.ArticuloMovimientoId == idArticulo)
                 .Where(m => m.TipoDeMovimientoId == idTipoMovimiento)
                 .Include(m => m.ArticuloMovimiento)
@@ -60,7 +59,6 @@ namespace LogicaAccesoDatos.Repositorios
                 .OrderByDescending(m=>m.FechaMovimiento)
                 .OrderBy(m=>m.CantidadEnMovimiento)
                 .ToList();
-            if ((movi.Count / 5) < pagina) throw new ParamException("pagina no valida");
 
             return movi;
         }

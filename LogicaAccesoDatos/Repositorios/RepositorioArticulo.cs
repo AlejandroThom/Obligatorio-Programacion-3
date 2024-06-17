@@ -97,7 +97,6 @@ namespace LogicaAccesoDatos.Repositorios
 
         public IEnumerable<Articulo> ObtenerArticulosPorMovimientosDeStockEntreDosFechas(DateTime inicio, DateTime fin,int pagina)
         {
-            if ((_context.Articulos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");
             if (fin < inicio)
             {
                 DateTime aux = fin;
@@ -109,7 +108,6 @@ namespace LogicaAccesoDatos.Repositorios
                 .Skip((pagina - 1) * 5)
                 .Take(pagina * 5)
                 .ToList();
-            if ((articulos.ToList().Count / 5) < pagina) throw new ParamException("pagina no valida");
             return articulos;
         }
     }

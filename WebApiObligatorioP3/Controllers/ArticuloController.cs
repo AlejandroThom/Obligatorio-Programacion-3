@@ -31,7 +31,7 @@ namespace WebApiObligatorioP3.Controllers
         }
 
 
-        [HttpGet("{inicio:datetime}/{fin:datetime}")]
+        [HttpGet("Busqueda/{inicio:datetime}/{fin:datetime}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
@@ -56,7 +56,7 @@ namespace WebApiObligatorioP3.Controllers
         /// <param name="fin"></param>
         /// <param name="pagina"></param>
         /// <returns>Devuelve un maximo de 5 articulos por pagina</returns>
-        [HttpGet("{inicio:datetime}/{fin:datetime}/{pagina:int}")]
+        [HttpGet("Busqueda/{inicio:datetime}/{fin:datetime}/{pagina:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
