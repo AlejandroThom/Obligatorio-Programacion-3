@@ -31,16 +31,18 @@ namespace WebApiObligatorioP3.Controllers
         }
 
 
-        [HttpGet("BusquedaCantidad/{inicio:datetime}/{fin:datetime}")]
+        [HttpGet("BusquedaCantidad/{inicio}/{fin}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
         public IActionResult ObtenerCantidadArticuloPorFechas(string inicio, string fin)
         {
             try
             {
-                //CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento.ObtenerCantidadArticulosPorMovimientosDeStockEntreDosFechas(inicio, fin)
-                return Ok();
+                string[] fecha = inicio.Split("-");
+                string[] fecha2 = fin.Split("-");
+                DateTime iniciofecha = new DateTime(int.Parse(fecha[2]), int.Parse(fecha[1]), int.Parse(fecha[0]));
+                DateTime inicioFin = new DateTime(int.Parse(fecha2[2]), int.Parse(fecha2[1]), int.Parse(fecha2[0]));
+                return Ok(CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento.ObtenerCantidadArticulosPorMovimientosDeStockEntreDosFechas(iniciofecha, inicioFin));
             }
             catch (Exception ex)
             {
@@ -67,8 +69,11 @@ namespace WebApiObligatorioP3.Controllers
             try
             {
                 if (pagina <= 0) throw new ParamException("Pagina no valida");
-                //CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos.ObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos(inicio,fin,pagina)
-                return Ok();
+                string[] fecha = inicio.Split("-");
+                string[] fecha2 = fin.Split("-");
+                DateTime iniciofecha = new DateTime(int.Parse(fecha[2]), int.Parse(fecha[1]), int.Parse(fecha[0]));
+                DateTime inicioFin = new DateTime(int.Parse(fecha2[2]), int.Parse(fecha2[1]), int.Parse(fecha2[0]));
+                return Ok(CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos.ObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos(iniciofecha, inicioFin, pagina));
             }
             catch(ParamException ex)
             {
