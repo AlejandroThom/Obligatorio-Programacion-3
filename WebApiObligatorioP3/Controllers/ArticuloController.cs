@@ -31,15 +31,16 @@ namespace WebApiObligatorioP3.Controllers
         }
 
 
-        [HttpGet("Busqueda/{inicio:datetime}/{fin:datetime}")]
+        [HttpGet("BusquedaCantidad/{inicio:datetime}/{fin:datetime}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public IActionResult ObtenerCantidadArticuloPorFechas(DateTime inicio, DateTime fin)
+        public IActionResult ObtenerCantidadArticuloPorFechas(string inicio, string fin)
         {
             try
             {
-                return Ok(CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento.ObtenerCantidadArticulosPorMovimientosDeStockEntreDosFechas(inicio, fin));
+                //CUObtenerCantidadDeArticulosEntreDosFechasDeMovimiento.ObtenerCantidadArticulosPorMovimientosDeStockEntreDosFechas(inicio, fin)
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -56,17 +57,18 @@ namespace WebApiObligatorioP3.Controllers
         /// <param name="fin"></param>
         /// <param name="pagina"></param>
         /// <returns>Devuelve un maximo de 5 articulos por pagina</returns>
-        [HttpGet("Busqueda/{inicio:datetime}/{fin:datetime}/{pagina:int}")]
+        [HttpGet("Busqueda/{inicio}/{fin}/{pagina:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public IActionResult ObtenerArticuloPorFechas(DateTime inicio,DateTime fin,int pagina)
+        public IActionResult ObtenerArticuloPorFechas(string inicio,string fin,int pagina)
         {
             try
             {
                 if (pagina <= 0) throw new ParamException("Pagina no valida");
-                return Ok(CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos.ObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos(inicio,fin,pagina));
+                //CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos.ObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos(inicio,fin,pagina)
+                return Ok();
             }
             catch(ParamException ex)
             {

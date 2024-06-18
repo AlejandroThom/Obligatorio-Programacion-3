@@ -73,6 +73,7 @@ namespace LogicaAccesoDatos.Repositorios
                     {
                         NombreTipo = tm.Key,
                         Cantidad = tm.Count()
+                        //Cantidad = tm.Sum(algo => algo.Cantidad)
                     }), 
                     TotalMovimientos = g.Count()
                 }).OrderBy(g=>g.Anio).ToList();

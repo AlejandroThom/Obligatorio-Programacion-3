@@ -55,7 +55,6 @@ namespace WebApiObligatorioP3.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("Resumen")]
-        [Authorize]
         public IActionResult ObtenerResumenDeMovimientosPorAnio()
         {
             try
@@ -79,7 +78,7 @@ namespace WebApiObligatorioP3.Controllers
                 if (idArticulo <= 0) return BadRequest("El articulo que selecciono no es valido");
                 if (idTipoMovimiento <= 0) return BadRequest("El tipo de movimiento que selecciono no es valido");
                 int value = CUObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento.ObtenerCantidadDeMovimientosDadoArticuloYTipoMovimiento(idArticulo, idTipoMovimiento);
-                return Ok(new { cantidad = value });
+                return Ok(value);
             }
             catch (Exception ex)
             {
