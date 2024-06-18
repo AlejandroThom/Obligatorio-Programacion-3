@@ -72,10 +72,10 @@ namespace LogicaAccesoDatos.Repositorios
                     .Select(tm => new
                     {
                         NombreTipo = tm.Key,
-                        Cantidad = tm.Count()
-                        //Cantidad = tm.Sum(algo => algo.Cantidad)
+                        //es la suma de la cantidad de los articulos, no la cantidad de veces que aparece.
+                        Cantidad = tm.Sum(m => m.CantidadEnMovimiento)
                     }), 
-                    TotalMovimientos = g.Count()
+                    TotalMovimientos = g.Sum(m=>m.CantidadEnMovimiento)
                 }).OrderBy(g=>g.Anio).ToList();
             return result;
         }
