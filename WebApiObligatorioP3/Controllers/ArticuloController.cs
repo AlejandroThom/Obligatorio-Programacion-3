@@ -33,6 +33,7 @@ namespace WebApiObligatorioP3.Controllers
 
         [HttpGet("BusquedaCantidad/{inicio}/{fin}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult ObtenerCantidadArticuloPorFechas(string inicio, string fin)
         {
