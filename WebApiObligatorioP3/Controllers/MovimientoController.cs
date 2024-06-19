@@ -20,7 +20,7 @@ namespace WebApiObligatorioP3.Controllers
     [ApiController]
     public class MovimientoController : ControllerBase
     {
-        public ICUBuscarUsuarioPorEmail CUBuscarUsuarioPorEmail {  get; set; }
+        public ICUBuscarUsuarioPorEmail CUBuscarUsuarioPorEmail { get; set; }
         public ICUAltaMovimientoStock CUAltaMovimientoStock { get; set; }
         public ICUObtenerTipoMovimientoPorId CUObtenerTipoMovimientoPorId { get; set; }
         public ICUObtenerParametroPorNombre CUObtenerParametroPorNombre { get; set; }
@@ -54,6 +54,7 @@ namespace WebApiObligatorioP3.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [Authorize]
         [HttpGet("Resumen")]
         public IActionResult ObtenerResumenDeMovimientosPorAnio()
         {
