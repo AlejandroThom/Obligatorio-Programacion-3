@@ -105,8 +105,8 @@ namespace LogicaAccesoDatos.Repositorios
             }
             IEnumerable<Articulo> articulos = _context.Articulos.Where(a => a.MovimientosStocks.Any(
                 m => DateOnly.FromDateTime(inicio) <= m.FechaMovimiento && DateOnly.FromDateTime(fin) >= m.FechaMovimiento))
-                .Skip((pagina - 1) * 5)
                 .Take(pagina * 5)
+                .Skip((pagina - 1) * 5)
                 .ToList();
             return articulos;
         }

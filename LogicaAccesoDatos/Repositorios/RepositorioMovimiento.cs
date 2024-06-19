@@ -54,8 +54,8 @@ namespace LogicaAccesoDatos.Repositorios
                 .Include(m => m.ArticuloMovimiento)
                 .Include(m => m.TipoDeMovimiento)
                 .Include(m => m.UsuarioEncargado).ThenInclude(u => u.RolUsuario)
-                .Skip((pagina - 1) * 5)
                 .Take(pagina * 5)
+                .Skip((pagina - 1) * 5)
                 .OrderByDescending(m=>m.FechaMovimiento)
                 .OrderBy(m=>m.CantidadEnMovimiento)
                 .ToList();
