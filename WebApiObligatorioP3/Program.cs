@@ -81,7 +81,7 @@ namespace WebApiObligatorioP3
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(option => option.IncludeXmlComments("WebApiObligatorioP3.xml"));
 
             var claveSecreta = "ZWRpw6fDo28gZW0gY29tcHV0YWRvcmE=";
 
