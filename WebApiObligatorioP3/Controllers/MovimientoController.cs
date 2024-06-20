@@ -68,6 +68,12 @@ namespace WebApiObligatorioP3.Controllers
         }
 
 
+        /// <summary>
+        /// Obtienes la cantidad de movimientos dado un articulo y tipo de movimiento
+        /// </summary>
+        /// <param name="idArticulo"></param>
+        /// <param name="idTipoMovimiento"></param>
+        /// <returns>Retorna la cantidad de elementos de la lista dado los filtros</returns>
         [HttpGet("Busqueda/{idArticulo:int}/{idTipoMovimiento:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -87,7 +93,14 @@ namespace WebApiObligatorioP3.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Dado un id de articulo, un id de tipo de movimiento y una pagina
+        /// devuelve 5 elementos de movimiento dado los filtros
+        /// </summary>
+        /// <param name="idArticulo"></param>
+        /// <param name="idTipoMovimiento"></param>
+        /// <param name="pagina"></param>
+        /// <returns>Retorna una lista con cinco elementos</returns>
         [HttpGet("BusquedaMovimiento/{idArticulo:int}/{idTipoMovimiento:int}/{pagina:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -130,7 +143,7 @@ namespace WebApiObligatorioP3.Controllers
         /// Realiza la creacion de un nuevo movimiento
         /// </summary>
         /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <returns>Retorna codigo 201 para la creacion del objeto</returns>
         [HttpPost("RealizarMovimiento")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

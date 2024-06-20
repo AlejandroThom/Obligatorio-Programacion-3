@@ -14,7 +14,10 @@ namespace WebApiObligatorioP3.Controllers
             CUObtenerPedidosAnulados = cuObtenerPedidosAnulados;
         }
 
-
+        /// <summary>
+        /// Obtienes todos los pedidos anulados
+        /// </summary>
+        /// <returns>Retorna todos los pedidos anulados</returns>
         [HttpGet]
         [Route("Anulados")]
         public ActionResult GetPedidosAnuladosOrdenados()

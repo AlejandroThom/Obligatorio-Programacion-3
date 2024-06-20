@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApiObligatorioP3</name>
+    </assembly>
+    <members>
+        <member name="M:WebApiObligatorioP3.Controllers.ArticuloController.ObtenerArticuloPorFechas(System.String,System.String,System.Int32)">
+            <summary>
+            Dado un dos fecha y una pagina, filtra a los articulos que tuvieron al menos un
+            movimiento entre esas fechas
+            </summary>
+            <param name="inicio"></param>
+            <param name="fin"></param>
+            <param name="pagina"></param>
+            <returns>Devuelve un maximo de 5 articulos por pagina</returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.MovimientoController.ObtenerResumenDeMovimientosPorAnio">
+            <summary>
+            Obtienes el resumen por año de todos los movimientos detallando:
+            -la cantidad de cada tipo de movimiento(nombre)
+            -la cantidad de movimientos por año
+            </summary>
+            <returns>Una lista con el resumen</returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.MovimientoController.RealizarMovimiento(DTO.MovimientoCreateDTO)">
+            <summary>
+            Realiza la creacion de un nuevo movimiento
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.ParametrosController.Get(System.String)">
+            <summary>
+            Recupera los datos de un tipo de parametro
+            </summary>
+            <param name="nombre"></param>
+            <returns>Retorno un DTO con el nombre y el valor del parametro</returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.TipoMovimientoController.Get">
+            <summary>
+            Recupera todos los tipos de movimiento
+            </summary>
+            <returns>Una lista de todos los tipos de movimiento</returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.TipoMovimientoController.Get(System.Int32)">
+            <summary>
+            Recupera un Tipo de Movimiento especifico dado un id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.TipoMovimientoController.Post(DTO.TipoMovimientoDTO)">
+            <summary>
+            Crea un nuevo Tipo de Movimiento
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.TipoMovimientoController.Put(System.Int32,DTO.TipoMovimientoDTO)">
+            <summary>
+            Actualiza un Tipo de Movimiento dado su id
+            </summary>
+            <param name="id"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.TipoMovimientoController.Delete(System.Int32)">
+            <summary>
+            Elimina un tipo de movimiento dado su id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.UsuarioController.Registro(DTO.DTOUsuarioRegistro)">
+            <summary>
+            Permite registrar un nuevo Usuario, por defecto un encargado
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.UsuarioController.Login(DTO.UsuarioLoginDTO)">
+            <summary>
+            Realiza el Login de un usuario
+            </summary>
+            <param name="dto"></param>
+            <returns>Un objeto con el rol, token y el email</returns>
+        </member>
+    </members>
+</doc>

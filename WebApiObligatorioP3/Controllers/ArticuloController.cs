@@ -30,7 +30,12 @@ namespace WebApiObligatorioP3.Controllers
             CUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos = cUObtenerArticulosEntreDosFechasDondeSeRealizaronMovimientos;
         }
 
-
+        /// <summary>
+        /// Cuenta la cantidad de los articulos que hay dado los filtros de las fechas y que tengan algun movimiento
+        /// </summary>
+        /// <param name="inicio"></param>
+        /// <param name="fin"></param>
+        /// <returns>retorna la cantidad de los articulos dado los filtros</returns>
         [HttpGet("BusquedaCantidad/{inicio}/{fin}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Authorize]
@@ -92,7 +97,10 @@ namespace WebApiObligatorioP3.Controllers
         }
 
         
-        // GET: api/<ArticuloController>
+        /// <summary>
+        /// Obtienes una lista de articulos donde tiene un id y el nombre del articulo
+        /// </summary>
+        /// <returns>Retorna una lista de articulos</returns>
         [HttpGet("Select")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -109,6 +117,10 @@ namespace WebApiObligatorioP3.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtienes todos los articulos ordenados
+        /// </summary>
+        /// <returns>Retorna una lista con los articulos ordenados</returns>
         [HttpGet]
         [Route("OrderByName")]
         [ProducesResponseType(StatusCodes.Status200OK)]
