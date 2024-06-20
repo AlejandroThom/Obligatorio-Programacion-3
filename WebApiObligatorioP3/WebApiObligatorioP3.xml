@@ -4,6 +4,14 @@
         <name>WebApiObligatorioP3</name>
     </assembly>
     <members>
+        <member name="M:WebApiObligatorioP3.Controllers.ArticuloController.ObtenerCantidadArticuloPorFechas(System.String,System.String)">
+            <summary>
+            Cuenta la cantidad de los articulos que hay dado los filtros de las fechas y que tengan algun movimiento
+            </summary>
+            <param name="inicio"></param>
+            <param name="fin"></param>
+            <returns>retorna la cantidad de los articulos dado los filtros</returns>
+        </member>
         <member name="M:WebApiObligatorioP3.Controllers.ArticuloController.ObtenerArticuloPorFechas(System.String,System.String,System.Int32)">
             <summary>
             Dado un dos fecha y una pagina, filtra a los articulos que tuvieron al menos un
@@ -14,6 +22,18 @@
             <param name="pagina"></param>
             <returns>Devuelve un maximo de 5 articulos por pagina</returns>
         </member>
+        <member name="M:WebApiObligatorioP3.Controllers.ArticuloController.Get">
+            <summary>
+            Obtienes una lista de articulos donde tiene un id y el nombre del articulo
+            </summary>
+            <returns>Retorna una lista de articulos</returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.ArticuloController.GetArticulosOrdenados">
+            <summary>
+            Obtienes todos los articulos ordenados
+            </summary>
+            <returns>Retorna una lista con los articulos ordenados</returns>
+        </member>
         <member name="M:WebApiObligatorioP3.Controllers.MovimientoController.ObtenerResumenDeMovimientosPorAnio">
             <summary>
             Obtienes el resumen por año de todos los movimientos detallando:
@@ -22,12 +42,30 @@
             </summary>
             <returns>Una lista con el resumen</returns>
         </member>
+        <member name="M:WebApiObligatorioP3.Controllers.MovimientoController.ObtenerCantidadMovimientosDadoArticuloYTipoMovimiento(System.Int32,System.Int32)">
+            <summary>
+            Obtienes la cantidad de movimientos dado un articulo y tipo de movimiento
+            </summary>
+            <param name="idArticulo"></param>
+            <param name="idTipoMovimiento"></param>
+            <returns>Retorna la cantidad de elementos de la lista dado los filtros</returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.MovimientoController.ObtenerMovimientosDadoArticuloYTipoMovimiento(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Dado un id de articulo, un id de tipo de movimiento y una pagina
+            devuelve 5 elementos de movimiento dado los filtros
+            </summary>
+            <param name="idArticulo"></param>
+            <param name="idTipoMovimiento"></param>
+            <param name="pagina"></param>
+            <returns>Retorna una lista con cinco elementos</returns>
+        </member>
         <member name="M:WebApiObligatorioP3.Controllers.MovimientoController.RealizarMovimiento(DTO.MovimientoCreateDTO)">
             <summary>
             Realiza la creacion de un nuevo movimiento
             </summary>
             <param name="dto"></param>
-            <returns></returns>
+            <returns>Retorna codigo 201 para la creacion del objeto</returns>
         </member>
         <member name="M:WebApiObligatorioP3.Controllers.ParametrosController.Get(System.String)">
             <summary>
@@ -35,6 +73,12 @@
             </summary>
             <param name="nombre"></param>
             <returns>Retorno un DTO con el nombre y el valor del parametro</returns>
+        </member>
+        <member name="M:WebApiObligatorioP3.Controllers.PedidoController.GetPedidosAnuladosOrdenados">
+            <summary>
+            Obtienes todos los pedidos anulados
+            </summary>
+            <returns>Retorna todos los pedidos anulados</returns>
         </member>
         <member name="M:WebApiObligatorioP3.Controllers.TipoMovimientoController.Get">
             <summary>

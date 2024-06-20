@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace LogicaNegocio.EntidadesNegocio
 {
     [Table("Parametros")]
+    [Index(nameof(Nombre),IsUnique =true)]
     public class Parametro
     {
         public int Id {  get; set; }

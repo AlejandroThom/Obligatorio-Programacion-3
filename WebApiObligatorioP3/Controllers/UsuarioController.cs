@@ -40,6 +40,7 @@ namespace WebApiObligatorioP3.Controllers
         {
             try
             {
+                dto.Email = dto.Email.ToLower();
                 Usuario user = UsuarioMappers.ToUsuarioFromDTOUsuarioRegistro(dto);
                 user.PasswordEncriptada = Utilities.Encriptar(dto.Password);
                 user.RolId = CUBuscarRolPorNombre.BuscarRolPorNombre(dto.GetNombreRol()).Id;
