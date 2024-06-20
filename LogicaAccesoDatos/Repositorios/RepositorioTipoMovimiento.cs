@@ -21,7 +21,9 @@ namespace LogicaAccesoDatos.Repositorios
         public void Add(TipoMovimiento item)
         {
             item.Validar();
+            if (Context.TiposDeMovimiento.SingleOrDefault(t=>t.NombreMovimiento==item.NombreMovimiento) != null) throw new TipoMovimientoException("El tipo de movimiento ya existe");
             Context.Add(item);
+            Context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -29,6 +31,8 @@ namespace LogicaAccesoDatos.Repositorios
             TipoMovimiento? tp = Context.TiposDeMovimiento.SingleOrDefault(t=>t.Id==id);
             ValidarTipoMovimientoSinAsociados(tp);
             Context.TiposDeMovimiento.Remove(tp);
+            Context.SaveChanges();
+
         }
 
         public IEnumerable<TipoMovimiento> FindAll()
@@ -48,6 +52,8 @@ namespace LogicaAccesoDatos.Repositorios
             tp.NombreMovimiento = item.NombreMovimiento;
             tp.Validar();
             Context.TiposDeMovimiento.Update(tp);
+            Context.SaveChanges();
+
         }
 
         private void ValidarTipoMovimientoSinAsociados(TipoMovimiento? item)
